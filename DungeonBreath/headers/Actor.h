@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
+#include <stdlib.h>
 
 #include "TextureMap.h"
 
@@ -37,6 +38,9 @@ class Actor
  	
  	void set_texture(std::string image_name);
  	int add_sprite(int pos_x, int pos_y, int width, int height);
+ 	
+ 	bool is_colliding(Actor *x) const;
+ 	bool resolve_collision(Actor *x);
  	
  private:
  	int pos_x;
