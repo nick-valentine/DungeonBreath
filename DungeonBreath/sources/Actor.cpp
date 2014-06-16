@@ -2,12 +2,12 @@
 
 Actor::Actor()
 {
-	pos_x = pos_y = size_x = size_y = 0;
+	init(0, 0, 0, 0, "./img/default.png");
 }
 
-Actor::Actor(int pos_x, int pos_y, int size_x, int size_y, std::string image_name)
+void Actor::init(int pos_x, int pos_y, int size_x, int size_y, std::string image_name)
 {
-	this->pos_x = pos_x;
+    this->pos_x = pos_x;
 	this->pos_y = pos_y;
 	
 	this->size_x = size_x;
@@ -52,6 +52,11 @@ std::vector<sf::Sprite> Actor::get_sprites() const
 	return this->sprites;
 }
 
+int Actor::get_num_sprites() const
+{
+    return this->sprites.size();
+}
+
 sf::Sprite *Actor::get_sprite(int x)
 {
 	return &this->sprites[x];
@@ -83,10 +88,12 @@ void Actor::set_texture(std::string image_name)
 	texture_name = image_name;
 }
 
-void Actor::add_sprite(int pos_x, int pos_y, int width, int height)
+int Actor::add_sprite(int pos_x, int pos_y, int width, int height)
 {
 	sf::Sprite temp;
 	temp.setTexture(*tex);
 	temp.setTextureRect(sf::IntRect(pos_x, pos_y, width, height));
 	sprites.push_back(temp);
+	
+	return sprites.size() - 1;
 }

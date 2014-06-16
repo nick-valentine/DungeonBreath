@@ -1,20 +1,19 @@
 #include "../headers/Hero.h"
 
+const double Hero::accel_x = 1.5;
+const double Hero::accel_y = 1.5;
+const double Hero::vel_damp = 10;
+
 Hero::Hero() : Actor()
 {
-	active_sprite = -1;
-	
-	velocity_x = 0;
-	velocity_y = 0;
-	
-	acceleration_x = 0;
-	acceleration_y = 0;
+	init(0, 0, 0, 0);
 }
 
-Hero::Hero(int pos_x, int pos_y, int size_x, int size_y)
-	: Actor(pos_x, pos_y, size_x, size_y, "./img/Hero.png")
+void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 {
-	add_sprite(0,0,100,100);
+    Actor::init(pos_x, pos_y, size_x, size_y, "./img/Hero.png");
+
+    add_sprite(0,0,100,100);
 	add_sprite(100,0,100,100);
 	add_sprite(0,100,100,100);
 
@@ -34,17 +33,16 @@ void Hero::update(int delta)
 	
 	if(x%5 == 0)
 	{
-	    std::cout<<active_sprite<<std::endl;
 		active_sprite = (active_sprite + 1) % 3;
 	}
 	
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-	    acceleration_x = 5;
+	    acceleration_x = accel_x;
 	}
 	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-	    acceleration_x = -5;
+	    acceleration_x = -accel_x;
 	}
 	else
 	{
@@ -54,28 +52,38 @@ void Hero::update(int delta)
 	
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-	    acceleration_y = -5;
+	    acceleration_y = -accel_y;
 	}
 	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-	    acceleration_y = 5;
+	    acceleration_y = accel_y;
 	}
 	else
 	{
 	    acceleration_y = 0;
 	}
 
-    std::cout<<acceleration_x<<" "<<acceleration_y<<std::endl;
-    std::cout<<velocity_x<<" "<<velocity_y<<std::endl;
-
-    velocity_x = velocity_x / 2;
-    velocity_y = velocity_y / 2;
+    velocity_x -= velocity_x / vel_damp;
+    velocity_y -= velocity_y / vel_damp;
+	
+	if((velocity_x < 1 && velocity_x > 0)
+	    || (velocity_x > -1 && velocity_x < 0))
+	{
+	    velocity_x = 0;
+	}
+	
+	if((velocity_y < 1 && velocity_y > 0)
+	    || (velocity_y > -1 && velocity_y < 0))
+	{
+	    velocity_y = 0;
+	}
 	
 	velocity_x += acceleration_x;
 	velocity_y += acceleration_y;
 	
 	set_pos_x(get_pos_x() + velocity_x);
 	set_pos_y(get_pos_y() + velocity_y);
+
 }
 
 void Hero::draw(sf::RenderWindow &window)

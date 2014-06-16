@@ -11,7 +11,7 @@ class Actor
 {
  public:
  	Actor();
- 	Actor(int pos_x, int pos_y, int size_x, int size_y, std::string image_name);
+ 	void init(int pos_x, int pos_y, int size_x, int size_y, std::string image_name);
  	
  	virtual void update(int delta) = 0;
  	virtual void draw(sf::RenderWindow &window) = 0;
@@ -25,6 +25,7 @@ class Actor
  	std::string get_image_name() const;
  	sf::Texture *get_texture() const;
  	std::vector<sf::Sprite> get_sprites() const;
+ 	int get_num_sprites() const;
  	
  	sf::Sprite *get_sprite(int x);
  	
@@ -35,7 +36,7 @@ class Actor
  	void set_size_y(int x);
  	
  	void set_texture(std::string image_name);
- 	void add_sprite(int pos_x, int pos_y, int width, int height);
+ 	int add_sprite(int pos_x, int pos_y, int width, int height);
  	
  private:
  	int pos_x;

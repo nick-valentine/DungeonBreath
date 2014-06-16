@@ -11,7 +11,8 @@ void draw(sf::RenderWindow &window, Actor *actor);
 
 int main()
 {
-	Hero myHero(10,10,50,50);
+	Hero myHero;
+	myHero.init(10,10,50,50);
 	
 	sf::RenderWindow window(sf::VideoMode(640, 480), "DungeonBreath");
 	sf::Clock timer;
