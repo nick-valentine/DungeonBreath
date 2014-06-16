@@ -16,6 +16,7 @@ class TextureMap
  	void clear();
  private:
  	static std::map<std::string, sf::Texture> tex_map;
+ 	//static std::map<int, int> tex_map;
  
 };
 

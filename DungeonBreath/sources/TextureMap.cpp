@@ -21,7 +21,6 @@ sf::Texture* TextureMap::request(std::string file_name)
 		if(!temp.loadFromFile(file_name))
 		{
 			//texture could not be loaded
-			std::cout<<"Error loading "<<file_name<<std::endl;
 			exit( 1 );
 		}
 		else
