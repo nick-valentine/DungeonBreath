@@ -31,6 +31,8 @@ void Hero::update(int delta)
 	static int x = 0;
 	x++;
 	
+	update_old_pos();
+	
 	if(x%5 == 0)
 	{
 		active_sprite = (active_sprite + 1) % 3;
@@ -84,6 +86,7 @@ void Hero::update(int delta)
 	set_pos_x(get_pos_x() + velocity_x);
 	set_pos_y(get_pos_y() + velocity_y);
 
+    resolve_collision();
 }
 
 void Hero::draw(sf::RenderWindow &window)

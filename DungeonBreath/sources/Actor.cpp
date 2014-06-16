@@ -1,8 +1,12 @@
 #include "../headers/Actor.h"
 
+std::vector<Actor *> Actor::all_actors;
+
 Actor::Actor()
 {
 	init(0, 0, 0, 0, "./img/default.png");
+	all_actors.push_back(this);
+	my_index = all_actors.size() - 1;
 }
 
 void Actor::init(int pos_x, int pos_y, int size_x, int size_y, std::string image_name)
@@ -98,73 +102,36 @@ int Actor::add_sprite(int pos_x, int pos_y, int width, int height)
 	return sprites.size() - 1;
 }
 
-bool is_colliding(Actor *x) const
+bool Actor::is_colliding(Actor *x) const
 {
-    return (abs(pos_x - x.get_pos_x()) * 2 < (size_x + x.get_size_x()) &&
-            (abs(pos_y - x.get_pos_y()) * 2 < (size_y + x.get_size_y());
+        //(pos_x + size_x > x->get_pos_x() && pos_x + size_x < x->get_pos_x() + x->get_size_x()) &&
+        if(((pos_x > x->get_pos_x() && pos_x < x->get_pos_x() + x->get_size_x()) ||
+        (pos_x + size_x > x->get_pos_x() && pos_x + size_x < x->get_pos_x() + x->get_size_x())) 
+        && (
+        (pos_y > x->get_pos_y() && pos_y < x->get_pos_y() + x->get_size_y()) ||
+        (pos_y + size_y > x->get_pos_y() && pos_y + size_y < x->get_pos_y() + x->get_size_y())))
+        {
+            return true;
+        }
 }
 
-bool resolve_collision(Actor *x)
+bool Actor::resolve_collision()
 {
-    if(is_colliding(x))
+    for(int i = 0; i < all_actors.size(); ++i)
     {
-        /*
-          left_intersect;
-          right_intersect;
-          top_intersect;
-          bottom_intersect;
-        */
-        int intersect[4];
-        
-        if(pos_x > x.get_pos_x() && pos_x < x.get_pos_x() + x.get_size_x())
+        Actor* x = all_actors[i];
+        if(is_colliding(x))
         {
-            intersect[0] = x.get_pos_x() + x.get_size_x() - pos_x;
-        }
-        if(pos_x + size_x > x.get_pos_x() && pos_x + size_x < x.get_pos_x() + x.get_size_x())
-        {
-            intersect[1] = pos_x + size_x < x.get_pos_x() + x.get_size_x()
-        }
-        
-        if(pos_y > x.get_pos_y() && pos_y < x.get_pos_y() + x.get_size_y())
-        {
-            intersect[2] = x.get_pos_y() + x.get_size_y() - pos_y;
-        }
-        if(pos_y + size_y > x.get_pos_y() && pos_y + size_y < x.get_pos_y() + x.get_size_y())
-        {
-            intersect[3] = pos_y + size_y < x.get_pos_y() + x.get_size_y()
-        }
-        
-        int min = 0;
-        for(int i = 1; i < 4; ++i)
-        {
-            if(intersect[i] < intersect[min])
-            {
-                min = i;
-            }
-        }
-        
-        //fix smallest offender
-        if(min == 0)
-        {
-            //left
-            pos_x -= intersect[0];
-        }
-        else if(min == 1)
-        {
-            //right
-            pos_x += intersect[1];
-        }
-        else if(min == 2)
-        {
-            //top
-            pos_y -= intersect[2];
-        }
-        else if(min == 3)
-        {
-            //bottom
-            pos_y += intersect[3];
+            pos_x = old_pos_x;
+            pos_y = old_pos_y;
         }
         
     }
+}
+
+void Actor::update_old_pos()
+{
+    old_pos_x = pos_x;
+    old_pos_y = pos_y;
 }
 

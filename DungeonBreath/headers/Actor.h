@@ -40,11 +40,16 @@ class Actor
  	int add_sprite(int pos_x, int pos_y, int width, int height);
  	
  	bool is_colliding(Actor *x) const;
- 	bool resolve_collision(Actor *x);
- 	
+ 	bool resolve_collision();
+
+ 	void update_old_pos();
  private:
  	int pos_x;
  	int pos_y;
+ 	
+ 	int old_pos_x;
+ 	int old_pos_y;
+
  	
  	int size_x;
  	int size_y;
@@ -54,6 +59,9 @@ class Actor
  	std::vector<sf::Sprite> sprites;
  	
  	TextureMap my_map;
+ 	
+ 	static std::vector<Actor *> all_actors;
+ 	int my_index;
 };
 
 #endif //ACTOR_H
