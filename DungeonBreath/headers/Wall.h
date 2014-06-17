@@ -1,5 +1,5 @@
-#ifndef STONEWALL_H
-#define STONEWALL_H
+#ifndef WALL_H
+#define WALL_H
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -18,4 +18,4 @@ class Wall : public Actor
  
 };
 
-#endif //STONEWALL_H
+#endif //WALL_H

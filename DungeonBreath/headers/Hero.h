@@ -7,6 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Actor.h"
+#include "MagicMissile.h"
 
 class Hero : public Actor
 {
@@ -26,6 +27,8 @@ class Hero : public Actor
  	
  	double acceleration_x;
  	double acceleration_y;
+ 	
+ 	MagicMissile my_missile;
 };
 
 #endif //HERO_H

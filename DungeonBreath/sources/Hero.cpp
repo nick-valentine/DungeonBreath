@@ -63,6 +63,11 @@ void Hero::update(int delta)
 	    {
 	        acceleration_y = 0;
 	    }
+	    
+	    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	    {
+	        my_missile.init(get_rect().left, get_rect().top, 10, 10, 0, 5, "./img/default.png");
+	    }
 
         set_velocity_x(get_velocity_x() - get_velocity_x() / vel_damp);
         set_velocity_y(get_velocity_y() - get_velocity_y() / vel_damp);
@@ -85,14 +90,15 @@ void Hero::update(int delta)
         common_update(delta);
         
         //sword and all that stuff here
-        for(int i = 0; i < last_collided.size(); ++i)
+        /*for(int i = 0; i < last_collided.size(); ++i)
         {
             if(all_actors[last_collided[i].second]->get_type() == Enemy)
             {
                 all_actors[last_collided[i].second]->kill();
             }
             
-        }
+        }*/
+        my_missile.update(delta);
     }
 }
 
@@ -105,6 +111,8 @@ void Hero::draw(sf::RenderWindow &window)
 	        get_sprite(active_sprite)->setPosition(get_rect().left, get_rect().top);
 	        get_sprite(active_sprite)->setScale(get_rect().width / 100.0, get_rect().height / 100.0);
 		    window.draw(*get_sprite(active_sprite));
+		    
+		    my_missile.draw(window);
 	    }
 	}
 }

@@ -17,7 +17,8 @@ class Actor
  	{
  	    Player,
  	    Block,
- 	    Enemy
+ 	    Enemy,
+ 	    Spell
  	};
  	
  	enum CollideType

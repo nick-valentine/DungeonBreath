@@ -1,6 +1,6 @@
 
-all: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o
-	g++ -o DungeonBreath build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o -lsfml-graphics -lsfml-window -lsfml-system
+all: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o
+	g++ -o DungeonBreath build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o -lsfml-graphics -lsfml-window -lsfml-system
 
 clean:
 	rm ./build/*.o
@@ -22,3 +22,6 @@ build/Wall.o: sources/Wall.cpp headers/Wall.h headers/Actor.h
 	
 build/EnemyFollower.o: sources/EnemyFollower.cpp headers/EnemyFollower.h headers/Actor.h
 	g++ -c sources/EnemyFollower.cpp -o build/EnemyFollower.o
+	
+build/MagicMissile.o: sources/MagicMissile.cpp headers/MagicMissile.h headers/Actor.h
+	g++ -c sources/MagicMissile.cpp -o build/MagicMissile.o
