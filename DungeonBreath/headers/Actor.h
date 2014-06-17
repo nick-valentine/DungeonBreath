@@ -41,7 +41,7 @@ class Actor
  	
  	sf::Rect<int> get_rect();
  	
- 	std::vector<Actor *>* get_all_actors() const;
+ 	static std::vector<Actor *>* get_all_actors();
  	
  	double get_velocity_x() const;
  	double get_velocity_y() const; 
@@ -51,6 +51,7 @@ class Actor
  	std::vector<sf::Sprite> get_sprites() const;
  	int get_num_sprites() const;
  	ActorType get_type() const;
+ 	int get_index() const;
  	
  	bool get_alive() const;
  	
@@ -60,6 +61,7 @@ class Actor
  	
  	void set_velocity_x(double x);
  	void set_velocity_y(double x);
+ 	void set_index(int x);
  	
  	void kill();
  	

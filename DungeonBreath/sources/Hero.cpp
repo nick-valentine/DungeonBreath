@@ -3,6 +3,8 @@
 const double Hero::accel_x = 1.5;
 const double Hero::accel_y = 1.5;
 const double Hero::vel_damp = 10;
+const int Hero::magic_missile_speed = 20;
+const int Hero::magic_missile_fire_rate = 300000;
 
 Hero::Hero() : Actor()
 {
@@ -25,12 +27,19 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 	
 	my_type = Player;
 	facing_dir = down;
+	
+	timer.restart();
+	
+	magic_missile_timer = magic_missile_fire_rate;
+	
+	last_space_pressed = false;
 }
 
 void Hero::update(int delta)
 {
     if(get_alive())
     {
+        magic_missile_timer -= timer.restart().asMicroseconds();
 	    update_count++;
 	
 	    if(update_count%5 == 0)
@@ -71,22 +80,52 @@ void Hero::update(int delta)
 	    
 	    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	    {
-	        if(facing_dir == down)
+	        if(last_space_pressed == false && magic_missile_timer <= 0)
 	        {
-	            my_missile.init(get_rect().left, get_rect().top, 50, 50, 0, 5, "./img/default.png");
+	            if(facing_dir == down)
+	            {
+	                Spells.push_back(new MagicMissile);
+	                dynamic_cast<MagicMissile *>(Spells[Spells.size() - 1])->init(get_rect().left, 
+	                                                                                get_rect().top, 
+	                                                                                50, 50, 0, 
+	                                                                                magic_missile_speed, 
+	                                                                                "./img/default.png");
+	            }
+	            else if(facing_dir == up)
+	            {
+	                Spells.push_back(new MagicMissile);
+	                dynamic_cast<MagicMissile *>(Spells[Spells.size() - 1])->init(get_rect().left, 
+	                                                                                get_rect().top, 
+	                                                                                50, 50, 0, 
+	                                                                                -magic_missile_speed, 
+	                                                                                "./img/default.png");
+	            }
+	            else if(facing_dir == left)
+	            {
+	                Spells.push_back(new MagicMissile);
+	                dynamic_cast<MagicMissile *>(Spells[Spells.size() - 1])->init(get_rect().left, 
+	                                                                                get_rect().top, 
+	                                                                                50, 50, 
+	                                                                                -magic_missile_speed, 0, 
+	                                                                                "./img/default.png");
+	            }
+	            else if(facing_dir == right)
+	            {
+	                Spells.push_back(new MagicMissile);
+	                dynamic_cast<MagicMissile *>(Spells[Spells.size() - 1])->init(get_rect().left, 
+	                                                                               get_rect().top, 
+	                                                                               50, 50, 
+	                                                                               magic_missile_speed, 0, 
+	                                                                               "./img/default.png");
+	            }
+	            
+	            magic_missile_timer = magic_missile_fire_rate;
 	        }
-	        else if(facing_dir == up)
-	        {
-	            my_missile.init(get_rect().left, get_rect().top, 50, 50, 0, -5, "./img/default.png");
-	        }
-	        else if(facing_dir == left)
-	        {
-	            my_missile.init(get_rect().left, get_rect().top, 50, 50, -5, 0, "./img/default.png");
-	        }
-	        else if(facing_dir == right)
-	        {
-	            my_missile.init(get_rect().left, get_rect().top, 50, 50, 5, 0, "./img/default.png");
-	        }
+	        last_space_pressed = true;
+	    }
+	    else
+	    {
+	        last_space_pressed = false;
 	    }
 
         set_velocity_x(get_velocity_x() - get_velocity_x() / vel_damp);
@@ -118,7 +157,10 @@ void Hero::update(int delta)
             }
             
         }*/
-        my_missile.update(delta);
+        for(int i = 0; i < Spells.size(); ++i)
+        {
+            Spells[i]->update(delta);
+        }
     }
 }
 
@@ -132,7 +174,10 @@ void Hero::draw(sf::RenderWindow &window)
 	        get_sprite(active_sprite)->setScale(get_rect().width / 100.0, get_rect().height / 100.0);
 		    window.draw(*get_sprite(active_sprite));
 		    
-		    my_missile.draw(window);
+		    for(int i = 0; i < Spells.size(); ++i)
+		    {
+		        Spells[i]->draw(window);
+	        }
 	    }
 	}
 }

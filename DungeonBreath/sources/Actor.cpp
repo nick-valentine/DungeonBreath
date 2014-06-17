@@ -35,9 +35,9 @@ sf::Rect<int> Actor::get_rect()
 	return this->rect;
 }
 
-std::vector<Actor *>* Actor::get_all_actors() const
+std::vector<Actor *>* Actor::get_all_actors()
 {
-    return &this->all_actors;
+    return &all_actors;
 }
 
 double Actor::get_velocity_x() const
@@ -75,6 +75,11 @@ Actor::ActorType Actor::get_type() const
     return this->my_type;
 }
 
+int Actor::get_index() const
+{
+    return this->my_index;
+}
+
 bool Actor::get_alive() const
 {
     return this->alive;
@@ -100,9 +105,18 @@ void Actor::set_velocity_y(double x)
 	this->velocity_y = x;
 }
 
+void Actor::set_index(int x)
+{
+    this->my_index = x;
+}
+
 void Actor::kill()
 {
     this->alive = false;
+    all_actors[my_index] = all_actors[all_actors.size() - 1];
+    all_actors.pop_back();
+    
+    all_actors[my_index]->set_index(my_index);
 }
 
 void Actor::set_texture(std::string image_name)
@@ -152,7 +166,7 @@ Actor::CollideType Actor::resolve_collision()
 		        {
 		        	if(rect.top < intersection.top)
 		        	{
-		        	    if(all_actors[i]->get_type() != Spell || x->get_type() == Block)
+		        	    if((my_type != Spell && all_actors[i]->get_type() != Spell) || x->get_type() == Block)
 		        	    {
 		        		    rect.top -= intersection.height;
 		        		}
@@ -160,7 +174,7 @@ Actor::CollideType Actor::resolve_collision()
 		        	}
 		        	else
 		        	{
-		        	    if(all_actors[i]->get_type() != Spell || x->get_type() == Block)
+		        	    if((my_type != Spell && all_actors[i]->get_type() != Spell) || x->get_type() == Block)
 		        	    {
 		        		    rect.top += intersection.height;
 	        		    }
@@ -171,7 +185,7 @@ Actor::CollideType Actor::resolve_collision()
 		        {
 		        	if(rect.left < intersection.left)
 		        	{
-		        	    if(all_actors[i]->get_type() != Spell || x->get_type() == Block)
+		        	    if((my_type != Spell && all_actors[i]->get_type() != Spell) || x->get_type() == Block)
 		        	    {
 		        		    rect.left -= intersection.width;
 	        		    }
@@ -179,7 +193,7 @@ Actor::CollideType Actor::resolve_collision()
 		        	}
 		        	else
 		        	{
-		        	    if(all_actors[i]->get_type() != Spell || x->get_type() == Block)
+		        	    if((my_type != Spell && all_actors[i]->get_type() != Spell) || x->get_type() == Block)
 		        	    {
 		        		    rect.left += intersection.width;
 	        		    }

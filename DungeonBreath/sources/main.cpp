@@ -55,6 +55,15 @@ int main()
 		update(delta, myActors);
 		
 		draw(window, myActors);
+		
+		for(int i = 0; i < myActors.size(); ++i)
+		{
+		    if(myActors[i]->get_alive() == false)
+		    {
+		        myActors[i] = myActors[myActors.size() - 1];
+		        myActors.pop_back();
+            }
+		}
 	}
 	
 	return 0;
