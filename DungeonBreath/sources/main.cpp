@@ -13,15 +13,16 @@ void draw(sf::RenderWindow &window, std::vector<Actor *> actors);
 
 int main()
 {
-	Hero *myHero = new Hero;
-	myHero->init(10,10,50,50);
-	
-	StoneWall *myWall = new StoneWall;
-	myWall->init(100, 100, 50, 50);
 	
 	std::vector<Actor *> myActors;
-	myActors.push_back(myHero);
-	myActors.push_back(myWall);
+	myActors.push_back(new Hero);
+	dynamic_cast<Hero*>(myActors[myActors.size() - 1])->init(10,10,50,50);
+	
+	for(int i = 0; i < 50; ++i)
+	{
+    	myActors.push_back(new StoneWall);
+	    dynamic_cast<StoneWall*>(myActors[myActors.size() - 1])->init(100 * i, 380, 50, 50);
+	}
 	
 	sf::RenderWindow window(sf::VideoMode(640, 480), "DungeonBreath");
 	sf::Clock timer;

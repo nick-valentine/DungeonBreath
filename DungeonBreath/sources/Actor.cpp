@@ -117,20 +117,25 @@ bool Actor::is_colliding(Actor *x) const
 
 bool Actor::resolve_collision()
 {
+    bool return_val = false;
     for(int i = 0; i < all_actors.size(); ++i)
     {
         Actor* x = all_actors[i];
         if(is_colliding(x))
         {
-            pos_x = old_pos_x;
-            pos_y = old_pos_y;
+            pos_x = old_pos_x_2;
+            pos_y = old_pos_y_2;
+            return_val = true;
         }
-        
     }
+    return return_val;
 }
 
 void Actor::update_old_pos()
 {
+    old_pos_x_2 = old_pos_x;
+    old_pos_y_2 = old_pos_y;
+
     old_pos_x = pos_x;
     old_pos_y = pos_y;
 }

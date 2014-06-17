@@ -50,6 +50,8 @@ class Actor
  	int old_pos_x;
  	int old_pos_y;
 
+    int old_pos_x_2;
+    int old_pos_y_2;
  	
  	int size_x;
  	int size_y;

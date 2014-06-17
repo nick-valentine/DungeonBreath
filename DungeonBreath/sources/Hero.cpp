@@ -62,7 +62,7 @@ void Hero::update(int delta)
 	}
 	else
 	{
-	    acceleration_y = 0;
+	    acceleration_y = 2;
 	}
 
     velocity_x -= velocity_x / vel_damp;
@@ -86,7 +86,13 @@ void Hero::update(int delta)
 	set_pos_x(get_pos_x() + velocity_x);
 	set_pos_y(get_pos_y() + velocity_y);
 
-    resolve_collision();
+    if(resolve_collision())
+    {
+        //velocity_x = 0;
+        velocity_y = 0;
+    }
+
+    
 }
 
 void Hero::draw(sf::RenderWindow &window)
