@@ -24,6 +24,7 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 	acceleration_y = 0;
 	
 	my_type = Player;
+	facing_dir = down;
 }
 
 void Hero::update(int delta)
@@ -40,10 +41,12 @@ void Hero::update(int delta)
 	    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	    {
 	        acceleration_x = accel_x;
+	        facing_dir = right;
 	    }
 	    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	    {
 	        acceleration_x = -accel_x;
+	        facing_dir = left;
 	    }
 	    else
 	    {
@@ -54,10 +57,12 @@ void Hero::update(int delta)
 	    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	    {
 	        acceleration_y = -accel_y;
+	        facing_dir = up;
 	    }
 	    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	    {
 	        acceleration_y = accel_y;
+	        facing_dir = down;
 	    }
 	    else
 	    {
@@ -66,7 +71,22 @@ void Hero::update(int delta)
 	    
 	    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	    {
-	        my_missile.init(get_rect().left, get_rect().top, 10, 10, 0, 5, "./img/default.png");
+	        if(facing_dir == down)
+	        {
+	            my_missile.init(get_rect().left, get_rect().top, 50, 50, 0, 5, "./img/default.png");
+	        }
+	        else if(facing_dir == up)
+	        {
+	            my_missile.init(get_rect().left, get_rect().top, 50, 50, 0, -5, "./img/default.png");
+	        }
+	        else if(facing_dir == left)
+	        {
+	            my_missile.init(get_rect().left, get_rect().top, 50, 50, -5, 0, "./img/default.png");
+	        }
+	        else if(facing_dir == right)
+	        {
+	            my_missile.init(get_rect().left, get_rect().top, 50, 50, 5, 0, "./img/default.png");
+	        }
 	    }
 
         set_velocity_x(get_velocity_x() - get_velocity_x() / vel_damp);

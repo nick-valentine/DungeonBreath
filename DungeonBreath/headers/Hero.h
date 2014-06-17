@@ -29,6 +29,16 @@ class Hero : public Actor
  	double acceleration_y;
  	
  	MagicMissile my_missile;
+ 	
+ 	enum Direction
+ 	{
+ 	    up,
+ 	    down,
+ 	    left,
+ 	    right
+ 	};
+ 	
+ 	Direction facing_dir;
 };
 
 #endif //HERO_H

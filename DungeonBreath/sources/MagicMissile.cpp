@@ -7,12 +7,14 @@ MagicMissile::MagicMissile()
 
 void MagicMissile::init(int pos_x, int pos_y, int size_x, int size_y, double vel_x, double vel_y, std::string img_name)
 {
-    Actor::init(pos_x, pos_y, size_x, size_y, "./img/default.png");
+    Actor::init(pos_x, pos_y, size_x, size_y, "./img/MagicMissile.png");
     
     add_sprite(0, 0, 100, 100);
     
     set_velocity_x(vel_x);
     set_velocity_y(vel_y);
+    
+    my_type = Spell;
 }
 
 void MagicMissile::update(int delta)

@@ -27,7 +27,7 @@ void Actor::common_update(int delta)
 	this->rect.left += velocity_x;
 	this->rect.top += velocity_y;
 	
-	this->resolve_collision();
+    this->resolve_collision();
 }
 
 sf::Rect<int> Actor::get_rect()
@@ -143,7 +143,7 @@ Actor::CollideType Actor::resolve_collision()
     	if(i != my_index)
     	{
 		    Actor* x = all_actors[i];
-		    while(is_colliding(x) && x->get_alive())
+		    if(is_colliding(x) && x->get_alive())
 		    {
 		        sf::Rect<int> intersection;
 		        rect.intersects(x->get_rect(), intersection);
@@ -152,12 +152,18 @@ Actor::CollideType Actor::resolve_collision()
 		        {
 		        	if(rect.top < intersection.top)
 		        	{
-		        		rect.top -= intersection.height;
+		        	    if(all_actors[i]->get_type() != Spell || x->get_type() == Block)
+		        	    {
+		        		    rect.top -= intersection.height;
+		        		}
 		        		return_val = Top;
 		        	}
 		        	else
 		        	{
-		        		rect.top += intersection.height;
+		        	    if(all_actors[i]->get_type() != Spell || x->get_type() == Block)
+		        	    {
+		        		    rect.top += intersection.height;
+	        		    }
 		        		return_val = Bottom;
 		        	}
 		        }
@@ -165,12 +171,18 @@ Actor::CollideType Actor::resolve_collision()
 		        {
 		        	if(rect.left < intersection.left)
 		        	{
-		        		rect.left -= intersection.width;
+		        	    if(all_actors[i]->get_type() != Spell || x->get_type() == Block)
+		        	    {
+		        		    rect.left -= intersection.width;
+	        		    }
 		        		return_val = Left;
 		        	}
 		        	else
 		        	{
-		        		rect.left += intersection.width;
+		        	    if(all_actors[i]->get_type() != Spell || x->get_type() == Block)
+		        	    {
+		        		    rect.left += intersection.width;
+	        		    }
 		        		return_val = Right;
 		        	}
 		        }
