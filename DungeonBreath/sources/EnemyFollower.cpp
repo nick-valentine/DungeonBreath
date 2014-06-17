@@ -15,6 +15,8 @@ void EnemyFollower::init(int pos_x, int pos_y, int size_x, int size_y)
 
 	active_sprite = 0;
 	update_count = 0;
+	
+	my_type = Enemy;
 }
 
 void EnemyFollower::update(int delta)

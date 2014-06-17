@@ -16,6 +16,8 @@ void Actor::init(int pos_x, int pos_y, int size_x, int size_y, std::string image
 	velocity_x = 0;
 	velocity_y = 0;
 	
+	last_collided = None;
+	
 	this->tex = my_map.request(image_name);
 	this->texture_name = image_name;
 }
@@ -24,7 +26,7 @@ void Actor::common_update(int delta)
 {
 	this->rect.left += velocity_x;
 	this->rect.top += velocity_y;
-	this->resolve_collision();
+	last_collided = this->resolve_collision();
 }
 
 sf::Rect<int> Actor::get_rect()
@@ -116,9 +118,9 @@ bool Actor::is_colliding(Actor *x) const
 	}
 }
 
-bool Actor::resolve_collision()
+Actor::CollideType Actor::resolve_collision()
 {
-    bool return_val = false;
+    CollideType return_val = None;
     for(int i = 0; i < all_actors.size(); ++i)
     {
     	if(i != my_index)
@@ -134,10 +136,12 @@ bool Actor::resolve_collision()
 		        	if(rect.top < intersection.top)
 		        	{
 		        		rect.top -= intersection.height;
+		        		return_val = Top;
 		        	}
 		        	else
 		        	{
 		        		rect.top += intersection.height;
+		        		return_val = Bottom;
 		        	}
 		        }
 		        else
@@ -145,10 +149,12 @@ bool Actor::resolve_collision()
 		        	if(rect.left < intersection.left)
 		        	{
 		        		rect.left -= intersection.width;
+		        		return_val = Left;
 		        	}
 		        	else
 		        	{
 		        		rect.left += intersection.width;
+		        		return_val = Right;
 		        	}
 		        }
 		    }

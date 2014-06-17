@@ -11,6 +11,24 @@
 class Actor
 {
  public:
+ 
+ 	enum ActorType
+ 	{
+ 	    Player,
+ 	    Block,
+ 	    Enemy
+ 	};
+ 	
+ 	enum CollideType
+ 	{
+ 	    None,
+ 	    Top,
+ 	    Bottom,
+ 	    Left,
+ 	    Right
+ 	};
+ 	
+ 
  	Actor();
  	void init(int pos_x, int pos_y, int size_x, int size_y, std::string image_name);
  	
@@ -42,9 +60,9 @@ class Actor
  	int add_sprite(int pos_x, int pos_y, int width, int height);
  	
  	bool is_colliding(Actor *x) const;
- 	bool resolve_collision();
- private:
- 
+ 	CollideType resolve_collision();
+ 	
+ protected:
  	double velocity_x;
  	double velocity_y;
  
@@ -58,6 +76,9 @@ class Actor
  	
  	static std::vector<Actor *> all_actors;
  	int my_index;
+ 	
+ 	ActorType my_type;
+ 	CollideType last_collided;
 };
 
 #endif //ACTOR_H

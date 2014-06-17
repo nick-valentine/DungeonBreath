@@ -22,6 +22,8 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 	
 	acceleration_x = 0;
 	acceleration_y = 0;
+	
+	my_type = Player;
 }
 
 void Hero::update(int delta)
@@ -79,6 +81,8 @@ void Hero::update(int delta)
 	set_velocity_y(get_velocity_y() + acceleration_y);
 
     common_update(delta);
+    
+    //sword and all that stuff here
 }
 
 void Hero::draw(sf::RenderWindow &window)

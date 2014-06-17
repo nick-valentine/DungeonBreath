@@ -9,6 +9,8 @@ void Wall::init(int pos_x, int pos_y, int size_x, int size_y, std::string img_na
     Actor::init(pos_x, pos_y, size_x, size_y, img_name);
     
     add_sprite(0, 0, 100, 100);
+    
+    my_type = Block;
 }
 
 void Wall::update(int delta)
