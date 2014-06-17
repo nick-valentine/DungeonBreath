@@ -2,10 +2,13 @@
 #include <SFML/System.hpp>
 #include <iostream>
 #include <vector>
+#include <cstdlib>
+#include <time.h>
 
 #include "../headers/TextureMap.h"
 #include "../headers/Hero.h"
-#include "../headers/StoneWall.h"
+#include "../headers/Wall.h"
+#include "../headers/EnemyFollower.h"
 
 void handle_events(sf::RenderWindow &window);
 void update(int delta, std::vector<Actor *> actors);
@@ -14,20 +17,33 @@ void draw(sf::RenderWindow &window, std::vector<Actor *> actors);
 int main()
 {
 	
+	srand( time( NULL ) );
 	std::vector<Actor *> myActors;
 	myActors.push_back(new Hero);
-	dynamic_cast<Hero*>(myActors[myActors.size() - 1])->init(10,10,50,50);
+	dynamic_cast<Hero*>(myActors[myActors.size() - 1])->init(100,100,50,50);
 	
-	for(int i = 0; i < 10; ++i)
+	for(int i = 0; i < 20; ++i)
 	{
-    	myActors.push_back(new StoneWall);
-	    dynamic_cast<StoneWall*>(myActors[myActors.size() - 1])->init(50 * i, 380, 50, 50);
+	    myActors.push_back(new EnemyFollower);
+	    dynamic_cast<EnemyFollower*>(myActors[myActors.size() - 1])->init((rand() % 1200) + 50, (rand() % 640) + 50, (rand() % 25) + 25, (rand() % 25) + 25);
 	}
 	
-	myActors.push_back(new StoneWall);
-    dynamic_cast<StoneWall*>(myActors[myActors.size() - 1])->init(200, 330, 50, 50);
+	for(int i = 0; i < 30; ++i)
+	{
+	    myActors.push_back(new Wall);
+	    dynamic_cast<Wall*>(myActors[myActors.size() - 1])->init(50 * i, 0, 50, 50, "./img/BrickWall.png");
 	
-	sf::RenderWindow window(sf::VideoMode(640, 480), "DungeonBreath");
+    	myActors.push_back(new Wall);
+	    dynamic_cast<Wall*>(myActors[myActors.size() - 1])->init(50 * i, 580, 50, 50, "./img/BrickWall.png");
+	    
+	    myActors.push_back(new Wall);
+	    dynamic_cast<Wall*>(myActors[myActors.size() - 1])->init(1230, i * 50, 50, 50, "./img/BrickWall.png");
+	    
+	    myActors.push_back(new Wall);
+	    dynamic_cast<Wall*>(myActors[myActors.size() - 1])->init(0, i * 50, 50, 50, "./img/BrickWall.png");
+	}
+	
+	sf::RenderWindow window(sf::VideoMode(1280, 720), "DungeonBreath");
 	sf::Clock timer;
 	
 	while(window.isOpen())

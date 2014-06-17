@@ -32,6 +32,11 @@ sf::Rect<int> Actor::get_rect()
 	return this->rect;
 }
 
+std::vector<Actor *>* Actor::get_all_actors() const
+{
+    return &this->all_actors;
+}
+
 double Actor::get_velocity_x() const
 {
 	return this->velocity_x;

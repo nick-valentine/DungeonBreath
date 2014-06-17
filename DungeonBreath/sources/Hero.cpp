@@ -18,6 +18,7 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 	add_sprite(0,100,100,100);
 
 	active_sprite = 0;
+	update_count = 0;
 	
 	acceleration_x = 0;
 	acceleration_y = 0;
@@ -25,10 +26,9 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 
 void Hero::update(int delta)
 {
-	static int x = 0;
-	x++;
+	update_count++;
 	
-	if(x%5 == 0)
+	if(update_count%5 == 0)
 	{
 		active_sprite = (active_sprite + 1) % 3;
 	}

@@ -3,13 +3,14 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <string>
 #include "Actor.h"
 
-class StoneWall : public Actor
+class Wall : public Actor
 {
  public:
-    StoneWall();
- 	void init(int pos_x, int pos_y, int size_x, int size_y);
+    Wall();
+ 	void init(int pos_x, int pos_y, int size_x, int size_y, std::string img_name);
  	
  	void update(int delta);
  	void draw(sf::RenderWindow &window);

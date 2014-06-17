@@ -21,6 +21,8 @@ class Actor
  	
  	sf::Rect<int> get_rect();
  	
+ 	std::vector<Actor *>* get_all_actors() const;
+ 	
  	double get_velocity_x() const;
  	double get_velocity_y() const; 
  	

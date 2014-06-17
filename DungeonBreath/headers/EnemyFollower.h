@@ -1,31 +1,25 @@
-#ifndef HERO_H
-#define HERO_H
+#ifndef ENEMYFOLLOWER_H
+#define ENEMYFOLLOWER_H
 
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include <math.h>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Actor.h"
 
-class Hero : public Actor
+class EnemyFollower : public Actor
 {
  public:
- 	Hero();
+ 	EnemyFollower();
  	void init(int pos_x, int pos_y, int size_x, int size_y);
  	
  	void update(int delta);
  	void draw(sf::RenderWindow &window);
- private:
-    static const double accel_x;
-    static const double accel_y;
-    static const double vel_damp;
- 
+ private: 
  	int active_sprite;
  	int update_count;
- 	
- 	double acceleration_x;
- 	double acceleration_y;
 };
 
-#endif //HERO_H
+#endif //ENEMYFOLLOWER_H
