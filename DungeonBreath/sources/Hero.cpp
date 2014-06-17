@@ -78,6 +78,22 @@ void Hero::update(int delta)
 	        acceleration_y = 0;
 	    }
 	    
+	    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+	    {
+	        double num_pugs = 8.0;
+	        for(double i = 0; i < num_pugs; ++i)
+	        {
+	            Spells.push_back(new MagicMissile);
+                dynamic_cast<MagicMissile *>(Spells[Spells.size() - 1])->init(get_rect().left, 
+                                                                                get_rect().top, 
+                                                                                50, 
+                                                                                50, 
+                                                                                cos( (i * (360.0 / num_pugs))) * 4, 
+                                                                                sin( (i * (360.0 / num_pugs))) * 4, 
+                                                                                "./img/default.png");
+	        }
+	    }
+	    
 	    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	    {
 	        if(last_space_pressed == false && magic_missile_timer <= 0)

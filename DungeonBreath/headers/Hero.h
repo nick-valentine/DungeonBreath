@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <string>
 #include <vector>
+#include <math.h>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Actor.h"
