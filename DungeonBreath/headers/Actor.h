@@ -17,11 +17,12 @@ class Actor
  	virtual void update(int delta) = 0;
  	virtual void draw(sf::RenderWindow &window) = 0;
  	
- 	int get_pos_x() const;
- 	int get_pos_y() const;
+ 	void common_update(int delta);
  	
- 	int get_size_x() const;
- 	int get_size_y() const;
+ 	sf::Rect<int> get_rect();
+ 	
+ 	double get_velocity_x() const;
+ 	double get_velocity_y() const; 
  	
  	std::string get_image_name() const;
  	sf::Texture *get_texture() const;
@@ -30,31 +31,22 @@ class Actor
  	
  	sf::Sprite *get_sprite(int x);
  	
- 	void set_pos_x(int x);
- 	void set_pos_y(int x);
+ 	void set_rect(sf::Rect<int> x);
  	
- 	void set_size_x(int x);
- 	void set_size_y(int x);
+ 	void set_velocity_x(double x);
+ 	void set_velocity_y(double x);
  	
  	void set_texture(std::string image_name);
  	int add_sprite(int pos_x, int pos_y, int width, int height);
  	
  	bool is_colliding(Actor *x) const;
  	bool resolve_collision();
-
- 	void update_old_pos();
  private:
- 	int pos_x;
- 	int pos_y;
- 	
- 	int old_pos_x;
- 	int old_pos_y;
-
-    int old_pos_x_2;
-    int old_pos_y_2;
- 	
- 	int size_x;
- 	int size_y;
+ 
+ 	double velocity_x;
+ 	double velocity_y;
+ 
+ 	sf::Rect<int> rect;
  	
  	sf::Texture *tex;
  	std::string texture_name;

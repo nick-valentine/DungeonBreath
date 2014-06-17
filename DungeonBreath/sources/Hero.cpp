@@ -19,9 +19,6 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 
 	active_sprite = 0;
 	
-	velocity_x = 0;
-	velocity_y = 0;
-	
 	acceleration_x = 0;
 	acceleration_y = 0;
 }
@@ -30,8 +27,6 @@ void Hero::update(int delta)
 {
 	static int x = 0;
 	x++;
-	
-	update_old_pos();
 	
 	if(x%5 == 0)
 	{
@@ -62,45 +57,36 @@ void Hero::update(int delta)
 	}
 	else
 	{
-	    acceleration_y = 2;
+	    acceleration_y = 0;
 	}
 
-    velocity_x -= velocity_x / vel_damp;
-    velocity_y -= velocity_y / vel_damp;
+    set_velocity_x(get_velocity_x() - get_velocity_x() / vel_damp);
+    set_velocity_y(get_velocity_y() - get_velocity_y() / vel_damp);
 	
-	if((velocity_x < 1 && velocity_x > 0)
-	    || (velocity_x > -1 && velocity_x < 0))
+	if((get_velocity_x() < 1 && get_velocity_x() > 0)
+	    || (get_velocity_x() > -1 && get_velocity_x() < 0))
 	{
-	    velocity_x = 0;
+	    set_velocity_x(0);
 	}
 	
-	if((velocity_y < 1 && velocity_y > 0)
-	    || (velocity_y > -1 && velocity_y < 0))
+	if((get_velocity_y() < 1 && get_velocity_y() > 0)
+	    || (get_velocity_y() > -1 && get_velocity_y() < 0))
 	{
-	    velocity_y = 0;
+	    set_velocity_y(0);
 	}
 	
-	velocity_x += acceleration_x;
-	velocity_y += acceleration_y;
-	
-	set_pos_x(get_pos_x() + velocity_x);
-	set_pos_y(get_pos_y() + velocity_y);
+	set_velocity_x(get_velocity_x() + acceleration_x);
+	set_velocity_y(get_velocity_y() + acceleration_y);
 
-    if(resolve_collision())
-    {
-        //velocity_x = 0;
-        velocity_y = 0;
-    }
-
-    
+    common_update(delta);
 }
 
 void Hero::draw(sf::RenderWindow &window)
 {
 	if(active_sprite != -1)
 	{
-	    get_sprite(active_sprite)->setPosition(get_pos_x(), get_pos_y());
-	    get_sprite(active_sprite)->setScale(get_size_x() / 100.0, get_size_y() / 100.0);
+	    get_sprite(active_sprite)->setPosition(get_rect().left, get_rect().top);
+	    get_sprite(active_sprite)->setScale(get_rect().width / 100.0, get_rect().height / 100.0);
 		window.draw(*get_sprite(active_sprite));
 	}
 }

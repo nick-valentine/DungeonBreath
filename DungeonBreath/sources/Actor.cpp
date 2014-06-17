@@ -11,34 +11,35 @@ Actor::Actor()
 
 void Actor::init(int pos_x, int pos_y, int size_x, int size_y, std::string image_name)
 {
-    this->pos_x = pos_x;
-	this->pos_y = pos_y;
+	this->rect = sf::Rect<int>(pos_x, pos_y, size_x, size_y);
 	
-	this->size_x = size_x;
-	this->size_y = size_y;
+	velocity_x = 0;
+	velocity_y = 0;
 	
 	this->tex = my_map.request(image_name);
 	this->texture_name = image_name;
 }
 
-int Actor::get_pos_x() const
+void Actor::common_update(int delta)
 {
-	return this->pos_x;
+	this->rect.left += velocity_x;
+	this->rect.top += velocity_y;
+	this->resolve_collision();
 }
 
-int Actor::get_pos_y() const
+sf::Rect<int> Actor::get_rect()
 {
-	return this->pos_y;
+	return this->rect;
 }
 
-int Actor::get_size_x() const
+double Actor::get_velocity_x() const
 {
-	return this->size_x;
+	return this->velocity_x;
 }
 
-int Actor::get_size_y() const
+double Actor::get_velocity_y() const
 {
-	return this->size_y;
+	return this->velocity_y;
 }
 
 std::string Actor::get_image_name() const
@@ -66,24 +67,19 @@ sf::Sprite *Actor::get_sprite(int x)
 	return &this->sprites[x];
 }
 
-void Actor::set_pos_x(int x)
+void Actor::set_rect(sf::Rect<int> x)
 {
-	this->pos_x = x;
+	this->rect = x;
 }
 
-void Actor::set_pos_y(int x)
+void Actor::set_velocity_x(double x)
 {
-	this->pos_y = x;
+	this->velocity_x = x;
 }
 
-void Actor::set_size_x(int x)
+void Actor::set_velocity_y(double x)
 {
-	this->size_x = x;
-}
-
-void Actor::set_size_y(int x)
-{
-	this->size_y = x;
+	this->velocity_y = x;
 }
 
 void Actor::set_texture(std::string image_name)
@@ -104,15 +100,15 @@ int Actor::add_sprite(int pos_x, int pos_y, int width, int height)
 
 bool Actor::is_colliding(Actor *x) const
 {
-        //(pos_x + size_x > x->get_pos_x() && pos_x + size_x < x->get_pos_x() + x->get_size_x()) &&
-        if(((pos_x > x->get_pos_x() && pos_x < x->get_pos_x() + x->get_size_x()) ||
-        (pos_x + size_x > x->get_pos_x() && pos_x + size_x < x->get_pos_x() + x->get_size_x())) 
-        && (
-        (pos_y > x->get_pos_y() && pos_y < x->get_pos_y() + x->get_size_y()) ||
-        (pos_y + size_y > x->get_pos_y() && pos_y + size_y < x->get_pos_y() + x->get_size_y())))
-        {
-            return true;
-        }
+    
+    if(rect.intersects(x->get_rect()))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 bool Actor::resolve_collision()
@@ -120,23 +116,39 @@ bool Actor::resolve_collision()
     bool return_val = false;
     for(int i = 0; i < all_actors.size(); ++i)
     {
-        Actor* x = all_actors[i];
-        if(is_colliding(x))
-        {
-            pos_x = old_pos_x_2;
-            pos_y = old_pos_y_2;
-            return_val = true;
-        }
-    }
+    	if(i != my_index)
+    	{
+		    Actor* x = all_actors[i];
+		    while(is_colliding(x))
+		    {
+		        sf::Rect<int> intersection;
+		        rect.intersects(x->get_rect(), intersection);
+		        
+		        if(intersection.height < (intersection.width + 20))
+		        {
+		        	if(rect.top < intersection.top)
+		        	{
+		        		rect.top -= intersection.height;
+		        	}
+		        	else
+		        	{
+		        		rect.top += intersection.height;
+		        	}
+		        }
+		        else
+		        {
+		        	if(rect.left < intersection.left)
+		        	{
+		        		rect.left -= intersection.width;
+		        	}
+		        	else
+		        	{
+		        		rect.left += intersection.width;
+		        	}
+		        }
+		    }
+		}
+	}
     return return_val;
-}
-
-void Actor::update_old_pos()
-{
-    old_pos_x_2 = old_pos_x;
-    old_pos_y_2 = old_pos_y;
-
-    old_pos_x = pos_x;
-    old_pos_y = pos_y;
 }
 

@@ -25,9 +25,6 @@ class Hero : public Actor
  	
  	double acceleration_x;
  	double acceleration_y;
- 	
- 	double velocity_x;
- 	double velocity_y;
 };
 
 #endif //HERO_H

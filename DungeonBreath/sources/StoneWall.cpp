@@ -19,7 +19,7 @@ void StoneWall::update(int delta)
 
 void StoneWall::draw(sf::RenderWindow &window)
 {
-    get_sprite(0)->setPosition(get_pos_x(), get_pos_y());
-    get_sprite(0)->setScale(get_size_x() / 100.0, get_size_y() / 100.0);
+    get_sprite(0)->setPosition(get_rect().left, get_rect().top);
+    get_sprite(0)->setScale(get_rect().width / 100.0, get_rect().height / 100.0);
 	window.draw(*get_sprite(0));
 }

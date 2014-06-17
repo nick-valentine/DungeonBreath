@@ -18,11 +18,14 @@ int main()
 	myActors.push_back(new Hero);
 	dynamic_cast<Hero*>(myActors[myActors.size() - 1])->init(10,10,50,50);
 	
-	for(int i = 0; i < 50; ++i)
+	for(int i = 0; i < 10; ++i)
 	{
     	myActors.push_back(new StoneWall);
-	    dynamic_cast<StoneWall*>(myActors[myActors.size() - 1])->init(100 * i, 380, 50, 50);
+	    dynamic_cast<StoneWall*>(myActors[myActors.size() - 1])->init(50 * i, 380, 50, 50);
 	}
+	
+	myActors.push_back(new StoneWall);
+    dynamic_cast<StoneWall*>(myActors[myActors.size() - 1])->init(200, 330, 50, 50);
 	
 	sf::RenderWindow window(sf::VideoMode(640, 480), "DungeonBreath");
 	sf::Clock timer;
