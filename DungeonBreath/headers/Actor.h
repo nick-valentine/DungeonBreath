@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
+#include <utility>
 #include <stdlib.h>
 
 #include "TextureMap.h"
@@ -48,6 +49,9 @@ class Actor
  	sf::Texture *get_texture() const;
  	std::vector<sf::Sprite> get_sprites() const;
  	int get_num_sprites() const;
+ 	ActorType get_type() const;
+ 	
+ 	bool get_alive() const;
  	
  	sf::Sprite *get_sprite(int x);
  	
@@ -55,6 +59,8 @@ class Actor
  	
  	void set_velocity_x(double x);
  	void set_velocity_y(double x);
+ 	
+ 	void kill();
  	
  	void set_texture(std::string image_name);
  	int add_sprite(int pos_x, int pos_y, int width, int height);
@@ -78,7 +84,10 @@ class Actor
  	int my_index;
  	
  	ActorType my_type;
- 	CollideType last_collided;
+ 	             //collide type with index of what collided
+ 	std::vector<std::pair<CollideType, int> > last_collided;
+ 	
+ 	bool alive;
 };
 
 #endif //ACTOR_H

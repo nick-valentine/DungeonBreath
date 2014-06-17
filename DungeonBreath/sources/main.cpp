@@ -22,7 +22,7 @@ int main()
 	myActors.push_back(new Hero);
 	dynamic_cast<Hero*>(myActors[myActors.size() - 1])->init(100,100,50,50);
 	
-	for(int i = 0; i < 20; ++i)
+	for(int i = 0; i < 200; ++i)
 	{
 	    myActors.push_back(new EnemyFollower);
 	    dynamic_cast<EnemyFollower*>(myActors[myActors.size() - 1])->init((rand() % 1200) + 50, (rand() % 640) + 50, (rand() % 25) + 25, (rand() % 25) + 25);

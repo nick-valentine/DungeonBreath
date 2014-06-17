@@ -16,7 +16,7 @@ void Actor::init(int pos_x, int pos_y, int size_x, int size_y, std::string image
 	velocity_x = 0;
 	velocity_y = 0;
 	
-	last_collided = None;
+	alive = true;
 	
 	this->tex = my_map.request(image_name);
 	this->texture_name = image_name;
@@ -26,7 +26,8 @@ void Actor::common_update(int delta)
 {
 	this->rect.left += velocity_x;
 	this->rect.top += velocity_y;
-	last_collided = this->resolve_collision();
+	
+	this->resolve_collision();
 }
 
 sf::Rect<int> Actor::get_rect()
@@ -69,6 +70,16 @@ int Actor::get_num_sprites() const
     return this->sprites.size();
 }
 
+Actor::ActorType Actor::get_type() const
+{
+    return this->my_type;
+}
+
+bool Actor::get_alive() const
+{
+    return this->alive;
+}
+
 sf::Sprite *Actor::get_sprite(int x)
 {
 	return &this->sprites[x];
@@ -87,6 +98,11 @@ void Actor::set_velocity_x(double x)
 void Actor::set_velocity_y(double x)
 {
 	this->velocity_y = x;
+}
+
+void Actor::kill()
+{
+    this->alive = false;
 }
 
 void Actor::set_texture(std::string image_name)
@@ -121,12 +137,13 @@ bool Actor::is_colliding(Actor *x) const
 Actor::CollideType Actor::resolve_collision()
 {
     CollideType return_val = None;
+    last_collided.clear();
     for(int i = 0; i < all_actors.size(); ++i)
     {
     	if(i != my_index)
     	{
 		    Actor* x = all_actors[i];
-		    while(is_colliding(x))
+		    while(is_colliding(x) && x->get_alive())
 		    {
 		        sf::Rect<int> intersection;
 		        rect.intersects(x->get_rect(), intersection);
@@ -157,6 +174,8 @@ Actor::CollideType Actor::resolve_collision()
 		        		return_val = Right;
 		        	}
 		        }
+		        
+        		last_collided.push_back(std::pair<CollideType, int>(return_val, i) );
 		    }
 		}
 	}
