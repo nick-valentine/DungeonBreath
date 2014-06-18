@@ -60,3 +60,8 @@ void EnemyFollower::draw(sf::RenderWindow &window)
 	    }
     }
 }
+
+Actor *EnemyFollower::clone()
+{
+    return new EnemyFollower(*this);
+}

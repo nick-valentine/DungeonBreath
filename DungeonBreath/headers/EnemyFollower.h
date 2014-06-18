@@ -17,6 +17,8 @@ class EnemyFollower : public Actor
  	
  	void update(int delta);
  	void draw(sf::RenderWindow &window);
+ 	
+ 	Actor *clone();
  private: 
  	int active_sprite;
  	int update_count;

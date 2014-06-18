@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
+
 #include <string>
 #include "Actor.h"
 
@@ -15,6 +16,8 @@ class MagicMissile : public Actor
  	
  	void update(int delta);
  	void draw(sf::RenderWindow &window);
+ 	
+ 	Actor *clone();
  private:
     static const int lifespan;
     

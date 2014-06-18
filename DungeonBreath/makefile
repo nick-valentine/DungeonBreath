@@ -1,6 +1,9 @@
 
-all: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o
-	g++ -o DungeonBreath build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o -lsfml-graphics -lsfml-window -lsfml-system
+all: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o
+	g++ -o DungeonBreath build/main.o build/TextureMap.o build/Actor.o \
+	build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o \
+	build/ActorFactory.o \
+	build/Scene.o -lsfml-graphics -lsfml-window -lsfml-system
 
 clean:
 	rm ./build/*.o
@@ -25,3 +28,9 @@ build/EnemyFollower.o: sources/EnemyFollower.cpp headers/EnemyFollower.h headers
 	
 build/MagicMissile.o: sources/MagicMissile.cpp headers/MagicMissile.h headers/Actor.h
 	g++ -c sources/MagicMissile.cpp -o build/MagicMissile.o
+	
+build/Scene.o: sources/Scene.cpp headers/Scene.h headers/Actor.h
+	g++ -c sources/Scene.cpp -o build/Scene.o
+	
+build/ActorFactory.o: sources/ActorFactory.cpp headers/ActorFactory.h headers/Actor.h
+	g++ -c sources/ActorFactory.cpp -o build/ActorFactory.o

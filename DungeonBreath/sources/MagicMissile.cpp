@@ -58,3 +58,8 @@ void MagicMissile::draw(sf::RenderWindow &window)
 	    window.draw(*get_sprite(0));
 	}
 }
+
+Actor *MagicMissile::clone()
+{
+    return new MagicMissile(*this);
+}

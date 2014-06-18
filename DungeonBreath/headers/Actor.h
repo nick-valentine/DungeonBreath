@@ -71,6 +71,8 @@ class Actor
  	bool is_colliding(Actor *x) const;
  	CollideType resolve_collision();
  	
+ 	virtual Actor *clone() = 0;
+ 	
  protected:
  	double velocity_x;
  	double velocity_y;

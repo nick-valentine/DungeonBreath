@@ -19,6 +19,8 @@ class Hero : public Actor
  	
  	void update(int delta);
  	void draw(sf::RenderWindow &window);
+ 	
+ 	Actor *clone();
  private:
     static const double accel_x;
     static const double accel_y;

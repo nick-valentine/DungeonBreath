@@ -80,7 +80,7 @@ void Hero::update(int delta)
 	    
 	    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 	    {
-	        double num_pugs = 8.0;
+	        double num_pugs = 16.0;
 	        for(double i = 0; i < num_pugs; ++i)
 	        {
 	            Spells.push_back(new MagicMissile);
@@ -196,4 +196,9 @@ void Hero::draw(sf::RenderWindow &window)
 	        }
 	    }
 	}
+}
+
+Actor *Hero::clone()
+{
+    return new Hero(*this);
 }

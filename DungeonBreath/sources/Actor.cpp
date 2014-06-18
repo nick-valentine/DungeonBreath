@@ -207,4 +207,3 @@ Actor::CollideType Actor::resolve_collision()
 	}
     return return_val;
 }
-

@@ -24,3 +24,8 @@ void Wall::draw(sf::RenderWindow &window)
     get_sprite(0)->setScale(get_rect().width / 100.0, get_rect().height / 100.0);
 	window.draw(*get_sprite(0));
 }
+
+Actor *Wall::clone()
+{
+    return new Wall(*this);
+}
