@@ -27,5 +27,7 @@ void Wall::draw(sf::RenderWindow &window)
 
 Actor *Wall::clone()
 {
-    return new Wall(*this);
+    Wall *temp = new Wall(*this);
+    clone_common(temp);
+    return temp;
 }

@@ -12,7 +12,8 @@
 class ActorFactory
 {
  public:
-    ActorFactory(Actor *toClone, int spawn_interval, int max_spawn_frequency);
+    ActorFactory();
+    ~ActorFactory();
     void init(Actor *toClone, int spawn_interval, int max_spawn_frequency);
     
     void update(int delta);

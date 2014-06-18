@@ -31,7 +31,7 @@ class Actor
  	};
  	
  
- 	Actor();
+    Actor();
  	void init(int pos_x, int pos_y, int size_x, int size_y, std::string image_name);
  	
  	virtual void update(int delta) = 0;
@@ -54,6 +54,7 @@ class Actor
  	int get_index() const;
  	
  	bool get_alive() const;
+ 	void set_alive(bool x);
  	
  	sf::Sprite *get_sprite(int x);
  	
@@ -72,6 +73,9 @@ class Actor
  	CollideType resolve_collision();
  	
  	virtual Actor *clone() = 0;
+ 	void clone_common(Actor *newActor);
+ 	
+ 	void unregister();
  	
  protected:
  	double velocity_x;

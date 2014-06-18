@@ -63,5 +63,7 @@ void EnemyFollower::draw(sf::RenderWindow &window)
 
 Actor *EnemyFollower::clone()
 {
-    return new EnemyFollower(*this);
+    EnemyFollower *temp = new EnemyFollower(*this);
+    clone_common(temp);
+    return temp;
 }

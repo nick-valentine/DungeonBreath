@@ -61,5 +61,7 @@ void MagicMissile::draw(sf::RenderWindow &window)
 
 Actor *MagicMissile::clone()
 {
-    return new MagicMissile(*this);
+    MagicMissile *temp = new MagicMissile(*this);
+    clone_common(temp);
+    return temp;
 }

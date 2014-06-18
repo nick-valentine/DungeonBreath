@@ -8,6 +8,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include "ActorFactory.h"
+
 #include "Actor.h"
 #include "Hero.h"
 #include "MagicMissile.h"
@@ -18,6 +20,7 @@ class Scene
 {
  public:
     Scene();
+    ~Scene();
     void init();
     
     void update(int delta);
@@ -25,6 +28,7 @@ class Scene
     void draw(sf::RenderWindow &window);
  private:
     std::vector<Actor *> my_actors;
+    ActorFactory EnemyFactory;
 };
 
 #endif //SCENE_H

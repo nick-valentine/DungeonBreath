@@ -4,9 +4,9 @@ std::vector<Actor *> Actor::all_actors;
 
 Actor::Actor()
 {
-	init(0, 0, 0, 0, "./img/default.png");
-	all_actors.push_back(this);
-	my_index = all_actors.size() - 1;
+    init(0, 0, 0, 0, "./img/default.png");
+    all_actors.push_back(this);
+    my_index = all_actors.size() - 1;
 }
 
 void Actor::init(int pos_x, int pos_y, int size_x, int size_y, std::string image_name)
@@ -85,6 +85,11 @@ bool Actor::get_alive() const
     return this->alive;
 }
 
+void Actor::set_alive(bool x)
+{
+    alive = x;
+}
+
 sf::Sprite *Actor::get_sprite(int x)
 {
 	return &this->sprites[x];
@@ -113,10 +118,9 @@ void Actor::set_index(int x)
 void Actor::kill()
 {
     this->alive = false;
-    all_actors[my_index] = all_actors[all_actors.size() - 1];
-    all_actors.pop_back();
-    
-    all_actors[my_index]->set_index(my_index);
+    //all_actors[my_index] = all_actors[all_actors.size() - 1];
+    //all_actors.pop_back();
+    //all_actors[my_index]->set_index(my_index);
 }
 
 void Actor::set_texture(std::string image_name)
@@ -206,4 +210,17 @@ Actor::CollideType Actor::resolve_collision()
 		}
 	}
     return return_val;
+}
+
+void Actor::clone_common(Actor *newActor)
+{
+	all_actors.push_back(newActor);
+	newActor->set_index(all_actors.size() - 1);
+}
+
+void Actor::unregister()
+{
+    all_actors[my_index] = all_actors[all_actors.size() - 1];
+    all_actors.pop_back();
+    all_actors[my_index]->set_index(my_index);
 }

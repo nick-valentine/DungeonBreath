@@ -200,5 +200,7 @@ void Hero::draw(sf::RenderWindow &window)
 
 Actor *Hero::clone()
 {
-    return new Hero(*this);
+    Hero *temp = new Hero(*this);
+    clone_common(temp);
+    return temp;
 }
