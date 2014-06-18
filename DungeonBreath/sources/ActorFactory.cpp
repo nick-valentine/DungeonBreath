@@ -75,4 +75,5 @@ void ActorFactory::add_actor(Actor *toClone, int spawn_interval, int max_spawn_f
     actors_to_clone.push_back(toClone);
     spawn_intervals.push_back(spawn_interval);
     max_spawn_rate.push_back(max_spawn_frequency);
+    time_since_spawn.push_back(0);
 }
