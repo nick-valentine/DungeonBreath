@@ -11,6 +11,8 @@ void Wall::init(int pos_x, int pos_y, int size_x, int size_y, std::string img_na
     add_sprite(0, 0, 100, 100);
     
     my_type = Block;
+    
+    set_collide_type(All);
 }
 
 void Wall::update(int delta)

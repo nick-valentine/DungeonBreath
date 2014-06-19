@@ -17,6 +17,7 @@ void EnemyFollower::init(int pos_x, int pos_y, int size_x, int size_y)
 	update_count = 0;
 	
 	my_type = Enemy;
+	set_collide_type(All);
 }
 
 void EnemyFollower::update(int delta)

@@ -17,6 +17,7 @@ void MagicMissile::init(int pos_x, int pos_y, int size_x, int size_y, double vel
     set_velocity_y(vel_y);
     
     my_type = Spell;
+    set_collide_type(BlocksOnly);
     
     lifetime = lifespan;
     timer.restart();

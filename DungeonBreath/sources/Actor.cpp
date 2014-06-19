@@ -20,6 +20,8 @@ void Actor::init(int pos_x, int pos_y, int size_x, int size_y, std::string image
 	
 	this->tex = my_map.request(image_name);
 	this->texture_name = image_name;
+	
+	this->my_collide = All;
 }
 
 void Actor::common_update(int delta)
@@ -106,6 +108,16 @@ Actor::ActorType Actor::get_type() const
     return this->my_type;
 }
 
+Actor::CollideResolve Actor::get_collide_type() const
+{
+    return this->my_collide;
+}
+
+void Actor::set_collide_type(CollideResolve x)
+{
+    this->my_collide = x;
+}
+
 bool Actor::get_alive() const
 {
     return this->alive;
@@ -151,12 +163,41 @@ Actor::CollideType Actor::resolve_collision()
 		    {
 		        sf::Rect<int> intersection;
 		        rect.intersects(x->get_rect(), intersection);
+		        bool move_me;
+		        
+		        if(my_collide == All)
+		        {
+		            if(x->get_collide_type() != Nothing && x->get_collide_type() != BlocksOnly)
+		            {
+		                move_me = true;
+		            }
+		            else
+		            {
+		                move_me = false;
+		            }
+		        }
+		        else if(my_collide == BlocksOnly)
+		        {
+		            if(x->get_collide_type() == BlocksOnly)
+		            {
+		                move_me = false;
+		            }
+		            else
+		            {
+		                move_me = false;
+		            }
+		        }
+		        else if(my_collide == Nothing)
+		        {
+		            move_me = false;
+		        }
 		        
 		        if(intersection.height < (intersection.width + 20))
 		        {
 		        	if(rect.top < intersection.top)
 		        	{
-		        	    if((my_type != Spell && all_actors[i]->get_type() != Spell) || x->get_type() == Block)
+		        	    if(move_me)
+		        	    //if((my_type != Spell && all_actors[i]->get_type() != Spell) || x->get_type() == Block)
 		        	    {
 		        		    rect.top -= intersection.height;
 		        		}
@@ -164,7 +205,8 @@ Actor::CollideType Actor::resolve_collision()
 		        	}
 		        	else
 		        	{
-		        	    if((my_type != Spell && all_actors[i]->get_type() != Spell) || x->get_type() == Block)
+		        	    if(move_me)
+		        	    //if((my_type != Spell && all_actors[i]->get_type() != Spell) || x->get_type() == Block)
 		        	    {
 		        		    rect.top += intersection.height;
 	        		    }
@@ -175,7 +217,8 @@ Actor::CollideType Actor::resolve_collision()
 		        {
 		        	if(rect.left < intersection.left)
 		        	{
-		        	    if((my_type != Spell && all_actors[i]->get_type() != Spell) || x->get_type() == Block)
+		        	    if(move_me)
+		        	    //if((my_type != Spell && all_actors[i]->get_type() != Spell) || x->get_type() == Block)
 		        	    {
 		        		    rect.left -= intersection.width;
 	        		    }
@@ -183,7 +226,9 @@ Actor::CollideType Actor::resolve_collision()
 		        	}
 		        	else
 		        	{
-		        	    if((my_type != Spell && all_actors[i]->get_type() != Spell) || x->get_type() == Block)
+		        	    
+		        	    if(move_me)
+		        	    //if((my_type != Spell && all_actors[i]->get_type() != Spell) || x->get_type() == Block)
 		        	    {
 		        		    rect.left += intersection.width;
 	        		    }

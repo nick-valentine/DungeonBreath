@@ -15,10 +15,12 @@ class Actor
  
  	enum ActorType
  	{
+ 	    Null,
  	    Player,
  	    Block,
  	    Enemy,
- 	    Spell
+ 	    Spell,
+ 	    Trigger
  	};
  	
  	enum CollideType
@@ -28,6 +30,13 @@ class Actor
  	    Bottom,
  	    Left,
  	    Right
+ 	};
+ 	
+ 	enum CollideResolve
+ 	{
+ 	    All,
+ 	    BlocksOnly,
+ 	    Nothing
  	};
  	
  
@@ -58,6 +67,9 @@ class Actor
  	int add_sprite(int pos_x, int pos_y, int width, int height);
  	
  	ActorType get_type() const;
+ 	
+ 	CollideResolve get_collide_type() const;
+ 	void set_collide_type(CollideResolve x);
  	
  	bool get_alive() const;
  	void set_alive(bool x);
@@ -96,6 +108,8 @@ class Actor
  	ActorType my_type;
  	             //collide type with pointer to what collided
  	std::vector<std::pair<CollideType, Actor*> > last_collided;
+ 	
+ 	CollideResolve my_collide;
  	
  	bool alive;
 };

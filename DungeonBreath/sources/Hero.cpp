@@ -36,6 +36,8 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 	
 	last_space_pressed = false;
 	last_one_pressed = false;
+	
+	set_collide_type(All);
 }
 
 void Hero::update(int delta)
@@ -86,7 +88,7 @@ void Hero::update(int delta)
 	    {
 	    	if(last_one_pressed == false && pug_nova_timer <= 0)
 	    	{
-			    double num_pugs = 16.0;
+			    double num_pugs = 15.0;
 			    for(double i = 0; i < num_pugs; ++i)
 			    {
 			        Spells.push_back(new MagicMissile);
@@ -94,8 +96,8 @@ void Hero::update(int delta)
 		                                                                            get_rect().top, 
 		                                                                            50, 
 		                                                                            50, 
-		                                                                            cos( (i * (360.0 / num_pugs))) * 4, 
-		                                                                            sin( (i * (360.0 / num_pugs))) * 4, 
+		                                                                            cos( (i * (360.0 / (num_pugs + 1)))) * 4, 
+		                                                                            sin( (i * (360.0 / (num_pugs + 1)))) * 4, 
 		                                                                            "./img/default.png");
 			    }
 			    pug_nova_timer = pug_nova_fire_rate;

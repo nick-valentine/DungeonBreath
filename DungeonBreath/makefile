@@ -1,8 +1,8 @@
 
-all: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o
+all: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o
 	g++ -o DungeonBreath build/main.o build/TextureMap.o build/Actor.o \
 	build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o \
-	build/ActorFactory.o \
+	build/ActorFactory.o build/Trigger.o \
 	build/Scene.o -lsfml-graphics -lsfml-window -lsfml-system
 
 clean:
@@ -34,3 +34,6 @@ build/Scene.o: sources/Scene.cpp headers/Scene.h headers/Actor.h
 	
 build/ActorFactory.o: sources/ActorFactory.cpp headers/ActorFactory.h headers/Actor.h
 	g++ -c sources/ActorFactory.cpp -o build/ActorFactory.o
+	
+build/Trigger.o: sources/Trigger.cpp headers/Trigger.h headers/Actor.h
+	g++ -c sources/Trigger.cpp -o build/Trigger.o

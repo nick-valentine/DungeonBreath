@@ -23,12 +23,16 @@ void Scene::init()
 	EnemyFollower *Dolly = new EnemyFollower;
 	Dolly->init(500, 400, 50, 50);
 	Dolly->unregister();
-	EnemyFactory.init(Dolly, 300000, 3000);
+	EnemyFactory.init(Dolly, 300000, 3000, 30, 5);
 	
 	EnemyFollower *Dolly2 = new EnemyFollower;
 	Dolly2->init(600, 300, 50, 50);
 	Dolly2->unregister();
 	EnemyFactory.add_actor(Dolly2, 300000, 3000);
+	
+	Trigger *my_trigger = new Trigger;
+	my_trigger->init(500, 500, 100, 100, Trigger::Latch, Actor::Player);
+	EnemyFactory.set_trigger(my_trigger);
 	
 	/*for(int i = 0; i < 20; ++i)
 	{

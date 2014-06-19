@@ -15,6 +15,7 @@
 #include "MagicMissile.h"
 #include "Wall.h"
 #include "EnemyFollower.h"
+#include "Trigger.h"
 
 class Scene
 {
