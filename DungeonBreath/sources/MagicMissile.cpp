@@ -38,6 +38,8 @@ void MagicMissile::update(int delta)
             if(last_collided[i].second->get_type() == Enemy)
             {
                 last_collided[i].second->kill();
+                kill();
+                break;
             }
             else if(last_collided[i].second->get_type() == Block)
             {

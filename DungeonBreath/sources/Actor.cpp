@@ -30,14 +30,14 @@ void Actor::common_update(int delta)
     this->resolve_collision();
 }
 
-sf::Rect<int> Actor::get_rect()
+sf::Rect<int> Actor::get_rect() const 
 {
 	return this->rect;
 }
 
-std::vector<Actor *>* Actor::get_all_actors()
+void Actor::set_rect(sf::Rect<int> x)
 {
-    return &all_actors;
+	this->rect = x;
 }
 
 double Actor::get_velocity_x() const
@@ -50,6 +50,16 @@ double Actor::get_velocity_y() const
 	return this->velocity_y;
 }
 
+void Actor::set_velocity_x(double x)
+{
+	this->velocity_x = x;
+}
+
+void Actor::set_velocity_y(double x)
+{
+	this->velocity_y = x;
+}
+
 std::string Actor::get_image_name() const
 {
 	return this->texture_name;
@@ -60,9 +70,20 @@ sf::Texture *Actor::get_texture() const
 	return this->tex;
 }
 
+void Actor::set_texture(std::string image_name)
+{
+	tex = my_map.request(image_name);
+	texture_name = image_name;
+}
+
 std::vector<sf::Sprite> Actor::get_sprites() const
 {
 	return this->sprites;
+}
+
+sf::Sprite *Actor::get_sprite(int x)
+{
+	return &this->sprites[x];
 }
 
 int Actor::get_num_sprites() const
@@ -70,14 +91,19 @@ int Actor::get_num_sprites() const
     return this->sprites.size();
 }
 
+int Actor::add_sprite(int pos_x, int pos_y, int width, int height)
+{
+	sf::Sprite temp;
+	temp.setTexture(*tex);
+	temp.setTextureRect(sf::IntRect(pos_x, pos_y, width, height));
+	sprites.push_back(temp);
+	
+	return sprites.size() - 1;
+}
+
 Actor::ActorType Actor::get_type() const
 {
     return this->my_type;
-}
-
-int Actor::get_index() const
-{
-    return this->my_index;
 }
 
 bool Actor::get_alive() const
@@ -90,53 +116,12 @@ void Actor::set_alive(bool x)
     alive = x;
 }
 
-sf::Sprite *Actor::get_sprite(int x)
-{
-	return &this->sprites[x];
-}
-
-void Actor::set_rect(sf::Rect<int> x)
-{
-	this->rect = x;
-}
-
-void Actor::set_velocity_x(double x)
-{
-	this->velocity_x = x;
-}
-
-void Actor::set_velocity_y(double x)
-{
-	this->velocity_y = x;
-}
-
-void Actor::set_index(int x)
-{
-    this->my_index = x;
-}
-
 void Actor::kill()
 {
     this->alive = false;
     all_actors[my_index] = all_actors[all_actors.size() - 1];
     all_actors.pop_back();
     all_actors[my_index]->set_index(my_index);
-}
-
-void Actor::set_texture(std::string image_name)
-{
-	tex = my_map.request(image_name);
-	texture_name = image_name;
-}
-
-int Actor::add_sprite(int pos_x, int pos_y, int width, int height)
-{
-	sf::Sprite temp;
-	temp.setTexture(*tex);
-	temp.setTextureRect(sf::IntRect(pos_x, pos_y, width, height));
-	sprites.push_back(temp);
-	
-	return sprites.size() - 1;
 }
 
 bool Actor::is_colliding(Actor *x) const
@@ -223,6 +208,21 @@ void Actor::unregister()
     all_actors[my_index] = all_actors[all_actors.size() - 1];
     all_actors.pop_back();
     all_actors[my_index]->set_index(my_index);
+}
+
+int Actor::get_index() const
+{
+    return this->my_index;
+}
+
+void Actor::set_index(int x)
+{
+    this->my_index = x;
+}
+
+std::vector<Actor *>* Actor::get_all_actors()
+{
+    return &all_actors;
 }
 
 void Actor::clear_dead()

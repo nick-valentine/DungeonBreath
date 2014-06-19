@@ -39,35 +39,30 @@ class Actor
  	
  	void common_update(int delta);
  	
- 	sf::Rect<int> get_rect();
- 	
- 	static std::vector<Actor *>* get_all_actors();
+ 	sf::Rect<int> get_rect() const;
+ 	void set_rect(sf::Rect<int> x);
  	
  	double get_velocity_x() const;
- 	double get_velocity_y() const; 
+ 	double get_velocity_y() const;
+ 	void set_velocity_x(double x);
+ 	void set_velocity_y(double x); 
  	
  	std::string get_image_name() const;
+ 	
  	sf::Texture *get_texture() const;
+ 	void set_texture(std::string image_name);
+ 	
  	std::vector<sf::Sprite> get_sprites() const;
+ 	sf::Sprite *get_sprite(int x);
  	int get_num_sprites() const;
+ 	int add_sprite(int pos_x, int pos_y, int width, int height);
+ 	
  	ActorType get_type() const;
- 	int get_index() const;
  	
  	bool get_alive() const;
  	void set_alive(bool x);
  	
- 	sf::Sprite *get_sprite(int x);
- 	
- 	void set_rect(sf::Rect<int> x);
- 	
- 	void set_velocity_x(double x);
- 	void set_velocity_y(double x);
- 	void set_index(int x);
- 	
  	void kill();
- 	
- 	void set_texture(std::string image_name);
- 	int add_sprite(int pos_x, int pos_y, int width, int height);
  	
  	bool is_colliding(Actor *x) const;
  	CollideType resolve_collision();
@@ -77,6 +72,10 @@ class Actor
  	
  	void unregister();
  	
+ 	int get_index() const;
+ 	void set_index(int x);
+ 	
+ 	static std::vector<Actor *>* get_all_actors();
  	static void clear_dead();
  	
  protected:
@@ -95,7 +94,7 @@ class Actor
  	int my_index;
  	
  	ActorType my_type;
- 	             //collide type with index of what collided
+ 	             //collide type with pointer to what collided
  	std::vector<std::pair<CollideType, Actor*> > last_collided;
  	
  	bool alive;
