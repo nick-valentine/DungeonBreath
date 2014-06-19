@@ -10,7 +10,7 @@ const int Hero::pug_nova_fire_rate = 300000;
 
 Hero::Hero() : Actor()
 {
-	init(0, 0, 0, 0);
+	//init(0, 0, 0, 0);
 }
 
 void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
@@ -38,12 +38,20 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 	last_one_pressed = false;
 	
 	set_collide_type(All);
+	
+	to_clone = new MagicMissile;
+	to_clone->init(500, 500, 50, 50, 0, 7, "img/MagicMissile.png");
+	to_clone->unregister();
+	missile_factory.init(to_clone, 0, 30000, 0, 0);
 }
 
 void Hero::update(int delta)
 {
     if(get_alive())
     {
+        missile_factory.update(delta);
+        to_clone->set_rect(get_rect());
+        
         magic_missile_timer -= delta;
         pug_nova_timer -= delta;
 	    update_count++;
@@ -115,12 +123,14 @@ void Hero::update(int delta)
 	        {
 	            if(facing_dir == down)
 	            {
-	                Spells.push_back(new MagicMissile);
+	                /*Spells.push_back(new MagicMissile);
 	                dynamic_cast<MagicMissile *>(Spells[Spells.size() - 1])->init(get_rect().left, 
 	                                                                                get_rect().top, 
 	                                                                                50, 50, 0, 
 	                                                                                magic_missile_speed, 
 	                                                                                "./img/default.png");
+                    */
+                    missile_factory.spawn(0);
 	            }
 	            else if(facing_dir == up)
 	            {
@@ -208,6 +218,7 @@ void Hero::draw(sf::RenderWindow &window)
 {
     if(get_alive())
     {
+        missile_factory.draw(window);
 	    if(active_sprite != -1)
 	    {
 	        get_sprite(active_sprite)->setPosition(get_rect().left, get_rect().top);

@@ -23,7 +23,7 @@ void Scene::init()
 	EnemyFollower *Dolly = new EnemyFollower;
 	Dolly->init(500, 400, 50, 50);
 	Dolly->unregister();
-	EnemyFactory.init(Dolly, 300000, 3000, 30, 5);
+	EnemyFactory.init(Dolly, 300000, 1500, 30, 10);
 	
 	EnemyFollower *Dolly2 = new EnemyFollower;
 	Dolly2->init(600, 300, 50, 50);
@@ -34,21 +34,13 @@ void Scene::init()
 	my_trigger->init(500, 500, 100, 100, Trigger::Latch, Actor::Player);
 	EnemyFactory.set_trigger(my_trigger);
 	
-	/*for(int i = 0; i < 20; ++i)
-	{
-	    EnemyFollower *temp = new EnemyFollower;
-	    my_actors.push_back(temp);
-	    dynamic_cast<EnemyFollower*>(my_actors[my_actors.size() - 1])->init((rand() % 1200) + 50, (rand() % 640) + 50, (rand() % 25) + 25, (rand() % 25) + 25);
-	}*/
-	
-	
 	for(int i = 0; i < 30; ++i)
 	{
 	    my_actors.push_back(new Wall);
 	    dynamic_cast<Wall*>(my_actors[my_actors.size() - 1])->init(50 * i, 0, 50, 50, "./img/BrickWall.png");
 	
     	my_actors.push_back(new Wall);
-	    dynamic_cast<Wall*>(my_actors[my_actors.size() - 1])->init(50 * i, 580, 50, 50, "./img/BrickWall.png");
+	    dynamic_cast<Wall*>(my_actors[my_actors.size() - 1])->init(50 * i, 650, 50, 50, "./img/BrickWall.png");
 	    
 	    my_actors.push_back(new Wall);
 	    dynamic_cast<Wall*>(my_actors[my_actors.size() - 1])->init(1230, i * 50, 50, 50, "./img/BrickWall.png");

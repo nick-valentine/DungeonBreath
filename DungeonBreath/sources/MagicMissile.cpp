@@ -20,14 +20,13 @@ void MagicMissile::init(int pos_x, int pos_y, int size_x, int size_y, double vel
     set_collide_type(BlocksOnly);
     
     lifetime = lifespan;
-    timer.restart();
 }
 
 void MagicMissile::update(int delta)
 {
     if(get_alive())
     {
-        lifetime -= timer.restart().asMicroseconds();
+        lifetime -= delta;
         if(lifetime <= 0)
         {
             kill();

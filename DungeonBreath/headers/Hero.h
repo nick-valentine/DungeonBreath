@@ -10,6 +10,7 @@
 #include <SFML/Window.hpp>
 #include "Actor.h"
 #include "MagicMissile.h"
+#include "ActorFactory.h"
 
 class Hero : public Actor
 {
@@ -36,7 +37,10 @@ class Hero : public Actor
  	double acceleration_x;
  	double acceleration_y;
  	
- 	MagicMissile my_missile;
+ 	//MagicMissile my_missile;
+ 	
+ 	MagicMissile *to_clone;
+ 	ActorFactory missile_factory;
  	
  	std::vector<Actor *> Spells;
  	bool last_space_pressed;

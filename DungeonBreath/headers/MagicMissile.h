@@ -3,7 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include <SFML/System.hpp>
 
 #include <string>
 #include "Actor.h"
@@ -23,7 +22,6 @@ class MagicMissile : public Actor
     
     int lifetime;
  
-    sf::Clock timer;
 };
 
 #endif //MAGICMISSILE_H
