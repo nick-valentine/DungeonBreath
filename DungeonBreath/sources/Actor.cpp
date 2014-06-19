@@ -118,9 +118,9 @@ void Actor::set_index(int x)
 void Actor::kill()
 {
     this->alive = false;
-    //all_actors[my_index] = all_actors[all_actors.size() - 1];
-    //all_actors.pop_back();
-    //all_actors[my_index]->set_index(my_index);
+    all_actors[my_index] = all_actors[all_actors.size() - 1];
+    all_actors.pop_back();
+    all_actors[my_index]->set_index(my_index);
 }
 
 void Actor::set_texture(std::string image_name)
@@ -205,7 +205,7 @@ Actor::CollideType Actor::resolve_collision()
 		        	}
 		        }
 		        
-        		last_collided.push_back(std::pair<CollideType, int>(return_val, i) );
+        		last_collided.push_back(std::pair<CollideType, Actor*>(return_val, all_actors[i]) );
 		    }
 		}
 	}
@@ -223,4 +223,19 @@ void Actor::unregister()
     all_actors[my_index] = all_actors[all_actors.size() - 1];
     all_actors.pop_back();
     all_actors[my_index]->set_index(my_index);
+}
+
+void Actor::clear_dead()
+{
+	for(int i = 0; i < all_actors.size(); ++i)
+    {
+    	if(all_actors[i]->get_alive() == false)
+    	{
+    		delete all_actors[i];
+	    	all_actors[i] = all_actors[all_actors.size() - 1];
+	    	all_actors.pop_back();
+	    	all_actors[i]->set_index(i);
+	    	--i;
+    	}
+    }
 }

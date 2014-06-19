@@ -77,6 +77,8 @@ class Actor
  	
  	void unregister();
  	
+ 	static void clear_dead();
+ 	
  protected:
  	double velocity_x;
  	double velocity_y;
@@ -94,7 +96,7 @@ class Actor
  	
  	ActorType my_type;
  	             //collide type with index of what collided
- 	std::vector<std::pair<CollideType, int> > last_collided;
+ 	std::vector<std::pair<CollideType, Actor*> > last_collided;
  	
  	bool alive;
 };

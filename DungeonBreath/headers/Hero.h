@@ -27,6 +27,8 @@ class Hero : public Actor
     static const double vel_damp;
     static const int magic_missile_speed;
     static const int magic_missile_fire_rate;
+    static const int pug_nova_speed;
+    static const int pug_nova_fire_rate;
  
  	int active_sprite;
  	int update_count;
@@ -38,7 +40,9 @@ class Hero : public Actor
  	
  	std::vector<Actor *> Spells;
  	bool last_space_pressed;
+ 	bool last_one_pressed;
  	int magic_missile_timer;
+ 	int pug_nova_timer;
  	
  	
  	enum Direction

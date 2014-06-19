@@ -5,6 +5,8 @@ const double Hero::accel_y = 1.5;
 const double Hero::vel_damp = 10;
 const int Hero::magic_missile_speed = 20;
 const int Hero::magic_missile_fire_rate = 300000;
+const int Hero::pug_nova_speed = 20;
+const int Hero::pug_nova_fire_rate = 300000;
 
 Hero::Hero() : Actor()
 {
@@ -33,13 +35,15 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 	magic_missile_timer = magic_missile_fire_rate;
 	
 	last_space_pressed = false;
+	last_one_pressed = false;
 }
 
 void Hero::update(int delta)
 {
     if(get_alive())
     {
-        magic_missile_timer -= timer.restart().asMicroseconds();
+        magic_missile_timer -= delta;
+        pug_nova_timer -= delta;
 	    update_count++;
 	
 	    if(update_count%5 == 0)
@@ -80,18 +84,27 @@ void Hero::update(int delta)
 	    
 	    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 	    {
-	        double num_pugs = 16.0;
-	        for(double i = 0; i < num_pugs; ++i)
-	        {
-	            Spells.push_back(new MagicMissile);
-                dynamic_cast<MagicMissile *>(Spells[Spells.size() - 1])->init(get_rect().left, 
-                                                                                get_rect().top, 
-                                                                                50, 
-                                                                                50, 
-                                                                                cos( (i * (360.0 / num_pugs))) * 4, 
-                                                                                sin( (i * (360.0 / num_pugs))) * 4, 
-                                                                                "./img/default.png");
+	    	if(last_one_pressed == false && pug_nova_timer <= 0)
+	    	{
+			    double num_pugs = 16.0;
+			    for(double i = 0; i < num_pugs; ++i)
+			    {
+			        Spells.push_back(new MagicMissile);
+		            dynamic_cast<MagicMissile *>(Spells[Spells.size() - 1])->init(get_rect().left, 
+		                                                                            get_rect().top, 
+		                                                                            50, 
+		                                                                            50, 
+		                                                                            cos( (i * (360.0 / num_pugs))) * 4, 
+		                                                                            sin( (i * (360.0 / num_pugs))) * 4, 
+		                                                                            "./img/default.png");
+			    }
+			    pug_nova_timer = pug_nova_fire_rate;
 	        }
+	        last_one_pressed = true;
+	    }
+	    else
+	    {
+	    	last_one_pressed = false;
 	    }
 	    
 	    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
@@ -176,6 +189,15 @@ void Hero::update(int delta)
         for(int i = 0; i < Spells.size(); ++i)
         {
             Spells[i]->update(delta);
+        }
+        for(int i = 0; i < Spells.size(); ++i)
+        {
+        	if(Spells[i]->get_alive() == false)
+        	{
+		    	Spells[i] = Spells[Spells.size() - 1];
+		    	Spells.pop_back();
+		    	--i;
+        	}
         }
     }
 }

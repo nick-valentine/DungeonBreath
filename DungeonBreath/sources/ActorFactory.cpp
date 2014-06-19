@@ -11,6 +11,10 @@ ActorFactory::~ActorFactory()
     {
         delete actors_to_clone[i];
     }
+    for(int i = 0; i < my_actors.size(); ++i)
+    {
+    	delete my_actors[i];
+    }
 }
 
 void ActorFactory::init(Actor *toClone, int spawn_interval, int max_spawn_frequency)
@@ -25,11 +29,10 @@ void ActorFactory::update(int delta)
 {
     for(int i = 0; i < actors_to_clone.size(); ++i)
     {
-        time_since_spawn[i] += timer.restart().asMicroseconds();
-        
-        if(max_spawn_rate[i] != 0)
+        time_since_spawn[i] += delta;
+        if(spawn_intervals[i] != 0)
         {
-            if(time_since_spawn[i] > max_spawn_rate[i] && time_since_spawn[i] > max_spawn_rate[i])
+            if(time_since_spawn[i] > max_spawn_rate[i] && time_since_spawn[i] > spawn_intervals[i])
             {
                 my_actors.push_back(actors_to_clone[i]->clone());
                 time_since_spawn[i] = 0;
@@ -41,9 +44,9 @@ void ActorFactory::update(int delta)
         my_actors[i]->update(delta);
         if(my_actors[i]->get_alive() == false)
         {
-            delete my_actors[i];
             my_actors[i] = my_actors[my_actors.size() - 1];
             my_actors.pop_back();
+            i--;
         }
     }
 }

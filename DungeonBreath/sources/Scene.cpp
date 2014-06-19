@@ -23,11 +23,12 @@ void Scene::init()
 	EnemyFollower *Dolly = new EnemyFollower;
 	Dolly->init(500, 400, 50, 50);
 	Dolly->unregister();
-	EnemyFactory.init(Dolly, 3000000, 300000);
+	EnemyFactory.init(Dolly, 300000, 3000);
 	
 	EnemyFollower *Dolly2 = new EnemyFollower;
 	Dolly2->init(600, 300, 50, 50);
-	EnemyFactory.add_actor(Dolly2, 3000000, 300000);
+	Dolly2->unregister();
+	EnemyFactory.add_actor(Dolly2, 300000, 3000);
 	
 	/*for(int i = 0; i < 20; ++i)
 	{
@@ -67,8 +68,11 @@ void Scene::update(int delta)
 	        delete my_actors[i];
 	        my_actors[i] = my_actors[my_actors.size() - 1];
 	        my_actors.pop_back();
+	        --i;
         }
 	}
+	
+	Actor::clear_dead();
 }
 
 void Scene::draw(sf::RenderWindow &window)
