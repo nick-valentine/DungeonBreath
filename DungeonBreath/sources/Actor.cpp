@@ -119,9 +119,10 @@ void Actor::set_alive(bool x)
 void Actor::kill()
 {
     this->alive = false;
-    all_actors[my_index] = all_actors[all_actors.size() - 1];
-    all_actors.pop_back();
-    all_actors[my_index]->set_index(my_index);
+    //this is now taken care of in kill_dead
+    //all_actors[my_index] = all_actors[all_actors.size() - 1];
+    //all_actors.pop_back();
+    //all_actors[my_index]->set_index(my_index);
 }
 
 bool Actor::is_colliding(Actor *x) const
