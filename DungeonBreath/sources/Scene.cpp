@@ -27,7 +27,7 @@ void Scene::init()
 	Dolly2->init(600, 300, 50, 50);
 	Dolly2->set_collide_type(Actor::Nothing);
 	Dolly2->unregister();
-	EnemyFactory.add_actor(Dolly2, 3000000, 3000);
+	EnemyFactory.add_actor(Dolly2, 300000, 3000);
 	
 	Trigger *my_trigger = new Trigger;
 	my_trigger->init(500, 100, 100, 100, Trigger::Latch, Actor::Player);
