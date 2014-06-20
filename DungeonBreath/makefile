@@ -5,6 +5,15 @@ all: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o bui
 	build/ActorFactory.o build/Trigger.o \
 	build/Scene.o -lsfml-graphics -lsfml-window -lsfml-system
 
+windows: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o
+	g++ -o DungeonBreath.exe build/main.o build/TextureMap.o build/Actor.o \
+	build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o \
+	build/ActorFactory.o build/Trigger.o \
+	build/Scene.o -lsfml-graphics -lsfml-window -lsfml-system
+
+winclean:
+	del build\*.o
+	
 clean:
 	rm ./build/*.o
 	

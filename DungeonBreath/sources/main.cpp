@@ -21,7 +21,7 @@ int main()
 		const double delta = timer.restart().asMicroseconds();
 		
 		handle_events(window);
-		
+
 		my_scene.update(delta);
 		
 		window.clear(sf::Color::Black);
