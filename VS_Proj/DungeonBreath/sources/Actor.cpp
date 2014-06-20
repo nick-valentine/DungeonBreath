@@ -142,10 +142,6 @@ void Actor::set_alive(bool x)
 void Actor::kill()
 {
     this->alive = false;
-    //this is now taken care of in kill_dead
-    //all_actors[my_index] = all_actors[all_actors.size() - 1];
-    //all_actors.pop_back();
-    //all_actors[my_index]->set_index(my_index);
 }
 
 bool Actor::is_colliding(Actor *x) const
@@ -163,7 +159,7 @@ bool Actor::is_colliding(Actor *x) const
 
 Actor::CollideType Actor::resolve_collision()
 {
-    CollideType return_val = None;
+    CollideType return_val = C_None;
     last_collided.clear();
     for(int i = 0; i < all_actors.size(); ++i)
     {
@@ -211,7 +207,7 @@ Actor::CollideType Actor::resolve_collision()
 		        	    {
 		        		    rect.top -= intersection.height;
 		        		}
-		        		return_val = Top;
+		        		return_val = C_Top;
 		        	}
 		        	else
 		        	{
@@ -219,7 +215,7 @@ Actor::CollideType Actor::resolve_collision()
 		        	    {
 		        		    rect.top += intersection.height;
 	        		    }
-		        		return_val = Bottom;
+		        		return_val = C_Bottom;
 		        	}
 		        }
 		        else
@@ -230,7 +226,7 @@ Actor::CollideType Actor::resolve_collision()
 		        	    {
 		        		    rect.left -= intersection.width;
 	        		    }
-		        		return_val = Left;
+		        		return_val = C_Left;
 		        	}
 		        	else
 		        	{
@@ -239,7 +235,7 @@ Actor::CollideType Actor::resolve_collision()
 		        	    {
 		        		    rect.left += intersection.width;
 	        		    }
-		        		return_val = Right;
+		        		return_val = C_Right;
 		        	}
 		        }
 		        

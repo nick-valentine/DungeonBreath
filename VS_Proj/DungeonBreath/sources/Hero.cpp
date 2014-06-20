@@ -3,14 +3,9 @@
 const double Hero::accel_x = 1.5;
 const double Hero::accel_y = 1.5;
 const double Hero::vel_damp = 10;
-const int Hero::magic_missile_speed = 20;
-const int Hero::magic_missile_fire_rate = 300000;
-const int Hero::pug_nova_speed = 20;
-const int Hero::pug_nova_fire_rate = 300000;
 
 Hero::Hero() : Actor()
 {
-	//init(0, 0, 0, 0);
 }
 
 void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
@@ -28,21 +23,22 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 	acceleration_y = 0;
 	
 	my_type = Player;
-	facing_dir = down;
-	
-	timer.restart();
-	
-	magic_missile_timer = magic_missile_fire_rate;
+	facing_dir = D_Down;
 	
 	last_space_pressed = false;
 	last_one_pressed = false;
 	
 	set_collide_type(All);
 	
-	to_clone = new MagicMissile;
-	to_clone->init(500, 500, 50, 50, 0, 7, "img/MagicMissile.png");
-	to_clone->unregister();
-	missile_factory.init(to_clone, 0, 30000, 0, 0);
+	magic_missile = new MagicMissile;
+	magic_missile->init(500, 500, 50, 50, 0, 0, "img/MagicMissile.png");
+	magic_missile->unregister();
+	missile_factory.init(magic_missile, 0, 300000, 0, 0);
+	
+	magic_nova = new MagicNova;
+	magic_nova->init(500, 500, 50, 50, 0, 0, true, "img/MagicMissile.png");
+	missile_factory.add_actor(magic_nova, 0, 300000);
+	
 }
 
 void Hero::update(int delta)
@@ -50,10 +46,11 @@ void Hero::update(int delta)
     if(get_alive())
     {
         missile_factory.update(delta);
-        to_clone->set_rect(get_rect());
+        magic_missile->set_rect(get_rect());
+        magic_missile->set_facing(facing_dir);
+        magic_nova->set_rect(get_rect());
+        magic_nova->set_facing(facing_dir);
         
-        magic_missile_timer -= delta;
-        pug_nova_timer -= delta;
 	    update_count++;
 	
 	    if(update_count%5 == 0)
@@ -64,12 +61,12 @@ void Hero::update(int delta)
 	    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	    {
 	        acceleration_x = accel_x;
-	        facing_dir = right;
+	        facing_dir = D_Right;
 	    }
 	    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	    {
 	        acceleration_x = -accel_x;
-	        facing_dir = left;
+	        facing_dir = D_Left;
 	    }
 	    else
 	    {
@@ -80,12 +77,12 @@ void Hero::update(int delta)
 	    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	    {
 	        acceleration_y = -accel_y;
-	        facing_dir = up;
+	        facing_dir = D_Up;
 	    }
 	    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	    {
 	        acceleration_y = accel_y;
-	        facing_dir = down;
+	        facing_dir = D_Down;
 	    }
 	    else
 	    {
@@ -94,8 +91,9 @@ void Hero::update(int delta)
 	    
 	    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 	    {
-	    	if(last_one_pressed == false && pug_nova_timer <= 0)
+	    	if(last_one_pressed == false)
 	    	{
+	    		/*
 			    double num_pugs = 15.0;
 			    for(double i = 0; i < num_pugs; ++i)
 			    {
@@ -110,7 +108,8 @@ void Hero::update(int delta)
 					Spells.push_back(temp);
 
 			    }
-			    pug_nova_timer = pug_nova_fire_rate;
+			    */
+			    missile_factory.spawn(1);
 	        }
 	        last_one_pressed = true;
 	    }
@@ -121,48 +120,9 @@ void Hero::update(int delta)
 	    
 	    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	    {
-	        if(last_space_pressed == false && magic_missile_timer <= 0)
+	        if(last_space_pressed == false)
 	        {
-	            if(facing_dir == down)
-	            {
-	                /*Spells.push_back(new MagicMissile);
-	                dynamic_cast<MagicMissile *>(Spells[Spells.size() - 1])->init(get_rect().left, 
-	                                                                                get_rect().top, 
-	                                                                                50, 50, 0, 
-	                                                                                magic_missile_speed, 
-	                                                                                "./img/default.png");
-                    */
-                    missile_factory.spawn(0);
-	            }
-	            else if(facing_dir == up)
-	            {
-	                Spells.push_back(new MagicMissile);
-	                dynamic_cast<MagicMissile *>(Spells[Spells.size() - 1])->init(get_rect().left, 
-	                                                                                get_rect().top, 
-	                                                                                50, 50, 0, 
-	                                                                                -magic_missile_speed, 
-	                                                                                "./img/MagicMissile.png");
-	            }
-	            else if(facing_dir == left)
-	            {
-	                Spells.push_back(new MagicMissile);
-	                dynamic_cast<MagicMissile *>(Spells[Spells.size() - 1])->init(get_rect().left, 
-	                                                                                get_rect().top, 
-	                                                                                50, 50, 
-	                                                                                -magic_missile_speed, 0, 
-	                                                                                "./img/MagicMissile.png");
-	            }
-	            else if(facing_dir == right)
-	            {
-	                Spells.push_back(new MagicMissile);
-	                dynamic_cast<MagicMissile *>(Spells[Spells.size() - 1])->init(get_rect().left, 
-	                                                                               get_rect().top, 
-	                                                                               50, 50, 
-	                                                                               magic_missile_speed, 0, 
-	                                                                               "./img/MagicMissile.png");
-	            }
-	            
-	            magic_missile_timer = magic_missile_fire_rate;
+                missile_factory.spawn(0);
 	        }
 	        last_space_pressed = true;
 	    }

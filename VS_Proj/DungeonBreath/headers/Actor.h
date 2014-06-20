@@ -20,16 +20,17 @@ class Actor
  	    Block,
  	    Enemy,
  	    Spell,
+ 	    Sword,
  	    Trigger
  	};
  	
  	enum CollideType
  	{
- 	    None,
- 	    Top,
- 	    Bottom,
- 	    Left,
- 	    Right
+ 	    C_None,
+ 	    C_Top,
+ 	    C_Bottom,
+ 	    C_Left,
+ 	    C_Right
  	};
  	
  	enum CollideResolve

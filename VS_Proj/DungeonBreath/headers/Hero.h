@@ -3,14 +3,16 @@
 
 #include <iostream>
 #include <algorithm>
+#include <math.h>
 #include <string>
 #include <vector>
-#include <math.h>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Actor.h"
 #include "MagicMissile.h"
+#include "MagicNova.h"
 #include "ActorFactory.h"
+#include "Direction.h"
 
 class Hero : public Actor
 {
@@ -26,40 +28,23 @@ class Hero : public Actor
     static const double accel_x;
     static const double accel_y;
     static const double vel_damp;
-    static const int magic_missile_speed;
-    static const int magic_missile_fire_rate;
-    static const int pug_nova_speed;
-    static const int pug_nova_fire_rate;
  
  	int active_sprite;
  	int update_count;
  	
  	double acceleration_x;
  	double acceleration_y;
+
  	
- 	//MagicMissile my_missile;
- 	
- 	MagicMissile *to_clone;
+ 	MagicMissile *magic_missile;
+ 	MagicNova *magic_nova;
  	ActorFactory missile_factory;
  	
  	std::vector<Actor *> Spells;
  	bool last_space_pressed;
  	bool last_one_pressed;
- 	int magic_missile_timer;
- 	int pug_nova_timer;
- 	
- 	
- 	enum Direction
- 	{
- 	    up,
- 	    down,
- 	    left,
- 	    right
- 	};
  	
  	Direction facing_dir;
- 	
- 	sf::Clock timer;
 };
 
 #endif //HERO_H

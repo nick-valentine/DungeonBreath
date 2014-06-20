@@ -6,8 +6,9 @@
 
 #include <string>
 #include "Actor.h"
+#include "Attack.h"
 
-class MagicMissile : public Actor
+class MagicMissile : public Attack
 {
  public:
     MagicMissile();
