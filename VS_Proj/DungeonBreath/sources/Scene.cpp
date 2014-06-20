@@ -7,10 +7,7 @@ Scene::Scene()
 
 Scene::~Scene()
 {
-    for(int i = 0; i < my_actors.size(); ++i)
-    {
-        delete my_actors[i];
-    }
+
 }
 
 void Scene::init()
@@ -22,18 +19,26 @@ void Scene::init()
 	
 	EnemyFollower *Dolly = new EnemyFollower;
 	Dolly->init(500, 400, 50, 50);
+	Dolly->set_collide_type(Actor::Nothing);
 	Dolly->unregister();
 	EnemyFactory.init(Dolly, 300000, 1500, 30, 10);
 	
 	EnemyFollower *Dolly2 = new EnemyFollower;
 	Dolly2->init(600, 300, 50, 50);
+	Dolly2->set_collide_type(Actor::Nothing);
 	Dolly2->unregister();
-	EnemyFactory.add_actor(Dolly2, 300000, 3000);
+	EnemyFactory.add_actor(Dolly2, 3000000, 3000);
 	
 	Trigger *my_trigger = new Trigger;
-	my_trigger->init(500, 500, 100, 100, Trigger::Latch, Actor::Player);
+	my_trigger->init(500, 100, 100, 100, Trigger::Latch, Actor::Player);
 	EnemyFactory.set_trigger(my_trigger);
 	
+	EnemyFollower *test = new EnemyFollower;
+	test->init(800, 200, 50, 50);
+	my_actors.push_back(test);
+
+	my_actors.push_back(test->clone());
+
 	for(int i = 0; i < 30; ++i)
 	{
 	    my_actors.push_back(new Wall);
@@ -61,7 +66,6 @@ void Scene::update(int delta)
 	{
 	    if(my_actors[i]->get_alive() == false)
 	    {
-	        delete my_actors[i];
 	        my_actors[i] = my_actors[my_actors.size() - 1];
 	        my_actors.pop_back();
 	        --i;
@@ -69,6 +73,7 @@ void Scene::update(int delta)
 	}
 	
 	Actor::clear_dead();
+
 }
 
 void Scene::draw(sf::RenderWindow &window)

@@ -99,14 +99,16 @@ void Hero::update(int delta)
 			    double num_pugs = 15.0;
 			    for(double i = 0; i < num_pugs; ++i)
 			    {
-			        Spells.push_back(new MagicMissile);
-		            dynamic_cast<MagicMissile *>(Spells[Spells.size() - 1])->init(get_rect().left, 
-		                                                                            get_rect().top, 
-		                                                                            50, 
-		                                                                            50, 
-		                                                                            cos( (i * (360.0 / (num_pugs + 1)))) * 4, 
-		                                                                            sin( (i * (360.0 / (num_pugs + 1)))) * 4, 
-		                                                                            "./img/default.png");
+					MagicMissile *temp = new MagicMissile;
+					temp->init(get_rect().left, 
+		                                    get_rect().top, 
+		                                    50, 
+		                                    50, 
+		                                    cos( (i * (360.0 / (num_pugs + 1)))) * 4, 
+		                                    sin( (i * (360.0 / (num_pugs + 1)))) * 4, 
+		                                    "./img/MagicMissile.png");
+					Spells.push_back(temp);
+
 			    }
 			    pug_nova_timer = pug_nova_fire_rate;
 	        }
@@ -139,7 +141,7 @@ void Hero::update(int delta)
 	                                                                                get_rect().top, 
 	                                                                                50, 50, 0, 
 	                                                                                -magic_missile_speed, 
-	                                                                                "./img/default.png");
+	                                                                                "./img/MagicMissile.png");
 	            }
 	            else if(facing_dir == left)
 	            {
@@ -148,7 +150,7 @@ void Hero::update(int delta)
 	                                                                                get_rect().top, 
 	                                                                                50, 50, 
 	                                                                                -magic_missile_speed, 0, 
-	                                                                                "./img/default.png");
+	                                                                                "./img/MagicMissile.png");
 	            }
 	            else if(facing_dir == right)
 	            {
@@ -157,7 +159,7 @@ void Hero::update(int delta)
 	                                                                               get_rect().top, 
 	                                                                               50, 50, 
 	                                                                               magic_missile_speed, 0, 
-	                                                                               "./img/default.png");
+	                                                                               "./img/MagicMissile.png");
 	            }
 	            
 	            magic_missile_timer = magic_missile_fire_rate;
@@ -190,14 +192,6 @@ void Hero::update(int delta)
         common_update(delta);
         
         //sword and all that stuff here
-        /*for(int i = 0; i < last_collided.size(); ++i)
-        {
-            if(all_actors[last_collided[i].second]->get_type() == Enemy)
-            {
-                all_actors[last_collided[i].second]->kill();
-            }
-            
-        }*/
         for(int i = 0; i < Spells.size(); ++i)
         {
             Spells[i]->update(delta);
@@ -236,6 +230,5 @@ void Hero::draw(sf::RenderWindow &window)
 Actor *Hero::clone()
 {
     Hero *temp = new Hero(*this);
-    clone_common(temp);
     return temp;
 }

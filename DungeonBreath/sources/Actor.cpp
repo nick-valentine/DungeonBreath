@@ -1,11 +1,13 @@
 #include "../headers/Actor.h"
 
 std::vector<Actor *> Actor::all_actors;
+std::vector<Actor *> Actor::actor_list;
 
 Actor::Actor()
 {
-    init(0, 0, 0, 0, "./img/default.png");
+    //init(0, 0, 0, 0, "./img/default.png");
     all_actors.push_back(this);
+	actor_list.push_back(this);
     my_index = all_actors.size() - 1;
 }
 
@@ -76,6 +78,15 @@ void Actor::set_texture(std::string image_name)
 {
 	tex = my_map.request(image_name);
 	texture_name = image_name;
+}
+
+void Actor::set_sprites(std::vector<sf::Sprite> sprites)
+{
+	this->sprites.clear();
+	for(int i = 0; i < sprites.size(); ++i)
+	{
+		this->sprites.push_back(sprites[i]);
+	}
 }
 
 std::vector<sf::Sprite> Actor::get_sprites() const
@@ -197,7 +208,6 @@ Actor::CollideType Actor::resolve_collision()
 		        	if(rect.top < intersection.top)
 		        	{
 		        	    if(move_me)
-		        	    //if((my_type != Spell && all_actors[i]->get_type() != Spell) || x->get_type() == Block)
 		        	    {
 		        		    rect.top -= intersection.height;
 		        		}
@@ -206,7 +216,6 @@ Actor::CollideType Actor::resolve_collision()
 		        	else
 		        	{
 		        	    if(move_me)
-		        	    //if((my_type != Spell && all_actors[i]->get_type() != Spell) || x->get_type() == Block)
 		        	    {
 		        		    rect.top += intersection.height;
 	        		    }
@@ -218,7 +227,6 @@ Actor::CollideType Actor::resolve_collision()
 		        	if(rect.left < intersection.left)
 		        	{
 		        	    if(move_me)
-		        	    //if((my_type != Spell && all_actors[i]->get_type() != Spell) || x->get_type() == Block)
 		        	    {
 		        		    rect.left -= intersection.width;
 	        		    }
@@ -228,7 +236,6 @@ Actor::CollideType Actor::resolve_collision()
 		        	{
 		        	    
 		        	    if(move_me)
-		        	    //if((my_type != Spell && all_actors[i]->get_type() != Spell) || x->get_type() == Block)
 		        	    {
 		        		    rect.left += intersection.width;
 	        		    }
@@ -241,12 +248,6 @@ Actor::CollideType Actor::resolve_collision()
 		}
 	}
     return return_val;
-}
-
-void Actor::clone_common(Actor *newActor)
-{
-	all_actors.push_back(newActor);
-	newActor->set_index(all_actors.size() - 1);
 }
 
 void Actor::unregister()
@@ -277,11 +278,18 @@ void Actor::clear_dead()
     {
     	if(all_actors[i]->get_alive() == false)
     	{
-    		delete all_actors[i];
 	    	all_actors[i] = all_actors[all_actors.size() - 1];
 	    	all_actors.pop_back();
 	    	all_actors[i]->set_index(i);
 	    	--i;
     	}
     }
+}
+
+void Actor::clear_all_actors()
+{
+	for(int i = 0; i < actor_list.size(); ++i)
+	{
+		delete actor_list[i];
+	}
 }

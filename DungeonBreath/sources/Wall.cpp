@@ -1,6 +1,6 @@
 #include "../headers/Wall.h"
 
-Wall::Wall()
+Wall::Wall() : Actor()
 {
 }
 
@@ -10,6 +10,8 @@ void Wall::init(int pos_x, int pos_y, int size_x, int size_y, std::string img_na
     
     add_sprite(0, 0, 100, 100);
     
+	set_alive(true);
+
     my_type = Block;
     
     set_collide_type(All);
@@ -30,6 +32,5 @@ void Wall::draw(sf::RenderWindow &window)
 Actor *Wall::clone()
 {
     Wall *temp = new Wall(*this);
-    clone_common(temp);
     return temp;
 }

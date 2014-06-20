@@ -29,11 +29,13 @@ int main()
 		handle_events(window);
 
 		my_scene.update(delta);
-		
+
 		window.clear(sf::Color::Black);
 		my_scene.draw(window);
 		window.display();
 	}
+
+	Actor::clear_all_actors();
 	
 	return 0;
 }

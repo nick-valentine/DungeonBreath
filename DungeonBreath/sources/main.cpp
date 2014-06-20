@@ -15,19 +15,27 @@ int main()
 	
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "DungeonBreath");
 	sf::Clock timer;
+	int frame_frequency = 33333; //1/30 of a second
 	
 	while(window.isOpen())
 	{
-		const double delta = timer.restart().asMicroseconds();
+		double delta = timer.restart().asMicroseconds();
 		
+		while(delta < frame_frequency)
+		{
+			delta += timer.restart().asMicroseconds();
+		}
+
 		handle_events(window);
 
 		my_scene.update(delta);
-		
+
 		window.clear(sf::Color::Black);
 		my_scene.draw(window);
 		window.display();
 	}
+
+	Actor::clear_all_actors();
 	
 	return 0;
 }

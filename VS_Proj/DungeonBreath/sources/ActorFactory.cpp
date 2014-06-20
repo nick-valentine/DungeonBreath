@@ -7,16 +7,7 @@ ActorFactory::ActorFactory()
 
 ActorFactory::~ActorFactory()
 {
-    for(int i = 0; i < actors_to_clone.size(); ++i)
-    {
-        delete actors_to_clone[i];
-    }
-    for(int i = 0; i < my_actors.size(); ++i)
-    {
-    	delete my_actors[i];
-    }
-    
-    delete my_trigger;
+
 }
 
 void ActorFactory::init(Actor *toClone, int spawn_interval, int max_spawn_frequency, int max_spawns, int num_to_keep_alive)
@@ -60,13 +51,17 @@ void ActorFactory::update(int delta)
     for(int i = 0; i < my_actors.size(); ++i)
     {
         my_actors[i]->update(delta);
-        if(my_actors[i]->get_alive() == false)
+        
+    }
+	for(int i = 0; i < my_actors.size(); ++i)
+    {
+		if(my_actors[i]->get_alive() == false)
         {
             my_actors[i] = my_actors[my_actors.size() - 1];
             my_actors.pop_back();
             i--;
         }
-    }
+	}
 }
 
 void ActorFactory::draw(sf::RenderWindow &window)
@@ -145,7 +140,6 @@ void ActorFactory::set_num_to_keep_alive(int x)
 
 void ActorFactory::set_trigger(Trigger* x)
 {
-    delete this->my_trigger;
     this->my_trigger = x;
 }
 

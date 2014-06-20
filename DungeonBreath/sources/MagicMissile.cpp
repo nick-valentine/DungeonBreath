@@ -2,20 +2,18 @@
 
 const int MagicMissile::lifespan = 3000000;
 
-MagicMissile::MagicMissile()
+MagicMissile::MagicMissile() : Actor()
 {
-    init(0, 0, 0, 0, 0, 0, "");
+    //init(0, 0, 0, 0, 0, 0, "");
 }
 
 void MagicMissile::init(int pos_x, int pos_y, int size_x, int size_y, double vel_x, double vel_y, std::string img_name)
 {
-    Actor::init(pos_x, pos_y, size_x, size_y, "./img/MagicMissile.png");
-    
+    Actor::init(pos_x, pos_y, size_x, size_y, img_name);
     add_sprite(0, 0, 100, 100);
     
     set_velocity_x(vel_x);
     set_velocity_y(vel_y);
-    
     my_type = Spell;
     set_collide_type(BlocksOnly);
     
@@ -47,6 +45,7 @@ void MagicMissile::update(int delta)
                 break;
             } 
         }
+		
     }
 }
 
@@ -63,6 +62,5 @@ void MagicMissile::draw(sf::RenderWindow &window)
 Actor *MagicMissile::clone()
 {
     MagicMissile *temp = new MagicMissile(*this);
-    clone_common(temp);
     return temp;
 }

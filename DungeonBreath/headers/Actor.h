@@ -61,7 +61,8 @@ class Actor
  	sf::Texture *get_texture() const;
  	void set_texture(std::string image_name);
  	
- 	std::vector<sf::Sprite> get_sprites() const;
+	void set_sprites(std::vector<sf::Sprite> sprites);
+	std::vector<sf::Sprite> get_sprites() const;
  	sf::Sprite *get_sprite(int x);
  	int get_num_sprites() const;
  	int add_sprite(int pos_x, int pos_y, int width, int height);
@@ -80,7 +81,6 @@ class Actor
  	CollideType resolve_collision();
  	
  	virtual Actor *clone() = 0;
- 	void clone_common(Actor *newActor);
  	
  	void unregister();
  	
@@ -90,6 +90,7 @@ class Actor
  	static std::vector<Actor *>* get_all_actors();
  	static void clear_dead();
  	
+	static void clear_all_actors();
  protected:
  	double velocity_x;
  	double velocity_y;
@@ -101,8 +102,12 @@ class Actor
  	std::vector<sf::Sprite> sprites;
  	
  	TextureMap my_map;
- 	
- 	static std::vector<Actor *> all_actors;
+	
+	//all actors used to clean memory when program is finished
+	static std::vector<Actor *> actor_list;
+
+	//all actors used for game management
+	static std::vector<Actor *> all_actors;
  	int my_index;
  	
  	ActorType my_type;
