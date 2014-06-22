@@ -25,9 +25,6 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 	my_type = Player;
 	facing_dir = D_Down;
 	
-	//last_space_pressed = false;
-	//last_one_pressed = false;
-	
 	set_collide_type(All);
 	
 	Keys.push_back(sf::Keyboard::Num1);
@@ -43,18 +40,6 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 	dynamic_cast<MagicNova *>(Spells[Spells.size() - 1])->init(500, 500, 50, 50, 0, 0, true, "img/MagicMissile.png");
 	Spells[Spells.size() - 1]->unregister();
 	missile_factory.add_actor(Spells[Spells.size() - 1],0, 300000);
-	/*
-	magic_missile = new MagicMissile;
-	magic_missile->init(500, 500, 50, 50, 0, 0, "img/MagicMissile.png");
-	magic_missile->unregister();
-	missile_factory.init(magic_missile, 0, 300000, 0, 0);
-	*/
-	
-	/*magic_nova = new MagicNova;
-	magic_nova->init(500, 500, 50, 50, 0, 0, true, "img/MagicMissile.png");
-	missile_factory.add_actor(magic_nova, 0, 300000);
-	*/
-	
 }
 
 void Hero::update(int delta)
@@ -62,12 +47,6 @@ void Hero::update(int delta)
     if(get_alive())
     {
         missile_factory.update(delta);
-        /*
-        magic_missile->set_rect(get_rect());
-        magic_missile->set_facing(facing_dir);
-        magic_nova->set_rect(get_rect());
-        magic_nova->set_facing(facing_dir);
-        */
         for(int i = 0; i < Spells.size(); ++i)
         {
         	Spells[i]->set_rect(get_rect());
@@ -111,34 +90,6 @@ void Hero::update(int delta)
 	    {
 	        acceleration_y = 0;
 	    }
-	    
-	    /*
-	    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
-	    {
-	    	if(last_one_pressed == false)
-	    	{
-			    missile_factory.spawn(1);
-	        }
-	        last_one_pressed = true;
-	    }
-	    else
-	    {
-	    	last_one_pressed = false;
-	    }
-	    
-	    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-	    {
-	        if(last_space_pressed == false)
-	        {
-                missile_factory.spawn(0);
-	        }
-	        last_space_pressed = true;
-	    }
-	    else
-	    {
-	        last_space_pressed = false;
-	    }
-	    */
 	    
 	    for(int i = 0; i < Keys.size(); ++i)
 	    {

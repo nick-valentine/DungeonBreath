@@ -13,11 +13,9 @@ class TextureMap
  	~TextureMap();
  	
  	sf::Texture* request(std::string file_name);
- 	void clear();
+ 	static void clear();
  private:
  	static std::map<std::string, sf::Texture> tex_map;
- 	//static std::map<int, int> tex_map;
- 
 };
 
 #endif //TEXTUREMAP_H

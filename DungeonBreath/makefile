@@ -1,16 +1,16 @@
 
-all: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o
+all: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o
 	g++ -o DungeonBreath build/main.o build/TextureMap.o build/Actor.o \
 	build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o \
 	build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o \
-	build/Tile.o \
+	build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o \
 	build/Scene.o -lsfml-graphics -lsfml-window -lsfml-system
 
-windows: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o
+windows: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o
 	g++ -o DungeonBreath.exe build/main.o build/TextureMap.o build/Actor.o \
 	build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o \
 	build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o \
-	build/Tile.o \
+	build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o \
 	build/Scene.o -lsfml-graphics -lsfml-window -lsfml-system
 
 winclean:
@@ -58,3 +58,11 @@ build/MagicNova.o: sources/MagicNova.cpp headers/MagicNova.h headers/Attack.h
 build/Tile.o: sources/Tile.cpp headers/Tile.h headers/Actor.h
 	g++ -c sources/Tile.cpp	-o build/Tile.o
 
+build/GameScene.o: sources/GameScene.cpp headers/GameScene.h headers/Scene.h
+	g++ -c sources/GameScene.cpp -o build/GameScene.o
+	
+build/Button.o: sources/Button.cpp headers/Button.h
+	g++ -c sources/Button.cpp -o build/Button.o
+	
+build/MainMenuScene.o: sources/MainMenuScene.cpp headers/MainMenuScene.h
+	g++ -c sources/MainMenuScene.cpp -o build/MainMenuScene.o

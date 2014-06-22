@@ -4,6 +4,9 @@
 #include <vector>
 #include <cstdlib>
 
+#include "../headers/Actor.h"
+#include "../headers/GameScene.h"
+#include "../headers/MainMenuScene.h"
 #include "../headers/Scene.h"
 
 void handle_events(sf::RenderWindow &window);
@@ -11,8 +14,9 @@ void handle_events(sf::RenderWindow &window);
 int main()
 {
 	
-	Scene my_scene;
-	my_scene.init(1280, 720);
+	//Scene *my_scene = new GameScene;
+	Scene *my_scene = new MainMenuScene;
+	my_scene->init(1280, 720);
 	
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "DungeonBreath");
 	sf::Clock timer;
@@ -29,14 +33,28 @@ int main()
 
 		handle_events(window);
 
-		my_scene.update(delta);
+		my_scene->update(delta, window);
 
 		window.clear(sf::Color::Black);
-		my_scene.draw(window);
+		my_scene->draw(window);
 		window.display();
+		
+		Scene::Status my_status = my_scene->get_status();
+		
+		if(my_status == Scene::Exit_Program)
+		{
+			break;
+		}
+		else if(my_status == Scene::Switch_Scene)
+		{
+			Scene *newScene = my_scene->get_scene_to_switch_to();
+			delete my_scene;
+			my_scene = newScene;
+		}
 	}
 
 	Actor::clear_all_actors();
+	delete my_scene;
 	
 	return 0;
 }

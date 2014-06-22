@@ -21,20 +21,31 @@
 class Scene
 {
  public:
+ 	enum Status
+ 	{
+ 		Nothing,
+ 		Exit_Program,
+ 		Switch_Scene
+ 	};
+ 
     Scene();
     ~Scene();
-    void init(int width, int height);
+    virtual void init(int width, int height) = 0;
     
-    void update(int delta);
+    virtual void update(int delta, sf::RenderWindow &window) = 0;
     
-    void draw(sf::RenderWindow &window);
+    virtual void draw(sf::RenderWindow &window) = 0;
+    
+    Status get_status();
+    Scene *get_scene_to_switch_to();
  private:
-    std::vector<Actor *> my_actors;
-    std::vector<Actor *> my_tiles;
-    ActorFactory EnemyFactory;
     
-    sf::View main_window;
-    sf::View mini_map;
+ protected:
+ 	Status my_status;
+ 	Scene *switch_to;
+ 	
+ 	int width;
+ 	int height;
 };
 
 #endif //SCENE_H
