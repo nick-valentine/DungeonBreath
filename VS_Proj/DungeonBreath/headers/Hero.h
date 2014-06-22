@@ -35,14 +35,15 @@ class Hero : public Actor
  	double acceleration_x;
  	double acceleration_y;
 
- 	
- 	MagicMissile *magic_missile;
- 	MagicNova *magic_nova;
+	std::vector<Attack *> Spells;
+	std::vector<int> Keys; 	
+	std::vector<bool> Keys_last_pressed;
+ 	//MagicMissile *magic_missile;
+ 	//MagicNova *magic_nova;
  	ActorFactory missile_factory;
  	
- 	std::vector<Actor *> Spells;
- 	bool last_space_pressed;
- 	bool last_one_pressed;
+ 	//bool last_space_pressed;
+ 	//bool last_one_pressed;
  	
  	Direction facing_dir;
 };

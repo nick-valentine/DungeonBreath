@@ -12,6 +12,7 @@ int main()
 {
 	
 	Scene my_scene;
+	my_scene.init(1280, 720);
 	
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "DungeonBreath");
 	sf::Clock timer;

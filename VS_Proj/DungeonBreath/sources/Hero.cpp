@@ -25,19 +25,35 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 	my_type = Player;
 	facing_dir = D_Down;
 	
-	last_space_pressed = false;
-	last_one_pressed = false;
+	//last_space_pressed = false;
+	//last_one_pressed = false;
 	
 	set_collide_type(All);
 	
+	Keys.push_back(sf::Keyboard::Num1);
+	Keys_last_pressed.push_back(false);
+	Spells.push_back(new MagicMissile);
+	dynamic_cast<MagicMissile *>(Spells[Spells.size() - 1])->init(500, 500, 50, 50, 0, 0, "img/MagicMissile.png");
+	Spells[Spells.size() - 1]->unregister();
+	missile_factory.init(Spells[Spells.size() - 1], 0, 300000, 0, 0);
+	
+	Keys.push_back(sf::Keyboard::Num2);
+	Keys_last_pressed.push_back(false);
+	Spells.push_back(new MagicNova);
+	dynamic_cast<MagicNova *>(Spells[Spells.size() - 1])->init(500, 500, 50, 50, 0, 0, true, "img/MagicMissile.png");
+	Spells[Spells.size() - 1]->unregister();
+	missile_factory.add_actor(Spells[Spells.size() - 1],0, 300000);
+	/*
 	magic_missile = new MagicMissile;
 	magic_missile->init(500, 500, 50, 50, 0, 0, "img/MagicMissile.png");
 	magic_missile->unregister();
 	missile_factory.init(magic_missile, 0, 300000, 0, 0);
+	*/
 	
-	magic_nova = new MagicNova;
+	/*magic_nova = new MagicNova;
 	magic_nova->init(500, 500, 50, 50, 0, 0, true, "img/MagicMissile.png");
 	missile_factory.add_actor(magic_nova, 0, 300000);
+	*/
 	
 }
 
@@ -46,10 +62,17 @@ void Hero::update(int delta)
     if(get_alive())
     {
         missile_factory.update(delta);
+        /*
         magic_missile->set_rect(get_rect());
         magic_missile->set_facing(facing_dir);
         magic_nova->set_rect(get_rect());
         magic_nova->set_facing(facing_dir);
+        */
+        for(int i = 0; i < Spells.size(); ++i)
+        {
+        	Spells[i]->set_rect(get_rect());
+        	Spells[i]->set_facing(facing_dir);
+        }
         
 	    update_count++;
 	
@@ -89,26 +112,11 @@ void Hero::update(int delta)
 	        acceleration_y = 0;
 	    }
 	    
+	    /*
 	    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 	    {
 	    	if(last_one_pressed == false)
 	    	{
-	    		/*
-			    double num_pugs = 15.0;
-			    for(double i = 0; i < num_pugs; ++i)
-			    {
-					MagicMissile *temp = new MagicMissile;
-					temp->init(get_rect().left, 
-		                                    get_rect().top, 
-		                                    50, 
-		                                    50, 
-		                                    cos( (i * (360.0 / (num_pugs + 1)))) * 4, 
-		                                    sin( (i * (360.0 / (num_pugs + 1)))) * 4, 
-		                                    "./img/MagicMissile.png");
-					Spells.push_back(temp);
-
-			    }
-			    */
 			    missile_factory.spawn(1);
 	        }
 	        last_one_pressed = true;
@@ -129,6 +137,23 @@ void Hero::update(int delta)
 	    else
 	    {
 	        last_space_pressed = false;
+	    }
+	    */
+	    
+	    for(int i = 0; i < Keys.size(); ++i)
+	    {
+	    	if(sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(Keys[i])))
+	    	{
+	    		if(Keys_last_pressed[i] == false)
+	    		{
+	    			missile_factory.spawn(i);
+	    		}
+	    		Keys_last_pressed[i] = true;
+	    	}
+	    	else
+	    	{
+	    		Keys_last_pressed[i] = false;
+	    	}
 	    }
 
         set_velocity_x(get_velocity_x() - get_velocity_x() / vel_damp);
@@ -152,19 +177,7 @@ void Hero::update(int delta)
         common_update(delta);
         
         //sword and all that stuff here
-        for(int i = 0; i < Spells.size(); ++i)
-        {
-            Spells[i]->update(delta);
-        }
-        for(int i = 0; i < Spells.size(); ++i)
-        {
-        	if(Spells[i]->get_alive() == false)
-        	{
-		    	Spells[i] = Spells[Spells.size() - 1];
-		    	Spells.pop_back();
-		    	--i;
-        	}
-        }
+       
     }
 }
 
@@ -179,10 +192,6 @@ void Hero::draw(sf::RenderWindow &window)
 	        get_sprite(active_sprite)->setScale(get_rect().width / 100.0, get_rect().height / 100.0);
 		    window.draw(*get_sprite(active_sprite));
 		    
-		    for(int i = 0; i < Spells.size(); ++i)
-		    {
-		        Spells[i]->draw(window);
-	        }
 	    }
 	}
 }

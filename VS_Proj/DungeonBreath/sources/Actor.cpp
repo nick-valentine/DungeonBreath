@@ -166,7 +166,7 @@ Actor::CollideType Actor::resolve_collision()
     	if(i != my_index)
     	{
 		    Actor* x = all_actors[i];
-		    if(is_colliding(x) && x->get_alive())
+		    if(is_colliding(x) && x->get_alive() && get_alive())
 		    {
 		        sf::Rect<int> intersection;
 		        rect.intersects(x->get_rect(), intersection);

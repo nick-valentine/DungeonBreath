@@ -26,8 +26,6 @@ class EnemyFollower : public Actor
  private: 
  	int active_sprite;
  	int update_count;
-
-	int time_to_collide;
 };
 
 #endif //ENEMYFOLLOWER_H

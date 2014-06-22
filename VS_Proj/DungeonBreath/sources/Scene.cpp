@@ -2,7 +2,7 @@
 
 Scene::Scene()
 {
-    init();
+    //init();
 }
 
 Scene::~Scene()
@@ -10,8 +10,14 @@ Scene::~Scene()
 
 }
 
-void Scene::init()
+void Scene::init(int width, int height)
 {
+	main_window.reset(sf::FloatRect(0, 0, width, height));
+	
+	mini_map.reset(sf::FloatRect(0, 0, width, height));
+	mini_map.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
+	mini_map.zoom(2.0f);
+
     srand( time( NULL ) );
 	std::vector<Actor *> myActors;
 	my_actors.push_back(new Hero);
@@ -39,7 +45,7 @@ void Scene::init()
 
 	my_actors.push_back(test->clone());
 
-	for(int i = 0; i < 30; ++i)
+	for(int i = 0; i < 10; ++i)
 	{
 	    my_actors.push_back(new Wall);
 	    dynamic_cast<Wall*>(my_actors[my_actors.size() - 1])->init(50 * i, 0, 50, 50, "./img/BrickWall.png");
@@ -57,6 +63,8 @@ void Scene::init()
 
 void Scene::update(int delta)
 {
+	main_window.setCenter(sf::Vector2f(my_actors[0]->get_rect().left, my_actors[0]->get_rect().top));
+	mini_map.setCenter(sf::Vector2f(my_actors[0]->get_rect().left, my_actors[0]->get_rect().top));
     for(int i = 0; i < my_actors.size(); ++i)
     {
         my_actors[i]->update(delta);
@@ -78,6 +86,15 @@ void Scene::update(int delta)
 
 void Scene::draw(sf::RenderWindow &window)
 {
+
+	window.setView(main_window);
+    for(int i = 0; i < my_actors.size(); ++i)
+    {
+        my_actors[i]->draw(window);
+    }
+    EnemyFactory.draw(window);
+    
+    window.setView(mini_map);
     for(int i = 0; i < my_actors.size(); ++i)
     {
         my_actors[i]->draw(window);

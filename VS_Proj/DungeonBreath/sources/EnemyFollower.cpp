@@ -11,8 +11,8 @@ EnemyFollower::EnemyFollower(const EnemyFollower &other) : Actor()
 	this->active_sprite = other.get_active_sprite();
 
 	this->set_alive(other.get_alive());
-	//this->set_collide_type(other.get_collide_type());
-	//this->set_rect(other.get_rect());
+	this->set_collide_type(other.get_collide_type());
+	this->set_rect(other.get_rect());
 	this->set_texture(other.get_image_name());
 	this->set_velocity_x(other.get_velocity_x());
 	this->set_velocity_y(other.get_velocity_y());
@@ -41,8 +41,6 @@ void EnemyFollower::init(int pos_x, int pos_y, int size_x, int size_y)
 	my_type = Enemy;
 	set_collide_type(All);
 	set_alive(true);
-
-	this->time_to_collide = 3000000;
 }
 
 void EnemyFollower::update(int delta)
@@ -50,7 +48,6 @@ void EnemyFollower::update(int delta)
     if(get_alive())
     {
 	    update_count++;
-		time_to_collide -= delta;
 	
 	    if(update_count%5 == 0)
 	    {
@@ -80,10 +77,7 @@ void EnemyFollower::update(int delta)
 	
 	    set_rect(sf::Rect<int>((int)(get_rect().left - diff_x), (int)(get_rect().top - diff_y), get_rect().width, get_rect().height));
 
-		if(time_to_collide < 0)
-		{
-			common_update(delta);
-		}
+		common_update(delta);
     }
 }
 

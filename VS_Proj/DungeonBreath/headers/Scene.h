@@ -22,7 +22,7 @@ class Scene
  public:
     Scene();
     ~Scene();
-    void init();
+    void init(int width, int height);
     
     void update(int delta);
     
@@ -30,6 +30,9 @@ class Scene
  private:
     std::vector<Actor *> my_actors;
     ActorFactory EnemyFactory;
+    
+    sf::View main_window;
+    sf::View mini_map;
 };
 
 #endif //SCENE_H
