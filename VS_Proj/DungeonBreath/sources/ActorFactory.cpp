@@ -70,7 +70,7 @@ void ActorFactory::draw(sf::RenderWindow &window)
     {
         my_actors[i]->draw(window);
     }
-    //my_trigger->draw(window);
+    my_trigger->draw(window);
 }
 
 void ActorFactory::spawn(int i)

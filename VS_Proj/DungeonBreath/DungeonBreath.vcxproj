@@ -13,23 +13,36 @@
   <ItemGroup>
     <ClInclude Include="headers\Actor.h" />
     <ClInclude Include="headers\ActorFactory.h" />
+    <ClInclude Include="headers\Attack.h" />
+    <ClInclude Include="headers\Button.h" />
+    <ClInclude Include="headers\Direction.h" />
     <ClInclude Include="headers\EnemyFollower.h" />
+    <ClInclude Include="headers\GameScene.h" />
     <ClInclude Include="headers\Hero.h" />
     <ClInclude Include="headers\MagicMissile.h" />
+    <ClInclude Include="headers\MagicNova.h" />
+    <ClInclude Include="headers\MainMenuScene.h" />
     <ClInclude Include="headers\Scene.h" />
     <ClInclude Include="headers\TextureMap.h" />
+    <ClInclude Include="headers\Tile.h" />
     <ClInclude Include="headers\Trigger.h" />
     <ClInclude Include="headers\Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\Actor.cpp" />
     <ClCompile Include="sources\ActorFactory.cpp" />
+    <ClCompile Include="sources\Attack.cpp" />
+    <ClCompile Include="sources\Button.cpp" />
     <ClCompile Include="sources\EnemyFollower.cpp" />
+    <ClCompile Include="sources\GameScene.cpp" />
     <ClCompile Include="sources\Hero.cpp" />
     <ClCompile Include="sources\MagicMissile.cpp" />
+    <ClCompile Include="sources\MagicNova.cpp" />
     <ClCompile Include="sources\main.cpp" />
+    <ClCompile Include="sources\MainMenuScene.cpp" />
     <ClCompile Include="sources\Scene.cpp" />
     <ClCompile Include="sources\TextureMap.cpp" />
+    <ClCompile Include="sources\Tile.cpp" />
     <ClCompile Include="sources\Trigger.cpp" />
     <ClCompile Include="sources\Wall.cpp" />
   </ItemGroup>

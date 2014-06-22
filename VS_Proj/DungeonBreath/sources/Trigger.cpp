@@ -4,6 +4,10 @@ Trigger::Trigger()
 {
     //default to always on when not initialized
     active = true;
+
+	Actor::init(0,0, 0,0, "./img/default.png");
+    
+    add_sprite(0, 0, 100, 100);
 }
 
 void Trigger::init(int pos_x, int pos_y, int size_x, int size_y, Type type, Actor::ActorType actor_type)

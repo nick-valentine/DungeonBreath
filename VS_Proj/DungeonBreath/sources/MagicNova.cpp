@@ -1,6 +1,6 @@
 #include "../headers/MagicNova.h"
 
-const int MagicNova::lifespan = 200000;
+const int MagicNova::lifespan = 3000000;
 const int MagicNova::num_missiles = 15;
 
 MagicNova::MagicNova() : Attack()
