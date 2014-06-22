@@ -1,14 +1,16 @@
 
-all: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o
+all: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o
 	g++ -o DungeonBreath build/main.o build/TextureMap.o build/Actor.o \
 	build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o \
 	build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o \
+	build/Tile.o \
 	build/Scene.o -lsfml-graphics -lsfml-window -lsfml-system
 
-windows: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o
+windows: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o
 	g++ -o DungeonBreath.exe build/main.o build/TextureMap.o build/Actor.o \
 	build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o \
 	build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o \
+	build/Tile.o \
 	build/Scene.o -lsfml-graphics -lsfml-window -lsfml-system
 
 winclean:
@@ -52,3 +54,7 @@ build/Attack.o: sources/Attack.cpp headers/Attack.h headers/Actor.h
 	
 build/MagicNova.o: sources/MagicNova.cpp headers/MagicNova.h headers/Attack.h
 	g++ -c sources/MagicNova.cpp -o build/MagicNova.o
+	
+build/Tile.o: sources/Tile.cpp headers/Tile.h headers/Actor.h
+	g++ -c sources/Tile.cpp	-o build/Tile.o
+

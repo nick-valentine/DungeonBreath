@@ -16,6 +16,7 @@
 #include "Wall.h"
 #include "EnemyFollower.h"
 #include "Trigger.h"
+#include "Tile.h"
 
 class Scene
 {
@@ -29,6 +30,7 @@ class Scene
     void draw(sf::RenderWindow &window);
  private:
     std::vector<Actor *> my_actors;
+    std::vector<Actor *> my_tiles;
     ActorFactory EnemyFactory;
     
     sf::View main_window;

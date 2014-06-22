@@ -59,6 +59,15 @@ void Scene::init(int width, int height)
 	    my_actors.push_back(new Wall);
 	    dynamic_cast<Wall*>(my_actors[my_actors.size() - 1])->init(0, i * 50, 50, 50, "./img/BrickWall.png");
 	}
+	
+	for(int i = -15; i < 45; ++i)
+	{
+		for(int j = -15; j < 45; ++j)
+		{
+			my_tiles.push_back(new Tile);
+			dynamic_cast<Tile*>(my_tiles[my_tiles.size() - 1])->init(50 * i, 50 * j, 50, 50, 0, 0);
+		}
+	}
 }
 
 void Scene::update(int delta)
@@ -88,16 +97,29 @@ void Scene::draw(sf::RenderWindow &window)
 {
 
 	window.setView(main_window);
+	
+    for(int i = 0; i < my_tiles.size(); ++i)
+    {
+        my_tiles[i]->draw(window);
+    }
+	
     for(int i = 0; i < my_actors.size(); ++i)
     {
         my_actors[i]->draw(window);
     }
+    
     EnemyFactory.draw(window);
     
     window.setView(mini_map);
+    for(int i = 0; i < my_tiles.size(); ++i)
+    {
+        my_tiles[i]->draw(window);
+    }
+    
     for(int i = 0; i < my_actors.size(); ++i)
     {
         my_actors[i]->draw(window);
     }
+    
     EnemyFactory.draw(window);
 }

@@ -16,6 +16,7 @@ class Actor
  	enum ActorType
  	{
  	    Null,
+ 	    Tile,
  	    Player,
  	    Block,
  	    Enemy,
