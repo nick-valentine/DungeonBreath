@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <cstdlib>
+#include <math.h>
 
 #include "../headers/Actor.h"
 #include "../headers/GameScene.h"
@@ -43,10 +44,7 @@ int main()
 	{
 		double delta = timer.restart().asMicroseconds();
 		
-		while(delta < frame_frequency)
-		{
-			delta += timer.restart().asMicroseconds();
-		}
+		sf::sleep(sf::microseconds(std::min(33333 - delta, 0.0)));
 
 		handle_events(window);
 
