@@ -8,11 +8,28 @@
 #include "../headers/GameScene.h"
 #include "../headers/MainMenuScene.h"
 #include "../headers/Scene.h"
+#include "../headers/Files.h"
 
 void handle_events(sf::RenderWindow &window);
 
 int main()
 {
+	sf::Thread *file_thread = SpawnFileThread();
+	
+	/*
+	File *my_file = new File();
+	
+	std::vector<std::string> test;
+	test.push_back("This is test");
+	test.push_back("testing");
+	my_file->init("test.txt", test);
+	my_file->QueueWrite();
+	
+	while(!my_file->ready())
+	{
+		sf::sleep(sf::milliseconds(10));
+	}
+	*/
 	
 	//Scene *my_scene = new GameScene;
 	Scene *my_scene = new MainMenuScene;
@@ -55,6 +72,9 @@ int main()
 
 	Actor::clear_all_actors();
 	delete my_scene;
+	
+	KillFileThread(file_thread);
+	delete file_thread;
 	
 	return 0;
 }

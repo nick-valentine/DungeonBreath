@@ -1,16 +1,18 @@
 
-all: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o
+all: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o build/Files.o
 	g++ -o DungeonBreath build/main.o build/TextureMap.o build/Actor.o \
 	build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o \
 	build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o \
 	build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o \
+	build/Files.o \
 	build/Scene.o -lsfml-graphics -lsfml-window -lsfml-system
 
-windows: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o
+windows: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o build/Files.o
 	g++ -o DungeonBreath.exe build/main.o build/TextureMap.o build/Actor.o \
 	build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o \
 	build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o \
 	build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o \
+	build/Files.o \
 	build/Scene.o -lsfml-graphics -lsfml-window -lsfml-system
 
 winclean:
@@ -66,3 +68,6 @@ build/Button.o: sources/Button.cpp headers/Button.h
 	
 build/MainMenuScene.o: sources/MainMenuScene.cpp headers/MainMenuScene.h
 	g++ -c sources/MainMenuScene.cpp -o build/MainMenuScene.o
+	
+build/Files.o: sources/Files.cpp headers/Files.h
+	g++ -c sources/Files.cpp -o build/Files.o
