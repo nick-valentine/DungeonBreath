@@ -44,7 +44,7 @@ int main()
 	{
 		double delta = timer.restart().asMicroseconds();
 		
-		sf::sleep(sf::microseconds(std::min(33333 - delta, 0.0)));
+		sf::sleep(sf::microseconds(std::min(frame_frequency - delta, 0.0)));
 
 		handle_events(window);
 
