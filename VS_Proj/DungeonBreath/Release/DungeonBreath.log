@@ -1,20 +1,20 @@
-﻿Build started 6/22/2014 3:24:39 PM.
+﻿Build started 6/23/2014 8:32:50 PM.
      1>Project "C:\Users\Nick\Documents\Git\DungeonBreath\DungeonBreath\VS_Proj\DungeonBreath\DungeonBreath.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Touching "Release\DungeonBreath.unsuccessfulbuild".
+         Creating "Release\DungeonBreath.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /IC:\Users\Nick\Documents\Git\DungeonBreath\DungeonBreath\VS_Proj\DungeonBreath\include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt sources\Tile.cpp
-         Tile.cpp
-     1>sources\Tile.cpp(27): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sources\Tile.cpp(27): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sources\Tile.cpp(28): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>sources\Tile.cpp(28): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /IC:\Users\Nick\Documents\Git\DungeonBreath\DungeonBreath\VS_Proj\DungeonBreath\include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt sources\main.cpp
+         main.cpp
+     1>sources\main.cpp(45): warning C4244: 'initializing' : conversion from 'sf::Int64' to 'double', possible loss of data
+     1>sources\main.cpp(47): warning C4244: 'argument' : conversion from 'const double' to 'sf::Int64', possible loss of data
+     1>sources\main.cpp(51): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Nick\Documents\Git\DungeonBreath\DungeonBreath\VS_Proj\DungeonBreath\Release\DungeonBreath.exe" /NOLOGO /LIBPATH:C:\Users\Nick\Documents\Git\DungeonBreath\DungeonBreath\VS_Proj\DungeonBreath\lib "sfml-audio.lib" "sfml-graphics.lib" "sfml-main.lib" "sfml-network.lib" "sfml-system.lib" "sfml-window.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\DungeonBreath.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Nick\Documents\Git\DungeonBreath\DungeonBreath\VS_Proj\DungeonBreath\Release\DungeonBreath.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Nick\Documents\Git\DungeonBreath\DungeonBreath\VS_Proj\DungeonBreath\Release\DungeonBreath.lib" /MACHINE:X86 Release\Actor.obj
          Release\ActorFactory.obj
          Release\Attack.obj
          Release\Button.obj
          Release\EnemyFollower.obj
+         Release\Files.obj
          Release\GameScene.obj
          Release\Hero.obj
          Release\MagicMissile.obj
@@ -38,4 +38,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.80
+Time Elapsed 00:00:02.16

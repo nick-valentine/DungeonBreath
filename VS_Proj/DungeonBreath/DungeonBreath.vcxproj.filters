@@ -63,6 +63,9 @@
     <ClInclude Include="headers\Tile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="headers\Files.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\Actor.cpp">
@@ -111,6 +114,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="sources\Tile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\Files.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

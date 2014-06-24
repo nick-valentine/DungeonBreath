@@ -17,6 +17,7 @@
     <ClInclude Include="headers\Button.h" />
     <ClInclude Include="headers\Direction.h" />
     <ClInclude Include="headers\EnemyFollower.h" />
+    <ClInclude Include="headers\Files.h" />
     <ClInclude Include="headers\GameScene.h" />
     <ClInclude Include="headers\Hero.h" />
     <ClInclude Include="headers\MagicMissile.h" />
@@ -34,6 +35,7 @@
     <ClCompile Include="sources\Attack.cpp" />
     <ClCompile Include="sources\Button.cpp" />
     <ClCompile Include="sources\EnemyFollower.cpp" />
+    <ClCompile Include="sources\Files.cpp" />
     <ClCompile Include="sources\GameScene.cpp" />
     <ClCompile Include="sources\Hero.cpp" />
     <ClCompile Include="sources\MagicMissile.cpp" />
