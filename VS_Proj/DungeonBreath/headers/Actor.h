@@ -80,7 +80,7 @@ class Actor
  	void kill();
  	
  	bool is_colliding(Actor *x) const;
- 	CollideType resolve_collision();
+ 	CollideType move_and_resolve_collision();
  	
  	virtual Actor *clone() = 0;
  	

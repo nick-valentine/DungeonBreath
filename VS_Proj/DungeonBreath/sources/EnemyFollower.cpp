@@ -75,7 +75,9 @@ void EnemyFollower::update(int delta)
 	    diff_x = (diff_x / hypot) * 5;
 	    diff_y = (diff_y / hypot) * 5;
 	
-	    set_rect(sf::Rect<int>((int)(get_rect().left - diff_x), (int)(get_rect().top - diff_y), get_rect().width, get_rect().height));
+	    //set_rect(sf::Rect<int>((int)(get_rect().left - diff_x), (int)(get_rect().top - diff_y), get_rect().width, get_rect().height));
+		set_velocity_x(-diff_x);
+		set_velocity_y(-diff_y);
 
 		common_update(delta);
     }

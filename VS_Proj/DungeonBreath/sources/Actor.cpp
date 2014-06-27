@@ -28,10 +28,10 @@ void Actor::init(int pos_x, int pos_y, int size_x, int size_y, std::string image
 
 void Actor::common_update(int delta)
 {
-	this->rect.left += velocity_x;
-	this->rect.top += velocity_y;
+	//this->rect.left += velocity_x;
+	//this->rect.top += velocity_y;
 	
-    this->resolve_collision();
+    this->move_and_resolve_collision();
 }
 
 sf::Rect<int> Actor::get_rect() const 
@@ -157,10 +157,13 @@ bool Actor::is_colliding(Actor *x) const
 	}
 }
 
-Actor::CollideType Actor::resolve_collision()
+Actor::CollideType Actor::move_and_resolve_collision()
 {
     CollideType return_val = C_None;
     last_collided.clear();
+    
+    std::vector<int> collided;
+    this->rect.left += velocity_x;
     for(int i = 0; i < all_actors.size(); ++i)
     {
     	if(i != my_index)
@@ -199,47 +202,97 @@ Actor::CollideType Actor::resolve_collision()
 		            move_me = false;
 		        }
 		        
-		        if(intersection.height < (intersection.width + 20))
+		        if(rect.left < intersection.left)
+	        	{
+	        	    if(move_me)
+	        	    {
+	        		    rect.left -= intersection.width;
+        		    }
+	        		return_val = C_Left;
+	        	}
+	        	else
+	        	{
+	        	    
+	        	    if(move_me)
+	        	    {
+	        		    rect.left += intersection.width;
+        		    }
+	        		return_val = C_Right;
+	        	}
+		        collided.push_back(i);
+        		last_collided.push_back(std::pair<CollideType, Actor*>(return_val, all_actors[i]) );
+		    }
+		}
+	}
+	
+	this->rect.top += velocity_y;
+	for(int i = 0; i < all_actors.size(); ++i)
+    {
+    	if(i != my_index)
+    	{
+		    Actor* x = all_actors[i];
+		    if(is_colliding(x) && x->get_alive() && get_alive())
+		    {
+		        sf::Rect<int> intersection;
+		        rect.intersects(x->get_rect(), intersection);
+		        bool move_me;
+		        
+		        if(my_collide == All)
 		        {
-		        	if(rect.top < intersection.top)
-		        	{
-		        	    if(move_me)
-		        	    {
-		        		    rect.top -= intersection.height;
-		        		}
-		        		return_val = C_Top;
-		        	}
-		        	else
-		        	{
-		        	    if(move_me)
-		        	    {
-		        		    rect.top += intersection.height;
-	        		    }
-		        		return_val = C_Bottom;
-		        	}
+		            if(x->get_collide_type() != Nothing && x->get_collide_type() != BlocksOnly)
+		            {
+		                move_me = true;
+		            }
+		            else
+		            {
+		                move_me = false;
+		            }
 		        }
-		        else
+		        else if(my_collide == BlocksOnly)
 		        {
-		        	if(rect.left < intersection.left)
-		        	{
-		        	    if(move_me)
-		        	    {
-		        		    rect.left -= intersection.width;
-	        		    }
-		        		return_val = C_Left;
-		        	}
-		        	else
-		        	{
-		        	    
-		        	    if(move_me)
-		        	    {
-		        		    rect.left += intersection.width;
-	        		    }
-		        		return_val = C_Right;
-		        	}
+		            if(x->get_collide_type() == BlocksOnly)
+		            {
+		                move_me = false;
+		            }
+		            else
+		            {
+		                move_me = false;
+		            }
+		        }
+		        else if(my_collide == Nothing)
+		        {
+		            move_me = false;
 		        }
 		        
-        		last_collided.push_back(std::pair<CollideType, Actor*>(return_val, all_actors[i]) );
+		        if(rect.top < intersection.top)
+	        	{
+	        	    if(move_me)
+	        	    {
+	        		    rect.top -= intersection.height;
+	        		}
+	        		return_val = C_Top;
+	        	}
+	        	else
+	        	{
+	        	    if(move_me)
+	        	    {
+	        		    rect.top += intersection.height;
+        		    }
+	        		return_val = C_Bottom;
+	        	}
+	        	bool found = false;
+		        for(int k = 0; k < collided.size(); ++k)
+		        {
+		        	if(collided[k] == i)
+		        	{
+		        		found = true;
+		        		break;
+		        	}
+		        }
+		        if(found == false)
+		        {
+        			last_collided.push_back(std::pair<CollideType, Actor*>(return_val, all_actors[i]) );
+        		}
 		    }
 		}
 	}
