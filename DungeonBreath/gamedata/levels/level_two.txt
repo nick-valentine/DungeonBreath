@@ -1,0 +1,13 @@
+wwww
+wttw
+wttw
+wwww
+-
+(0,0)
+(2,2:3,2 treasure)
+(1,2 enemy_orc)
+(4,2 enemy_orc)
+x,y start: x,y end actor_factory, grouping, max spawn interval, spawn frequency, max to spawn, num to keep alive 
+(2,3:3,3 actor_factory, 1, 30000, 30000, 30, 10)
+(1,1 enemy_bat, 1)
+(4,1 enemy_bat, 1)

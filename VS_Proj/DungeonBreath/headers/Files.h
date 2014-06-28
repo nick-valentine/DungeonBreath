@@ -2,6 +2,7 @@
 #define FILES_H
 
 #include <SFML/System.hpp>
+#include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>

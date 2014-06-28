@@ -24,7 +24,7 @@ void GameScene::init(int width, int height)
 	std::vector<Actor *> myActors;
 	my_actors.push_back(new Hero);
 	dynamic_cast<Hero*>(my_actors[my_actors.size() - 1])->init(100,100,50,50);
-	
+	/*
 	EnemyFollower *Dolly = new EnemyFollower;
 	Dolly->init(500, 400, 50, 50);
 	Dolly->set_collide_type(Actor::Nothing);
@@ -46,7 +46,7 @@ void GameScene::init(int width, int height)
 	my_actors.push_back(test);
 
 	my_actors.push_back(test->clone());
-
+	
 	for(int i = 0; i < 10; ++i)
 	{
 	    my_actors.push_back(new Wall);
@@ -67,9 +67,84 @@ void GameScene::init(int width, int height)
 		for(int j = -15; j < 45; ++j)
 		{
 			my_tiles.push_back(new Tile);
-			dynamic_cast<Tile*>(my_tiles[my_tiles.size() - 1])->init(50 * i, 50 * j, 50, 50, 0, 0);
+			dynamic_cast<Tile*>(my_tiles[my_tiles.size() - 1])->init(50 * i, 50 * j, 50, 50, (i % 2) + 1, 1);
 		}
 	}
+	*/
+	my_file.init("./gamedata/levels/level_one.txt", file_data);
+	my_file.QueueRead();
+	std::cout<<"Queued read"<<std::endl;
+	while(!my_file.ready())
+	{
+		sf::sleep(sf::milliseconds(10));
+		std::cout<<"Waiting for read"<<std::endl;
+	}
+	std::cout<<"Read finished: "<<my_file.get_data().size()<<" lines read"<<std::endl;
+	file_data = my_file.get_data();
+	
+	int i = 0;
+	for(; i < file_data.size(); ++i)
+	{
+		if(file_data[i][0] == '-')
+		{
+			break;
+		}
+		
+		for(int j = 0; j < file_data[i].size(); ++j)
+		{
+			if(file_data[i][j] == 'w')
+			{
+				my_tiles.push_back(new Tile);
+				dynamic_cast<Tile*>(my_tiles[my_tiles.size() - 1])->init(50 * j, 50 * i, 50, 50, 1, 1);
+			}
+			else if(file_data[i][j] == 't')
+			{
+				my_tiles.push_back(new Tile);
+				dynamic_cast<Tile*>(my_tiles[my_tiles.size() - 1])->init(50 * j, 50 * i, 50, 50, 2, 1);
+			}
+		}
+	}
+	for(; i < file_data.size(); ++i)
+	{
+		int start_line;
+		int end_line;
+		if(file_data[i].find("(") == std::string::npos)
+		{
+			continue;
+		}
+		else
+		{
+			start_line = i;
+		}
+		for(int j = i; j < file_data.size(); ++j)
+		{
+			if(file_data[j].find(")") == std::string::npos)
+			{
+			}
+			else
+			{
+				end_line = j;
+				break;	
+			}
+		}
+		
+		std::string data = "";
+		for(int j = start_line; j <= end_line; ++j)
+		{
+			data += file_data[j];
+		}
+		//std::cout<<data<<std::endl;
+		
+		std::string substr;
+		std::stringstream str(data.substr(1, data.size() - 2));
+		while(str.good())
+		{
+			str>>substr;
+			std::cout<<substr<<std::endl;
+		}
+		
+	}
+	
 }
 
 void GameScene::update(int delta, sf::RenderWindow &window)
@@ -80,7 +155,7 @@ void GameScene::update(int delta, sf::RenderWindow &window)
     {
         my_actors[i]->update(delta);
     }
-    EnemyFactory.update(delta);
+    //EnemyFactory.update(delta);
     for(int i = 0; i < my_actors.size(); ++i)
 	{
 	    if(my_actors[i]->get_alive() == false)
@@ -110,7 +185,7 @@ void GameScene::draw(sf::RenderWindow &window)
         my_actors[i]->draw(window);
     }
     
-    EnemyFactory.draw(window);
+    //EnemyFactory.draw(window);
     
     window.setView(mini_map);
     for(int i = 0; i < my_tiles.size(); ++i)
@@ -123,5 +198,5 @@ void GameScene::draw(sf::RenderWindow &window)
         my_actors[i]->draw(window);
     }
     
-    EnemyFactory.draw(window);
+    //EnemyFactory.draw(window);
 }

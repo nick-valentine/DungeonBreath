@@ -8,7 +8,7 @@ void Tile::init(int pos_x, int pos_y, int size_x, int size_y, int SpriteX, int S
 {
     Actor::init(pos_x, pos_y, size_x, size_y, "./img/TileSet.png");
     
-    add_sprite(SpriteX, SpriteY, 100, 100);
+    add_sprite((SpriteX - 1) * 100, (SpriteY - 1) * 100, 100, 100);
     
 	set_alive(true);
 

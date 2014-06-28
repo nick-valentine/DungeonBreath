@@ -1,6 +1,10 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
+#include <string>
+#include <sstream>
+
+#include "Files.h"
 #include "Scene.h"
 
 class GameScene : public Scene
@@ -16,10 +20,13 @@ class GameScene : public Scene
  private:
 	std::vector<Actor *> my_actors;
     std::vector<Actor *> my_tiles;
-    ActorFactory EnemyFactory;
+    //ActorFactory EnemyFactory;
     
     sf::View main_window;
     sf::View mini_map;
+    
+    File my_file;
+    std::vector<std::string> file_data;
 };
 
 #endif //GAMESCENE_H
