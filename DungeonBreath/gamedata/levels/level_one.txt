@@ -6,11 +6,12 @@ wwwwwwww
 wwwwwwww
 -
 (sides 0 0)
-(treasure 0 0 9 0)
-(treasure 0 1 0 7)
-(treasure 1 7 9 7)
-(treasure 9 1 9 6)
-(treasure 4 3 5 3)
+(treasure 1 1 0 0 9 0)
+(treasure 2 1 0 1 0 7)
+(treasure 1 1 1 7 8 7)
+(treasure 3 1 9 7)
+(treasure 2 1 9 1 9 6)
+(treasure 4 1 4 3 5 3)
 (enemy_orc 1 2)
 (enemy_orc 4 2)
 actor_factory, x,y start: x,y end, grouping,  max to spawn, num to keep alive, trigger type, trigger switcher

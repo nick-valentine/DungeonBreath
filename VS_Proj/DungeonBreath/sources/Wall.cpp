@@ -4,11 +4,11 @@ Wall::Wall() : Actor()
 {
 }
 
-void Wall::init(int pos_x, int pos_y, int size_x, int size_y, std::string img_name)
+void Wall::init(int pos_x, int pos_y, int size_x, int size_y, int sprite_pos_x, int sprite_pos_y, std::string img_name)
 {
     Actor::init(pos_x, pos_y, size_x, size_y, img_name);
     
-    add_sprite(0, 0, 100, 100);
+    add_sprite((sprite_pos_x - 1) * 100, (sprite_pos_y - 1) * 100, 100, 100);
     
 	set_alive(true);
 

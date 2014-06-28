@@ -108,9 +108,10 @@ void GameScene::init(int width, int height)
 			}
 			else if(substr == "treasure")
 			{
+				int sx = 0, sy = 0;
 				int x1 = 0,y1 = 0,x2 = 0,y2 = 0;
 				
-				str>>x1>>y1;
+				str>>sx>>sy>>x1>>y1;
 				if(!str.eof())
 				{
 					str>>x2>>y2;
@@ -132,14 +133,14 @@ void GameScene::init(int width, int height)
 						for(int k = y1; k <= y2; ++k)
 						{
 							my_actors.push_back(new Wall);
-							dynamic_cast<Wall*>(my_actors[my_actors.size() - 1])->init((j - 1) * 50, (k - 1) * 50, 50, 50, "./img/BrickWall.png");
+							dynamic_cast<Wall*>(my_actors[my_actors.size() - 1])->init((j - 1) * 50, (k - 1) * 50, 50, 50, sx, sy,  "./img/WallSheet.png");
 						}
 					}
 				}
 				else
 				{
 					my_actors.push_back(new Wall);
-					dynamic_cast<Wall*>(my_actors[my_actors.size() - 1])->init((x1 - 1) * 50, (y1 - 1) * 50, 50, 50, "./img/BrickWall.png");
+					dynamic_cast<Wall*>(my_actors[my_actors.size() - 1])->init((x1 - 1) * 50, (y1 - 1) * 50, 50, 50, sx, sy, "./img/WallSheet.png");
 				}
 				
 			}
