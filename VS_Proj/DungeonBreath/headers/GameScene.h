@@ -3,6 +3,7 @@
 
 #include <string>
 #include <sstream>
+#include <algorithm>
 
 #include "Files.h"
 #include "Scene.h"
@@ -20,7 +21,7 @@ class GameScene : public Scene
  private:
 	std::vector<Actor *> my_actors;
     std::vector<Actor *> my_tiles;
-    //ActorFactory EnemyFactory;
+    std::vector<ActorFactory> EnemyFactories;
     
     sf::View main_window;
     sf::View mini_map;

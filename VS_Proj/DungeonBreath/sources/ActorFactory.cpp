@@ -10,6 +10,15 @@ ActorFactory::~ActorFactory()
 
 }
 
+void ActorFactory::init(int max_spawns, int num_to_keep_alive)
+{
+    this->max_spawns = max_spawns;
+    spawn_count = 0;
+    this->num_to_keep_alive = num_to_keep_alive;
+    
+    this->my_trigger = new Trigger();
+}
+
 void ActorFactory::init(Actor *toClone, int spawn_interval, int max_spawn_frequency, int max_spawns, int num_to_keep_alive)
 {
     actors_to_clone.push_back(toClone);

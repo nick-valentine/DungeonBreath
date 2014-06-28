@@ -95,13 +95,11 @@ void FileManager::run()
 	{
 		if(!my_queue.empty())
 		{
-			std::cout<<"File Operation"<<std::endl;
 			File *x = my_queue.front();
 			x->my_mutex.lock();
 			my_queue.pop();
 			if(x->write == true)
 			{
-				std::cout<<"File: Writing file"<<std::endl;
 				std::ofstream my_file;
 				my_file.open(x->file_name.c_str());
 				
@@ -115,7 +113,6 @@ void FileManager::run()
 			}
 			else
 			{
-				std::cout<<"File: Reading file"<<std::endl;
 				x->data.clear();
 				std::ifstream my_file;
 				my_file.open(x->file_name.c_str());

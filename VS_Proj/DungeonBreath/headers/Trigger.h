@@ -9,9 +9,9 @@ class Trigger : public Actor
  public:
     enum Type
     {
-        Latch,
-        Switch,
-        Press
+        Latch = 1,
+        Switch = 2,
+        Press = 3
     };
  
     Trigger();

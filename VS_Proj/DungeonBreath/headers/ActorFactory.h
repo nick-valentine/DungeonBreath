@@ -16,6 +16,7 @@ class ActorFactory
     ActorFactory();
     ~ActorFactory();
     void init(Actor *toClone, int spawn_interval, int max_spawn_frequency, int max_spawns, int keep_alive);
+    void init(int max_spawns, int keep_alive);
     
     void update(int delta);
     void draw(sf::RenderWindow &window);

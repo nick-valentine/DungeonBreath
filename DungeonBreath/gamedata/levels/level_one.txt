@@ -3,12 +3,14 @@ wttw
 wttw
 wwww
 -
-(0 0)
-(treasure 2 2 3)
+(sides 0 0)
+(treasure 2 2 3 2)
+(treasure 8 8)
 (enemy_orc 1 2)
 (enemy_orc 4 2)
-actor_factory, x,y start: x,y end , grouping, max spawn interval, spawn frequency, max to spawn, num to keep alive 
+actor_factory, x,y start: x,y end, grouping,  max to spawn, num to keep alive, trigger type, trigger switcher
 (actor_factory 2 3 3 3
-	 1 30000 30000 30 10)
-(enemy_bat 1 1 1)
-(enemy_bat 4 1 1)
+	 1 30 10 1 2)
+	             max spawn interval, spawn frequency,
+(enemy_bat 1 1 1 300000 300000)
+(enemy_bat 4 1 1 300000 300000)

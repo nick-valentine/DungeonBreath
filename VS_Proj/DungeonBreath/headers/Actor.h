@@ -15,14 +15,14 @@ class Actor
  
  	enum ActorType
  	{
- 	    Null,
- 	    Tile,
- 	    Player,
- 	    Block,
- 	    Enemy,
- 	    Spell,
- 	    Sword,
- 	    Trigger
+ 	    Null = 0,
+ 	    Tile = 1,
+ 	    Player = 2,
+ 	    Block = 3,
+ 	    Enemy = 4,
+ 	    Spell = 5,
+ 	    Sword = 6,
+ 	    Trigger = 7
  	};
  	
  	enum CollideType

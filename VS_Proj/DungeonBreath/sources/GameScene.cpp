@@ -23,7 +23,7 @@ void GameScene::init(int width, int height)
     srand( time( NULL ) );
 	std::vector<Actor *> myActors;
 	my_actors.push_back(new Hero);
-	dynamic_cast<Hero*>(my_actors[my_actors.size() - 1])->init(100,100,50,50);
+	dynamic_cast<Hero*>(my_actors[my_actors.size() - 1])->init(100,-100,50,50);
 	/*
 	EnemyFollower *Dolly = new EnemyFollower;
 	Dolly->init(500, 400, 50, 50);
@@ -73,13 +73,10 @@ void GameScene::init(int width, int height)
 	*/
 	my_file.init("./gamedata/levels/level_one.txt", file_data);
 	my_file.QueueRead();
-	std::cout<<"Queued read"<<std::endl;
 	while(!my_file.ready())
 	{
 		sf::sleep(sf::milliseconds(10));
-		std::cout<<"Waiting for read"<<std::endl;
 	}
-	std::cout<<"Read finished: "<<my_file.get_data().size()<<" lines read"<<std::endl;
 	file_data = my_file.get_data();
 	
 	int i = 0;
@@ -104,6 +101,15 @@ void GameScene::init(int width, int height)
 			}
 		}
 	}
+	
+	
+	std::vector<int> agroups;
+	std::vector<Actor *>actors;
+	std::vector<int> spawn_intervals;
+	std::vector<int> spawn_frequencies;
+	
+	std::vector<int> fgroups;
+	
 	for(; i < file_data.size(); ++i)
 	{
 		int start_line;
@@ -133,17 +139,142 @@ void GameScene::init(int width, int height)
 		{
 			data += file_data[j];
 		}
-		//std::cout<<data<<std::endl;
 		
 		std::string substr;
 		std::stringstream str(data.substr(1, data.size() - 2));
 		while(str.good())
 		{
 			str>>substr;
-			std::cout<<substr<<std::endl;
+			//std::cout<<substr<<std::endl;
+			
+			if(substr == "sides")
+			{
+				int s1, s2;
+				str>>s1>>s2;
+				std::cout<<s1<<" "<<s2<<std::endl;
+			}
+			else if(substr == "treasure")
+			{
+				int x1 = 0,y1 = 0,x2 = 0,y2 = 0;
+				
+				str>>x1>>y1;
+				if(!str.eof())
+				{
+					str>>x2>>y2;
+					if(x2 < x1)
+					{
+						int temp = x1;
+						x1 = x2;
+						x2 = temp;
+					}
+					if(y2 < y1)
+					{
+						int temp = y1;
+						y1 = y2;
+						y2 = temp;
+					}
+				
+					for(int j = x1; j <= x2; ++j)
+					{
+						for(int k = y1; k <= y2; ++k)
+						{
+							my_actors.push_back(new Wall);
+							dynamic_cast<Wall*>(my_actors[my_actors.size() - 1])->init((j - 1) * 50, (k - 1) * 50, 50, 50, "./img/BrickWall.png");
+						}
+					}
+				}
+				else
+				{
+					my_actors.push_back(new Wall);
+					dynamic_cast<Wall*>(my_actors[my_actors.size() - 1])->init((x1 - 1) * 50, (y1 - 1) * 50, 50, 50, "./img/BrickWall.png");
+				}
+				
+			}
+			else if(substr == "enemy_orc")
+			{
+				int x,y,g,si,sf = -1;
+				str>>x>>y;
+				if(!str.eof())
+				{
+					str>>g>>si>>sf;
+					
+					EnemyFollower *e = new EnemyFollower;
+					e->init((x - 1) * 50, (y - 1) * 50, 50, 50);
+					
+					e->set_collide_type(Actor::Nothing);
+					e->unregister();
+					
+					agroups.push_back(g);
+					actors.push_back(e);
+					spawn_intervals.push_back(si);
+					spawn_frequencies.push_back(sf);
+				}
+				else
+				{
+					EnemyFollower *e = new EnemyFollower;
+					e->init((x - 1) * 50, (y - 1) * 50, 50, 50);
+				
+					my_actors.push_back(e);
+				}
+			}
+			else if(substr == "enemy_bat")
+			{
+				int x,y,g,si,sf = -1;
+				str>>x>>y;
+				if(!str.eof())
+				{
+					str>>g>>si>>sf;
+					
+					EnemyFollower *e = new EnemyFollower;
+					e->init((x - 1) * 50, (y - 1) * 50, 50, 50);
+					
+					e->set_collide_type(Actor::Nothing);
+					e->unregister();
+					
+					agroups.push_back(g);
+					actors.push_back(e);
+					
+					spawn_intervals.push_back(si);
+					spawn_frequencies.push_back(sf);
+				}
+				else
+				{
+					EnemyFollower *e = new EnemyFollower;
+					e->init((x - 1) * 50, (y - 1) * 50, 50, 50);
+
+					my_actors.push_back(e);
+				}
+			}
+			else if(substr == "actor_factory")
+			{
+				int xs,ys,xe,ye,g,ms,a,tt,at;
+				str>>xs>>ys>>xe>>ye>>g>>ms>>a>>tt>>at;
+			
+				ActorFactory temp;
+				temp.init(ms, a);
+				Trigger *my_trigger = new Trigger;
+				my_trigger->init((xs - 1) * 50, (ys - 1) * 50, 
+								std::max((std::max(xe,xs) - std::min(xe,xs) + 1), 1) * 50,
+								std::max((std::max(ye,ys) - std::min(ye,ys) + 1), 1) * 50,
+								(Trigger::Type)tt, (Actor::ActorType)at);
+				temp.set_trigger(my_trigger);
+				
+				EnemyFactories.push_back(temp);
+				fgroups.push_back(g);
+			}
 		}
-		
 	}
+	
+	for(int i = 0; i < EnemyFactories.size(); ++i)
+	{
+		for(int j = 0; j < actors.size(); ++j)
+		{
+			if(agroups[j] == fgroups[i])
+			{
+				EnemyFactories[i].add_actor(actors[j], spawn_intervals[j], spawn_frequencies[j]);
+			}
+		}
+	}	
 	
 }
 
@@ -155,7 +286,10 @@ void GameScene::update(int delta, sf::RenderWindow &window)
     {
         my_actors[i]->update(delta);
     }
-    //EnemyFactory.update(delta);
+    for(int i = 0; i < EnemyFactories.size(); ++i)
+    {
+    	EnemyFactories[i].update(delta);
+    }
     for(int i = 0; i < my_actors.size(); ++i)
 	{
 	    if(my_actors[i]->get_alive() == false)
@@ -185,7 +319,10 @@ void GameScene::draw(sf::RenderWindow &window)
         my_actors[i]->draw(window);
     }
     
-    //EnemyFactory.draw(window);
+    for(int i = 0; i < EnemyFactories.size(); ++i)
+    {
+    	EnemyFactories[i].draw(window);
+    }
     
     window.setView(mini_map);
     for(int i = 0; i < my_tiles.size(); ++i)
@@ -198,5 +335,8 @@ void GameScene::draw(sf::RenderWindow &window)
         my_actors[i]->draw(window);
     }
     
-    //EnemyFactory.draw(window);
+    for(int i = 0; i < EnemyFactories.size(); ++i)
+    {
+    	EnemyFactories[i].draw(window);
+    }
 }
