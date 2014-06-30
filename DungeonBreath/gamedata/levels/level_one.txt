@@ -1,22 +1,25 @@
-wwwwwwww
-wwwwwwww
-wwwttwww
-wwwttwww
-wwwwwwww
-wwwwwwww
+wwwwwwwwww
+wwwwwwwwww
+wwwwwwwwww
+wwwwttwwww
+wwwwttwwww
+wwwwwwwwww
+wwwwwwwwww
+wwwwwwwwww
 -
 (sides 0 0)
-(treasure 1 1 0 0 9 0)
-(treasure 2 1 0 1 0 7)
-(treasure 1 1 1 7 8 7)
-(treasure 3 1 9 7)
-(treasure 2 1 9 1 9 6)
-(treasure 4 1 4 3 5 3)
+(hero 2 2)
+(wall 1 1 1 1 10 1)
+(wall 2 1 1 1 1 9)
+(wall 1 1 1 9 10 9)
+(wall 3 1 10 9)
+(wall 2 1 10 1 10 8)
+(wall 4 1 5 4 6 4)
 (enemy_orc 1 2)
 (enemy_orc 4 2)
 actor_factory, x,y start: x,y end, grouping,  max to spawn, num to keep alive, trigger type, trigger switcher
 (actor_factory 4 4 5 4
 	 1 30 10 1 2)
 	             max spawn interval, spawn frequency,
-(enemy_bat 1 1 1 300000 300000)
-(enemy_bat 4 1 1 300000 300000)
+(enemy_bat 1 2 1 300000 300000)
+(enemy_bat 4 2 1 300000 300000)

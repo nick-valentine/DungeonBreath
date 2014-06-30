@@ -5,7 +5,9 @@
 #include <sstream>
 #include <algorithm>
 
+#include "Actor.h"
 #include "Files.h"
+#include "TileSet.h"
 #include "Scene.h"
 
 class GameScene : public Scene
@@ -19,9 +21,10 @@ class GameScene : public Scene
     
     void draw(sf::RenderWindow &window);
  private:
-	std::vector<Actor *> my_actors;
-    std::vector<Actor *> my_tiles;
-    std::vector<ActorFactory> EnemyFactories;
+    bool hero_found;
+    Actor *hero;
+    
+    TileSet my_tileset;
     
     sf::View main_window;
     sf::View mini_map;
