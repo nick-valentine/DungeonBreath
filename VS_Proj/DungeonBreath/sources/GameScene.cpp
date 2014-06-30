@@ -7,7 +7,10 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
-
+	for(int i = 0; i < my_tilesets.size(); ++i)
+	{
+		delete my_tilesets[i];
+	}
 }
 
 void GameScene::init(int width, int height)
@@ -20,8 +23,11 @@ void GameScene::init(int width, int height)
 	mini_map.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
 	mini_map.zoom(2.0f);
 
-	my_tileset.init("./gamedata/levels/level_one.txt", 0, 0);
-	my_tileset.init("./gamedata/levels/level_one.txt", 10 * 50, 0);
+	my_tilesets.push_back(new TileSet);
+	my_tilesets[my_tilesets.size() - 1]->init("./gamedata/levels/level_one.txt", 0, 0);
+	
+	my_tilesets.push_back(new TileSet);
+	my_tilesets[my_tilesets.size() - 1]->init("./gamedata/levels/level_two.txt", 10 * 50, 0);
 	
 	hero_found = false;
 	std::vector<Actor *>* all_actors = Actor::get_all_actors();
@@ -43,7 +49,10 @@ void GameScene::update(int delta, sf::RenderWindow &window)
 		mini_map.setCenter(sf::Vector2f(hero->get_rect().left, hero->get_rect().top));
 	}
     
-    my_tileset.update(delta);
+    for(int i = 0; i < my_tilesets.size(); ++i)
+    {
+    	my_tilesets[i]->update(delta);
+	}
 	
 	Actor::clear_dead();
 
@@ -54,9 +63,23 @@ void GameScene::draw(sf::RenderWindow &window)
 
 	window.setView(main_window);
 	
-    my_tileset.draw(window);
+	for(int i = 0; i < my_tilesets.size(); ++i)
+	{
+    	my_tilesets[i]->draw_tiles(window);
+    }
+    for(int i = 0; i < my_tilesets.size(); ++i)
+	{
+    	my_tilesets[i]->draw_actors(window);
+    }
     
     window.setView(mini_map);
     
-    my_tileset.draw(window);
+	for(int i = 0; i < my_tilesets.size(); ++i)
+	{
+    	my_tilesets[i]->draw_tiles(window);
+    }
+    for(int i = 0; i < my_tilesets.size(); ++i)
+	{
+    	my_tilesets[i]->draw_actors(window);
+    }
 }

@@ -23,7 +23,8 @@ class TileSet
  	
  	void update(int delta);
  	
- 	void draw(sf::RenderWindow &window);
+ 	void draw_tiles(sf::RenderWindow &window);
+ 	void draw_actors(sf::RenderWindow &window);
  	
  	bool ready() const;
  private:

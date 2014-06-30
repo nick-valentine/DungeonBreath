@@ -248,13 +248,16 @@ void TileSet::update(int delta)
     }
 }
 
-void TileSet::draw(sf::RenderWindow &window)
+void TileSet::draw_tiles(sf::RenderWindow &window)
 {
 	for(int i = 0; i < my_tiles.size(); ++i)
     {
         my_tiles[i]->draw(window);
     }
-	
+}
+
+void TileSet::draw_actors(sf::RenderWindow &window)
+{
     for(int i = 0; i < my_actors.size(); ++i)
     {
         my_actors[i]->draw(window);

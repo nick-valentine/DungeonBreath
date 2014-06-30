@@ -24,7 +24,7 @@ class GameScene : public Scene
     bool hero_found;
     Actor *hero;
     
-    TileSet my_tileset;
+    std::vector<TileSet *> my_tilesets;
     
     sf::View main_window;
     sf::View mini_map;
