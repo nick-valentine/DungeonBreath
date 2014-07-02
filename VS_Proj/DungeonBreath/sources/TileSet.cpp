@@ -214,15 +214,15 @@ void TileSet::init(std::string filename, int xpos, int ypos)
 				factory_groups.push_back(g);
 			}
 		}
+	}
+	for(int i = 0; i <  my_factories.size(); ++i)
+	{
 		
-		for(int i = 0; i <  my_factories.size(); ++i)
+		for(int j = 0; j < actors.size(); ++j)
 		{
-			for(int j = 0; j < actors.size(); ++j)
+			if(actor_groups[j] == factory_groups[i])
 			{
-				if(actor_groups[j] == factory_groups[i])
-				{
-					 my_factories[i].add_actor(actors[j], spawn_intervals[j], spawn_frequencies[j]);
-				}
+				my_factories[i].add_actor(actors[j], spawn_intervals[j], spawn_frequencies[j]);
 			}
 		}
 	}
