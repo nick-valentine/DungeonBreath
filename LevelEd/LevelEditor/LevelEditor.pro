@@ -1,10 +1,12 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2014-07-02T19:41:03
+# Project created by QtCreator 2014-07-04T12:10:00
 #
 #-------------------------------------------------
 
 QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = LevelEditor
 TEMPLATE = app
@@ -12,12 +14,8 @@ TEMPLATE = app
 LIBS += -lsfml-system -lsfml-graphics -lsfml-window
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    SFMLCanvas.cpp \
-    MyCanvas.cpp
+        toolswindow.cpp
 
-HEADERS  += mainwindow.h \
-    SFMLCanvas.h \
-    MyCanvas.h
+HEADERS  += toolswindow.h
 
-FORMS    += mainwindow.ui
+FORMS    += toolswindow.ui
