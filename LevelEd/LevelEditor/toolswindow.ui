@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>178</width>
+    <width>277</width>
     <height>528</height>
    </rect>
   </property>
@@ -18,8 +18,8 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
-      <width>85</width>
+      <y>50</y>
+      <width>151</width>
       <height>27</height>
      </rect>
     </property>
@@ -33,6 +33,111 @@
       <string>Stone</string>
      </property>
     </item>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>120</y>
+      <width>151</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Player</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>EnemyFollower</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>StoneWallBottom</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>StoneWallSide</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>StoneWallCorner</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Treasure</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Set Tile</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Actor</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>160</y>
+      <width>120</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Mode</string>
+    </property>
+    <widget class="QRadioButton" name="radioButton">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>117</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Set Tiles</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButton_2">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>50</y>
+       <width>117</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Add Actors</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -49,7 +154,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>178</width>
+     <width>277</width>
      <height>25</height>
     </rect>
    </property>

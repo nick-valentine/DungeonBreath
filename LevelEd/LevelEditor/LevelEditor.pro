@@ -15,9 +15,11 @@ LIBS += -lsfml-system -lsfml-graphics -lsfml-window
 
 SOURCES += main.cpp\
         toolswindow.cpp \
-    tileboard.cpp
+    tileboard.cpp \
+    actorboard.cpp
 
 HEADERS  += toolswindow.h \
-    tileboard.h
+    tileboard.h \
+    actorboard.h
 
 FORMS    += toolswindow.ui
