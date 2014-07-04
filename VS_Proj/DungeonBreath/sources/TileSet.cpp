@@ -90,10 +90,12 @@ void TileSet::init(std::string filename, int xpos, int ypos)
 			str>>substr;
 			if(substr == "sides")
 			{
-				int s1, s2;
-				str>>s1>>s2;
+				int s1, s2, s3, s4;
+				str>>s1>>s2>>s3>>s4;
 				left_door_type = s1;
 				top_door_type = s2;
+				right_door_type = s3;
+				bottom_door_type = s4;
 			}
 			else if(substr == "hero")
 			{
@@ -212,15 +214,15 @@ void TileSet::init(std::string filename, int xpos, int ypos)
 				factory_groups.push_back(g);
 			}
 		}
+	}
+	for(int i = 0; i <  my_factories.size(); ++i)
+	{
 		
-		for(int i = 0; i <  my_factories.size(); ++i)
+		for(int j = 0; j < actors.size(); ++j)
 		{
-			for(int j = 0; j < actors.size(); ++j)
+			if(actor_groups[j] == factory_groups[i])
 			{
-				if(actor_groups[j] == factory_groups[i])
-				{
-					 my_factories[i].add_actor(actors[j], spawn_intervals[j], spawn_frequencies[j]);
-				}
+				my_factories[i].add_actor(actors[j], spawn_intervals[j], spawn_frequencies[j]);
 			}
 		}
 	}
@@ -250,7 +252,7 @@ void TileSet::update(int delta)
 
 void TileSet::draw_tiles(sf::RenderWindow &window)
 {
-	for(int i = 0; i < my_tiles.size(); ++i)
+    for(int i = 0; i < my_tiles.size(); ++i)
     {
         my_tiles[i]->draw(window);
     }
@@ -267,6 +269,37 @@ void TileSet::draw_actors(sf::RenderWindow &window)
     {
     	my_factories[i].draw(window);
     }
+}
+
+void TileSet::move(int dx, int dy)
+{
+	for(int i = 0; i < my_tiles.size(); ++i)
+	{
+		my_tiles[i]->set_rect(
+				sf::Rect<int>(
+					my_tiles[i]->get_rect().left + dx,
+					my_tiles[i]->get_rect().top + dy,
+					my_tiles[i]->get_rect().width,
+					my_tiles[i]->get_rect().height
+					)
+				      );
+	}
+	for(int i = 0; i < my_actors.size(); ++i)
+	{
+		my_actors[i]->set_rect(
+				sf::Rect<int>(
+					my_actors[i]->get_rect().left + dx,
+					my_actors[i]->get_rect().top + dy,
+					my_actors[i]->get_rect().width,
+					my_actors[i]->get_rect().height
+					 )
+					);
+	}
+
+	for(int i = 0; i < my_factories.size(); ++i)
+	{
+		my_factories[i].move(dx, dy);
+	}
 }
 
 bool TileSet::ready() const

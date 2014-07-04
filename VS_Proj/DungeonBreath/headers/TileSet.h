@@ -26,13 +26,17 @@ class TileSet
  	void draw_tiles(sf::RenderWindow &window);
  	void draw_actors(sf::RenderWindow &window);
  	
+	void move(int dx, int dy);
+
  	bool ready() const;
  private:
  	int top;
  	int left;
  	
  	int top_door_type;
+	int bottom_door_type;
  	int left_door_type;
+	int right_door_type;
  	
  	bool my_ready;
  	

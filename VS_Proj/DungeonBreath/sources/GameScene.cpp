@@ -25,9 +25,17 @@ void GameScene::init(int width, int height)
 
 	my_tilesets.push_back(new TileSet);
 	my_tilesets[my_tilesets.size() - 1]->init("./gamedata/levels/level_one.txt", 0, 0);
+	my_tilesets[my_tilesets.size() - 1]->move(0, 0);
 	
 	my_tilesets.push_back(new TileSet);
-	my_tilesets[my_tilesets.size() - 1]->init("./gamedata/levels/level_two.txt", 10 * 50, 0);
+	//my_tilesets[my_tilesets.size() - 1]->init("./gamedata/levels/level_two.txt", 16 * 50, 0);
+	my_tilesets[my_tilesets.size() - 1]->init("./gamedata/levels/level_two.txt", 0, 0);
+	my_tilesets[my_tilesets.size() - 1]->move(16 * 50 * 2, 0);
+
+	my_tilesets.push_back(new TileSet);
+	//my_tilesets[my_tilesets.size() - 1]->init("./gamedata/levels/level_three.txt", 16 * 50 * 2, 0);
+	my_tilesets[my_tilesets.size() - 1]->init("./gamedata/levels/level_three.txt", 0, 0);
+	my_tilesets[my_tilesets.size() - 1]->move(16 * 50 , 0);
 	
 	hero_found = false;
 	std::vector<Actor *>* all_actors = Actor::get_all_actors();

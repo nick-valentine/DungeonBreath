@@ -35,6 +35,8 @@ class ActorFactory
     void reset_spawn_count();
     void set_num_to_keep_alive(int x);
     void set_trigger(Trigger* x);
+
+    void move(int dx, int dy);
  private:
     std::vector<Actor *> actors_to_clone;
     std::vector<int> spawn_intervals; //0 for no auto-spawning

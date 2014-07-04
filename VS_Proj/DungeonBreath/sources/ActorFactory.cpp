@@ -152,5 +152,27 @@ void ActorFactory::set_trigger(Trigger* x)
     this->my_trigger = x;
 }
 
+void ActorFactory::move(int dx, int dy)
+{
+	for(int i = 0; i < actors_to_clone.size(); ++i)
+	{
+		actors_to_clone[i]->set_rect(
+					sf::Rect<int>(
+						actors_to_clone[i]->get_rect().left + dx,
+						actors_to_clone[i]->get_rect().top + dy,
+						actors_to_clone[i]->get_rect().width,
+						actors_to_clone[i]->get_rect().height
+						)
+					);
+	}
 
+	my_trigger->set_rect(
+                    sf::Rect<int>(
+                        	my_trigger->get_rect().left + dx,
+                       		my_trigger->get_rect().top + dy,
+		                my_trigger->get_rect().width,
+                        	my_trigger->get_rect().height
+                        	    )
+			            );
+}
 
