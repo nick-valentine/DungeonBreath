@@ -14,8 +14,10 @@ TEMPLATE = app
 LIBS += -lsfml-system -lsfml-graphics -lsfml-window
 
 SOURCES += main.cpp\
-        toolswindow.cpp
+        toolswindow.cpp \
+    tileboard.cpp
 
-HEADERS  += toolswindow.h
+HEADERS  += toolswindow.h \
+    tileboard.h
 
 FORMS    += toolswindow.ui

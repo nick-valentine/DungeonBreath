@@ -15,8 +15,15 @@ public:
     explicit ToolsWindow(QWidget *parent = 0);
     ~ToolsWindow();
 
+    int get_active_tile_index();
+
 private:
     Ui::ToolsWindow *ui;
+
+    int active_tile_index;
+
+public slots:
+    void TileSelectorChange(int index);
 };
 
 #endif // TOOLSWINDOW_H
