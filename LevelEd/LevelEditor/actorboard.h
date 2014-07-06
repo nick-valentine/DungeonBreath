@@ -9,15 +9,25 @@
 class ActorBoard
 {
 public:
+    enum trigger_type
+    {
+        Latch,
+        Switch,
+        Press
+    };
+
     struct factory_info
     {
         int group;
         int spawn_frequency;
-        int max_spawn_rate;
+        int num_to_spawn;
+        int num_to_keep_alive;
+        trigger_type trigger;
     };
 
     enum actor
     {
+        ActorFactory,
         Player,
         EnemyFollower,
         StoneWallBottom,
@@ -39,7 +49,10 @@ public:
     void set_active_actor(actor new_active);
     actor get_active_actor();
 
-    void set_factory_info(factory_info);
+    bool get_add_to_factory();
+    void set_add_to_factory(bool add);
+
+    void set_factory_info(factory_info new_factory);
     factory_info get_factory_info();
 
     void update(sf::RenderWindow &window);

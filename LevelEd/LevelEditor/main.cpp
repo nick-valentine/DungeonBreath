@@ -1,5 +1,6 @@
 #include "toolswindow.h"
 #include "tileboard.h"
+#include "actorboard.h"
 
 #include <QApplication>
 #include <SFML/Graphics.hpp>
@@ -27,8 +28,11 @@ void sfml(ToolsWindow *tools)
 {
     sf::RenderWindow window(sf::VideoMode(400, 400), "Level Editor");
 
-    TileBoard my_board;
-    my_board.init();
+    TileBoard my_tiles;
+    my_tiles.init();
+
+    ActorBoard my_actors;
+    my_actors.init();
 
     while(window.isOpen())
     {
@@ -41,12 +45,22 @@ void sfml(ToolsWindow *tools)
                 exit(0);
             }
         }
-        my_board.set_active_tile((TileBoard::Tile)tools->get_active_tile_index());
+        my_tiles.set_active_tile((TileBoard::Tile)tools->get_active_tile_index());
+        my_actors.set_add_to_factory(tools->get_add_to_factory());
+        my_actors.set_factory_info(tools->get_factory());
 
-        my_board.update(window);
+        if(tools->get_active_mode() == ToolsWindow::MODE_TILE)
+        {
+            my_tiles.update(window);
+        }
+        else if(tools->get_active_mode() == ToolsWindow::MODE_ACTOR)
+        {
+            my_actors.update(window);
+        }
 
         window.clear();
-        my_board.draw(window);
+        my_tiles.draw(window);
+        my_actors.draw(window);
         window.display();
     }
 }

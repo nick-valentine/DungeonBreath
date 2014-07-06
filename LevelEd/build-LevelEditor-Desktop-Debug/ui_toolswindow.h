@@ -13,7 +13,9 @@
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
+#include <QtGui/QCheckBox>
 #include <QtGui/QComboBox>
+#include <QtGui/QFrame>
 #include <QtGui/QGroupBox>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
@@ -21,6 +23,7 @@
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
 #include <QtGui/QRadioButton>
+#include <QtGui/QSpinBox>
 #include <QtGui/QStatusBar>
 #include <QtGui/QToolBar>
 #include <QtGui/QWidget>
@@ -33,12 +36,27 @@ public:
     QAction *actionSave;
     QWidget *centralWidget;
     QComboBox *TileSelector;
-    QComboBox *comboBox;
-    QLabel *label;
-    QLabel *label_2;
-    QGroupBox *groupBox;
-    QRadioButton *radioButton;
-    QRadioButton *radioButton_2;
+    QComboBox *ActorSelector;
+    QLabel *SetTileLabel;
+    QLabel *AddActorLabel;
+    QGroupBox *Mode;
+    QRadioButton *ModeTiles;
+    QRadioButton *ModeActors;
+    QRadioButton *ModeNone;
+    QSpinBox *Group;
+    QLabel *GroupLabel;
+    QLabel *ActorFactoryLabel;
+    QFrame *line;
+    QLabel *SpawnFrequencyLabel;
+    QSpinBox *Frequency;
+    QLabel *MicrosecondsLabel;
+    QLabel *TriggerTypeLabel;
+    QComboBox *TriggerSelector;
+    QLabel *NumToKeepAliveLabel;
+    QSpinBox *NumToKeepAlive;
+    QLabel *NumToSpawnLabel;
+    QSpinBox *NumToSpawn;
+    QCheckBox *AddToFactory;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
     QMenuBar *menuBar;
@@ -48,42 +66,91 @@ public:
     {
         if (ToolsWindow->objectName().isEmpty())
             ToolsWindow->setObjectName(QString::fromUtf8("ToolsWindow"));
-        ToolsWindow->resize(277, 528);
+        ToolsWindow->resize(191, 652);
         actionSave = new QAction(ToolsWindow);
         actionSave->setObjectName(QString::fromUtf8("actionSave"));
         centralWidget = new QWidget(ToolsWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         TileSelector = new QComboBox(centralWidget);
         TileSelector->setObjectName(QString::fromUtf8("TileSelector"));
-        TileSelector->setGeometry(QRect(10, 50, 151, 27));
-        comboBox = new QComboBox(centralWidget);
-        comboBox->setObjectName(QString::fromUtf8("comboBox"));
-        comboBox->setGeometry(QRect(10, 120, 151, 27));
-        label = new QLabel(centralWidget);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(10, 30, 67, 17));
-        label_2 = new QLabel(centralWidget);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(10, 100, 67, 17));
-        groupBox = new QGroupBox(centralWidget);
-        groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(10, 160, 120, 80));
-        radioButton = new QRadioButton(groupBox);
-        radioButton->setObjectName(QString::fromUtf8("radioButton"));
-        radioButton->setGeometry(QRect(0, 20, 117, 22));
-        radioButton_2 = new QRadioButton(groupBox);
-        radioButton_2->setObjectName(QString::fromUtf8("radioButton_2"));
-        radioButton_2->setGeometry(QRect(0, 50, 117, 22));
+        TileSelector->setGeometry(QRect(10, 20, 171, 27));
+        ActorSelector = new QComboBox(centralWidget);
+        ActorSelector->setObjectName(QString::fromUtf8("ActorSelector"));
+        ActorSelector->setGeometry(QRect(10, 70, 171, 27));
+        SetTileLabel = new QLabel(centralWidget);
+        SetTileLabel->setObjectName(QString::fromUtf8("SetTileLabel"));
+        SetTileLabel->setGeometry(QRect(0, 0, 67, 17));
+        AddActorLabel = new QLabel(centralWidget);
+        AddActorLabel->setObjectName(QString::fromUtf8("AddActorLabel"));
+        AddActorLabel->setGeometry(QRect(0, 50, 67, 17));
+        Mode = new QGroupBox(centralWidget);
+        Mode->setObjectName(QString::fromUtf8("Mode"));
+        Mode->setGeometry(QRect(10, 100, 161, 111));
+        ModeTiles = new QRadioButton(Mode);
+        ModeTiles->setObjectName(QString::fromUtf8("ModeTiles"));
+        ModeTiles->setGeometry(QRect(0, 50, 117, 22));
+        ModeActors = new QRadioButton(Mode);
+        ModeActors->setObjectName(QString::fromUtf8("ModeActors"));
+        ModeActors->setGeometry(QRect(0, 80, 117, 22));
+        ModeNone = new QRadioButton(Mode);
+        ModeNone->setObjectName(QString::fromUtf8("ModeNone"));
+        ModeNone->setGeometry(QRect(0, 20, 117, 22));
+        ModeNone->setChecked(true);
+        Group = new QSpinBox(centralWidget);
+        Group->setObjectName(QString::fromUtf8("Group"));
+        Group->setGeometry(QRect(10, 300, 171, 27));
+        GroupLabel = new QLabel(centralWidget);
+        GroupLabel->setObjectName(QString::fromUtf8("GroupLabel"));
+        GroupLabel->setGeometry(QRect(0, 280, 67, 17));
+        ActorFactoryLabel = new QLabel(centralWidget);
+        ActorFactoryLabel->setObjectName(QString::fromUtf8("ActorFactoryLabel"));
+        ActorFactoryLabel->setGeometry(QRect(10, 220, 181, 16));
+        line = new QFrame(centralWidget);
+        line->setObjectName(QString::fromUtf8("line"));
+        line->setGeometry(QRect(0, 210, 191, 20));
+        line->setFrameShape(QFrame::HLine);
+        line->setFrameShadow(QFrame::Sunken);
+        SpawnFrequencyLabel = new QLabel(centralWidget);
+        SpawnFrequencyLabel->setObjectName(QString::fromUtf8("SpawnFrequencyLabel"));
+        SpawnFrequencyLabel->setGeometry(QRect(10, 520, 121, 16));
+        Frequency = new QSpinBox(centralWidget);
+        Frequency->setObjectName(QString::fromUtf8("Frequency"));
+        Frequency->setGeometry(QRect(10, 560, 171, 27));
+        MicrosecondsLabel = new QLabel(centralWidget);
+        MicrosecondsLabel->setObjectName(QString::fromUtf8("MicrosecondsLabel"));
+        MicrosecondsLabel->setGeometry(QRect(10, 540, 111, 17));
+        TriggerTypeLabel = new QLabel(centralWidget);
+        TriggerTypeLabel->setObjectName(QString::fromUtf8("TriggerTypeLabel"));
+        TriggerTypeLabel->setGeometry(QRect(10, 340, 121, 17));
+        TriggerSelector = new QComboBox(centralWidget);
+        TriggerSelector->setObjectName(QString::fromUtf8("TriggerSelector"));
+        TriggerSelector->setGeometry(QRect(10, 360, 171, 27));
+        NumToKeepAliveLabel = new QLabel(centralWidget);
+        NumToKeepAliveLabel->setObjectName(QString::fromUtf8("NumToKeepAliveLabel"));
+        NumToKeepAliveLabel->setGeometry(QRect(10, 400, 151, 17));
+        NumToKeepAlive = new QSpinBox(centralWidget);
+        NumToKeepAlive->setObjectName(QString::fromUtf8("NumToKeepAlive"));
+        NumToKeepAlive->setGeometry(QRect(10, 420, 171, 27));
+        NumToSpawnLabel = new QLabel(centralWidget);
+        NumToSpawnLabel->setObjectName(QString::fromUtf8("NumToSpawnLabel"));
+        NumToSpawnLabel->setGeometry(QRect(10, 460, 131, 17));
+        NumToSpawn = new QSpinBox(centralWidget);
+        NumToSpawn->setObjectName(QString::fromUtf8("NumToSpawn"));
+        NumToSpawn->setGeometry(QRect(10, 480, 171, 27));
+        AddToFactory = new QCheckBox(centralWidget);
+        AddToFactory->setObjectName(QString::fromUtf8("AddToFactory"));
+        AddToFactory->setGeometry(QRect(0, 250, 131, 22));
         ToolsWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(ToolsWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
         ToolsWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
+        ToolsWindow->insertToolBarBreak(mainToolBar);
         statusBar = new QStatusBar(ToolsWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         ToolsWindow->setStatusBar(statusBar);
         menuBar = new QMenuBar(ToolsWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 277, 25));
+        menuBar->setGeometry(QRect(0, 0, 191, 25));
         menuOptions = new QMenu(menuBar);
         menuOptions->setObjectName(QString::fromUtf8("menuOptions"));
         ToolsWindow->setMenuBar(menuBar);
@@ -105,8 +172,9 @@ public:
          << QApplication::translate("ToolsWindow", "Wood", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("ToolsWindow", "Stone", 0, QApplication::UnicodeUTF8)
         );
-        comboBox->clear();
-        comboBox->insertItems(0, QStringList()
+        ActorSelector->clear();
+        ActorSelector->insertItems(0, QStringList()
+         << QApplication::translate("ToolsWindow", "ActorFactory", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("ToolsWindow", "Player", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("ToolsWindow", "EnemyFollower", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("ToolsWindow", "StoneWallBottom", 0, QApplication::UnicodeUTF8)
@@ -114,11 +182,26 @@ public:
          << QApplication::translate("ToolsWindow", "StoneWallCorner", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("ToolsWindow", "Treasure", 0, QApplication::UnicodeUTF8)
         );
-        label->setText(QApplication::translate("ToolsWindow", "Set Tile", 0, QApplication::UnicodeUTF8));
-        label_2->setText(QApplication::translate("ToolsWindow", "Add Actor", 0, QApplication::UnicodeUTF8));
-        groupBox->setTitle(QApplication::translate("ToolsWindow", "Mode", 0, QApplication::UnicodeUTF8));
-        radioButton->setText(QApplication::translate("ToolsWindow", "Set Tiles", 0, QApplication::UnicodeUTF8));
-        radioButton_2->setText(QApplication::translate("ToolsWindow", "Add Actors", 0, QApplication::UnicodeUTF8));
+        SetTileLabel->setText(QApplication::translate("ToolsWindow", "Set Tile", 0, QApplication::UnicodeUTF8));
+        AddActorLabel->setText(QApplication::translate("ToolsWindow", "Add Actor", 0, QApplication::UnicodeUTF8));
+        Mode->setTitle(QApplication::translate("ToolsWindow", "Mode", 0, QApplication::UnicodeUTF8));
+        ModeTiles->setText(QApplication::translate("ToolsWindow", "Set Tiles", 0, QApplication::UnicodeUTF8));
+        ModeActors->setText(QApplication::translate("ToolsWindow", "Add Actors", 0, QApplication::UnicodeUTF8));
+        ModeNone->setText(QApplication::translate("ToolsWindow", "None", 0, QApplication::UnicodeUTF8));
+        GroupLabel->setText(QApplication::translate("ToolsWindow", "Group", 0, QApplication::UnicodeUTF8));
+        ActorFactoryLabel->setText(QApplication::translate("ToolsWindow", "Actor Factory Information", 0, QApplication::UnicodeUTF8));
+        SpawnFrequencyLabel->setText(QApplication::translate("ToolsWindow", "Spawn Frequency", 0, QApplication::UnicodeUTF8));
+        MicrosecondsLabel->setText(QApplication::translate("ToolsWindow", "(Microseconds)", 0, QApplication::UnicodeUTF8));
+        TriggerTypeLabel->setText(QApplication::translate("ToolsWindow", "Trigger Type", 0, QApplication::UnicodeUTF8));
+        TriggerSelector->clear();
+        TriggerSelector->insertItems(0, QStringList()
+         << QApplication::translate("ToolsWindow", "Latch", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("ToolsWindow", "Switch", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("ToolsWindow", "Press", 0, QApplication::UnicodeUTF8)
+        );
+        NumToKeepAliveLabel->setText(QApplication::translate("ToolsWindow", "Number To Keep Alive", 0, QApplication::UnicodeUTF8));
+        NumToSpawnLabel->setText(QApplication::translate("ToolsWindow", "Number To Spawn", 0, QApplication::UnicodeUTF8));
+        AddToFactory->setText(QApplication::translate("ToolsWindow", "Add To Factory", 0, QApplication::UnicodeUTF8));
         menuOptions->setTitle(QApplication::translate("ToolsWindow", "Options", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
