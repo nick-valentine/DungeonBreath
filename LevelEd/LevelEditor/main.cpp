@@ -46,6 +46,7 @@ void sfml(ToolsWindow *tools)
             }
         }
         my_tiles.set_active_tile((TileBoard::Tile)tools->get_active_tile_index());
+        my_actors.set_active_actor((ActorBoard::actor)tools->get_active_actor_index());
         my_actors.set_add_to_factory(tools->get_add_to_factory());
         my_actors.set_factory_info(tools->get_factory());
 

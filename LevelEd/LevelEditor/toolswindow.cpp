@@ -9,6 +9,7 @@ ToolsWindow::ToolsWindow(QWidget *parent) :
 
     this->active_mode = 0;
     this->active_tile_index = 0;
+    this->active_actor_index = 0;
 
     QObject::connect(ui->TileSelector, SIGNAL(currentIndexChanged(int)),
                           this, SLOT(TileSelectorChange(int)));
@@ -18,6 +19,9 @@ ToolsWindow::ToolsWindow(QWidget *parent) :
 
     QObject::connect(ui->ModeTiles, SIGNAL(clicked(bool)),
                             this, SLOT(modeTile(bool)));
+
+    QObject::connect(ui->ActorSelector, SIGNAL(currentIndexChanged(int)),
+                            this, SLOT(ActorSelectorChange(int)));
 
     QObject::connect(ui->ModeActors, SIGNAL(clicked(bool)),
                             this, SLOT(modeActor(bool)));
@@ -39,6 +43,9 @@ ToolsWindow::ToolsWindow(QWidget *parent) :
 
     QObject::connect(ui->Frequency, SIGNAL(valueChanged(int)),
                             this, SLOT(setSpawnFrequency(int)));
+
+    QObject::connect(ui->actionSave, SIGNAL(triggered()),
+                            this, SLOT(Saved()));
 }
 
 ToolsWindow::~ToolsWindow()
@@ -49,6 +56,11 @@ ToolsWindow::~ToolsWindow()
 int ToolsWindow::get_active_tile_index()
 {
     return this->active_tile_index;
+}
+
+int ToolsWindow::get_active_actor_index()
+{
+    return this->active_actor_index;
 }
 
 int ToolsWindow::get_active_mode()
@@ -69,6 +81,11 @@ ActorBoard::factory_info ToolsWindow::get_factory()
 void ToolsWindow::TileSelectorChange(int index)
 {
     this->active_tile_index = index;
+}
+
+void ToolsWindow::ActorSelectorChange(int index)
+{
+    this->active_actor_index = index;
 }
 
 void ToolsWindow::modeNone(bool checked)
@@ -123,4 +140,9 @@ void ToolsWindow::setNumToSpawn(int num)
 void ToolsWindow::setSpawnFrequency(int num)
 {
     this->my_info.spawn_frequency = num;
+}
+
+void ToolsWindow::Saved()
+{
+    std::cout<<"Saved!\n";
 }

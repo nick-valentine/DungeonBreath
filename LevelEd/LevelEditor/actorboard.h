@@ -3,8 +3,10 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <iostream>
 #include <vector>
 #include <string>
+#include <sstream>
 
 class ActorBoard
 {
@@ -65,21 +67,27 @@ private:
 
     sf::IntRect my_sides;
 
-    sf::Texture my_walls;
     std::vector<sf::Texture> my_actors;
 
     std::vector<sf::Sprite> my_sprites;
+    std::vector<actor> board_actors;
     std::vector<sf::IntRect> actor_factories;
-    std::vector<int> actor_factory_groups;
+    std::vector<factory_info> actor_factory_info;
 
     std::vector<sf::Sprite> actors_for_factories;
-    std::vector<sf::Sprite> actor_groups;
+    std::vector<int> actor_groups;
+    std::vector<int> actor_spawn_frequencies;
 
     int active_actor;
     sf::Sprite active_sprite;
 
     bool adding_to_factory;
     factory_info current_factory_info;
+
+    bool last_left_mouse_button;
+    bool dragging;
+    int start_drag_x;
+    int start_drag_y;
 };
 
 #endif // ACTORBOARD_H

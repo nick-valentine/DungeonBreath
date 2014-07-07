@@ -79,10 +79,10 @@ public:
         ActorSelector->setGeometry(QRect(10, 70, 171, 27));
         SetTileLabel = new QLabel(centralWidget);
         SetTileLabel->setObjectName(QString::fromUtf8("SetTileLabel"));
-        SetTileLabel->setGeometry(QRect(0, 0, 67, 17));
+        SetTileLabel->setGeometry(QRect(10, 0, 67, 17));
         AddActorLabel = new QLabel(centralWidget);
         AddActorLabel->setObjectName(QString::fromUtf8("AddActorLabel"));
-        AddActorLabel->setGeometry(QRect(0, 50, 67, 17));
+        AddActorLabel->setGeometry(QRect(10, 50, 67, 17));
         Mode = new QGroupBox(centralWidget);
         Mode->setObjectName(QString::fromUtf8("Mode"));
         Mode->setGeometry(QRect(10, 100, 161, 111));
@@ -99,9 +99,10 @@ public:
         Group = new QSpinBox(centralWidget);
         Group->setObjectName(QString::fromUtf8("Group"));
         Group->setGeometry(QRect(10, 300, 171, 27));
+        Group->setMaximum(99999);
         GroupLabel = new QLabel(centralWidget);
         GroupLabel->setObjectName(QString::fromUtf8("GroupLabel"));
-        GroupLabel->setGeometry(QRect(0, 280, 67, 17));
+        GroupLabel->setGeometry(QRect(10, 280, 67, 17));
         ActorFactoryLabel = new QLabel(centralWidget);
         ActorFactoryLabel->setObjectName(QString::fromUtf8("ActorFactoryLabel"));
         ActorFactoryLabel->setGeometry(QRect(10, 220, 181, 16));
@@ -116,6 +117,7 @@ public:
         Frequency = new QSpinBox(centralWidget);
         Frequency->setObjectName(QString::fromUtf8("Frequency"));
         Frequency->setGeometry(QRect(10, 560, 171, 27));
+        Frequency->setMaximum(999999);
         MicrosecondsLabel = new QLabel(centralWidget);
         MicrosecondsLabel->setObjectName(QString::fromUtf8("MicrosecondsLabel"));
         MicrosecondsLabel->setGeometry(QRect(10, 540, 111, 17));
@@ -131,12 +133,14 @@ public:
         NumToKeepAlive = new QSpinBox(centralWidget);
         NumToKeepAlive->setObjectName(QString::fromUtf8("NumToKeepAlive"));
         NumToKeepAlive->setGeometry(QRect(10, 420, 171, 27));
+        NumToKeepAlive->setMaximum(99999);
         NumToSpawnLabel = new QLabel(centralWidget);
         NumToSpawnLabel->setObjectName(QString::fromUtf8("NumToSpawnLabel"));
         NumToSpawnLabel->setGeometry(QRect(10, 460, 131, 17));
         NumToSpawn = new QSpinBox(centralWidget);
         NumToSpawn->setObjectName(QString::fromUtf8("NumToSpawn"));
         NumToSpawn->setGeometry(QRect(10, 480, 171, 27));
+        NumToSpawn->setMaximum(99999);
         AddToFactory = new QCheckBox(centralWidget);
         AddToFactory->setObjectName(QString::fromUtf8("AddToFactory"));
         AddToFactory->setGeometry(QRect(0, 250, 131, 22));
@@ -144,7 +148,6 @@ public:
         mainToolBar = new QToolBar(ToolsWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
         ToolsWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
-        ToolsWindow->insertToolBarBreak(mainToolBar);
         statusBar = new QStatusBar(ToolsWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         ToolsWindow->setStatusBar(statusBar);

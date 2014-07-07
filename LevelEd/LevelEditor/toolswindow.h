@@ -21,6 +21,7 @@ public:
     ~ToolsWindow();
 
     int get_active_tile_index();
+    int get_active_actor_index();
     int get_active_mode();
     bool get_add_to_factory();
     ActorBoard::factory_info get_factory();
@@ -29,12 +30,14 @@ private:
     Ui::ToolsWindow *ui;
 
     int active_tile_index;
+    int active_actor_index;
     int active_mode;
     ActorBoard::factory_info my_info;
     bool add_to_factory;
 
 public slots:
     void TileSelectorChange(int index);
+    void ActorSelectorChange(int index);
     void modeNone(bool checked);
     void modeTile(bool checked);
     void modeActor(bool checked);
@@ -45,6 +48,8 @@ public slots:
     void setNumToKeepAlive(int num);
     void setNumToSpawn(int num);
     void setSpawnFrequency(int num);
+
+    void Saved();
 };
 
 #endif // TOOLSWINDOW_H
