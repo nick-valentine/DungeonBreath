@@ -11,6 +11,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = LevelEditor
 TEMPLATE = app
 
+#on linux comment out with #
+INCLUDEPATH = C:\Qt\Qt5.3.1\Tools\mingw482_32\include
+
 LIBS += -lsfml-system -lsfml-graphics -lsfml-window
 
 SOURCES += main.cpp\
