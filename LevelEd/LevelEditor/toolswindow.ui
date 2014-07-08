@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>191</width>
-    <height>652</height>
+    <height>716</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -216,7 +216,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>520</y>
+      <y>580</y>
       <width>121</width>
       <height>16</height>
      </rect>
@@ -229,7 +229,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>560</y>
+      <y>620</y>
       <width>171</width>
       <height>27</height>
      </rect>
@@ -242,7 +242,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>540</y>
+      <y>600</y>
       <width>111</width>
       <height>17</height>
      </rect>
@@ -255,7 +255,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>340</y>
+      <y>400</y>
       <width>121</width>
       <height>17</height>
      </rect>
@@ -268,7 +268,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>360</y>
+      <y>420</y>
       <width>171</width>
       <height>27</height>
      </rect>
@@ -293,7 +293,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>400</y>
+      <y>460</y>
       <width>151</width>
       <height>17</height>
      </rect>
@@ -306,7 +306,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>420</y>
+      <y>480</y>
       <width>171</width>
       <height>27</height>
      </rect>
@@ -319,7 +319,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>460</y>
+      <y>520</y>
       <width>131</width>
       <height>17</height>
      </rect>
@@ -332,7 +332,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>480</y>
+      <y>540</y>
       <width>171</width>
       <height>27</height>
      </rect>
@@ -353,6 +353,69 @@
     <property name="text">
      <string>Add To Factory</string>
     </property>
+   </widget>
+   <widget class="QLabel" name="SensitivityLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>340</y>
+      <width>131</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Trigger Sensitivity</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="TriggerSensitivity">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>360</y>
+      <width>171</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>All</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Tile</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Player</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Block</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Enemy</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Spell</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Sword</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Trigger</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QToolBar" name="mainToolBar">

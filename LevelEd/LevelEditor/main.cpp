@@ -3,8 +3,12 @@
 #include "actorboard.h"
 
 #include <QApplication>
+#include <QFileDialog>
+#include <QObject>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
+
+#include <fstream>
 
 void sfml(ToolsWindow *tools);
 
@@ -57,6 +61,33 @@ void sfml(ToolsWindow *tools)
         else if(tools->get_active_mode() == ToolsWindow::MODE_ACTOR)
         {
             my_actors.update(window);
+        }
+
+        if(tools->get_save())
+        {
+            tools->reset_save();
+            std::vector<std::string> board_string = my_tiles.getBoardText();
+            std::vector<std::string> actor_string = my_actors.getBoardText();
+
+            std::ofstream ofile;
+            ofile.open("new_level.txt");
+
+            for(unsigned int i = 0; i < board_string.size(); ++i)
+            {
+                //std::cout<<board_string[i];
+                ofile<<board_string[i];
+            }
+
+            ofile<<"-\n";
+
+            for(unsigned int i = 0; i < actor_string.size(); ++i)
+            {
+                //std::cout<<actor_string[i];
+                ofile<<actor_string[i];
+            }
+            //std::cout<<std::endl;
+            ofile<<"\n";
+            ofile.close();
         }
 
         window.clear();

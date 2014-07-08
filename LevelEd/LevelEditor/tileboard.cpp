@@ -19,15 +19,37 @@ void TileBoard::init()
             temp.setPosition(sf::Vector2f(i * 25, j * 25));
             temp.setScale(0.25f, 0.25f);
             my_board.push_back(temp);
+            board_labels.push_back(wood);
         }
     }
 
     active_tile = stone;
 }
 
-std::vector<char> TileBoard::getBoardText()
+std::vector<std::string> TileBoard::getBoardText()
 {
-    return std::vector<char>();
+    std::vector<std::string> return_val;
+    std::string temp = "";
+
+    for(int j = 0; j < height; ++j)
+    {
+        for(int i = 0; i < width; ++i)
+        {
+            if(board_labels[(i * width) + j] == wood)
+            {
+                temp += "w";
+            }
+            else if(board_labels[(i * width) + j] == stone)
+            {
+                temp += "t";
+            }
+        }
+        temp += "\n";
+        return_val.push_back(temp);
+        temp = "";
+    }
+
+    return return_val;
 }
 
 TileBoard::Tile TileBoard::get_active_tile()
@@ -51,10 +73,12 @@ void TileBoard::update(sf::RenderWindow &window)
                 if(active_tile == wood)
                 {
                     my_board[i].setTextureRect(sf::IntRect(0, 0, 100, 100));
+                    board_labels[i] = wood;
                 }
                 else if(active_tile == stone)
                 {
                     my_board[i].setTextureRect(sf::IntRect(100, 0, 100, 100));
+                    board_labels[i] = stone;
                 }
             }
         }

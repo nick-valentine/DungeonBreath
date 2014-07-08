@@ -10,6 +10,7 @@ ToolsWindow::ToolsWindow(QWidget *parent) :
     this->active_mode = 0;
     this->active_tile_index = 0;
     this->active_actor_index = 0;
+    this->save = false;
 
     QObject::connect(ui->TileSelector, SIGNAL(currentIndexChanged(int)),
                           this, SLOT(TileSelectorChange(int)));
@@ -31,6 +32,9 @@ ToolsWindow::ToolsWindow(QWidget *parent) :
 
     QObject::connect(ui->Group, SIGNAL(valueChanged(int)),
                             this, SLOT(setGroup(int)));
+
+    QObject::connect(ui->TriggerSensitivity, SIGNAL(currentIndexChanged(int)),
+                            this, SLOT(setTriggerSensitivity(int)));
 
     QObject::connect(ui->TriggerSelector, SIGNAL(currentIndexChanged(int)),
                             this, SLOT(setTriggerType(int)));
@@ -76,6 +80,16 @@ bool ToolsWindow::get_add_to_factory()
 ActorBoard::factory_info ToolsWindow::get_factory()
 {
     return this->my_info;
+}
+
+bool ToolsWindow::get_save()
+{
+    return this->save;
+}
+
+void ToolsWindow::reset_save()
+{
+    this->save = false;
 }
 
 void ToolsWindow::TileSelectorChange(int index)
@@ -142,7 +156,12 @@ void ToolsWindow::setSpawnFrequency(int num)
     this->my_info.spawn_frequency = num;
 }
 
+void ToolsWindow::setTriggerSensitivity(int num)
+{
+    this->my_info.trigger_sensitivity = (ActorBoard::trigger_switcher)num;
+}
+
 void ToolsWindow::Saved()
 {
-    std::cout<<"Saved!\n";
+    this->save = true;
 }

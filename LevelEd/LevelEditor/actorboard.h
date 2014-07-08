@@ -18,6 +18,18 @@ public:
         Press
     };
 
+    enum trigger_switcher
+    {
+        All = 0,
+        Tile = 1,
+        TPlayer = 2,
+        Block = 3,
+        Enemy = 4,
+        Spell = 5,
+        Sword = 6,
+        Trigger = 7
+    };
+
     struct factory_info
     {
         int group;
@@ -25,12 +37,13 @@ public:
         int num_to_spawn;
         int num_to_keep_alive;
         trigger_type trigger;
+        trigger_switcher trigger_sensitivity;
     };
 
     enum actor
     {
         ActorFactory,
-        Player,
+        APlayer,
         EnemyFollower,
         StoneWallBottom,
         StoneWallSide,
@@ -77,6 +90,7 @@ private:
     std::vector<sf::Sprite> actors_for_factories;
     std::vector<int> actor_groups;
     std::vector<int> actor_spawn_frequencies;
+    std::vector<int> board_actors_factories;
 
     int active_actor;
     sf::Sprite active_sprite;

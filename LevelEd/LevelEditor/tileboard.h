@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <string>
 #include <iostream>
 
 class TileBoard
@@ -19,7 +20,7 @@ public:
 
     void init();
 
-    std::vector<char> getBoardText();
+    std::vector<std::string> getBoardText();
     Tile get_active_tile();
     void set_active_tile(Tile newTile);
 
@@ -34,6 +35,7 @@ private:
 
     sf::Texture my_tex;
     std::vector<sf::Sprite> my_board;
+    std::vector<Tile> board_labels;
 
     Tile active_tile;
 };

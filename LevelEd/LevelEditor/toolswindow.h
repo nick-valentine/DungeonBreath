@@ -25,6 +25,8 @@ public:
     int get_active_mode();
     bool get_add_to_factory();
     ActorBoard::factory_info get_factory();
+    bool get_save();
+    void reset_save();
 
 private:
     Ui::ToolsWindow *ui;
@@ -34,6 +36,7 @@ private:
     int active_mode;
     ActorBoard::factory_info my_info;
     bool add_to_factory;
+    bool save;
 
 public slots:
     void TileSelectorChange(int index);
@@ -48,6 +51,7 @@ public slots:
     void setNumToKeepAlive(int num);
     void setNumToSpawn(int num);
     void setSpawnFrequency(int num);
+    void setTriggerSensitivity(int num);
 
     void Saved();
 };

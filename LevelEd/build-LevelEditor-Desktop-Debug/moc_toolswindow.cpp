@@ -22,7 +22,7 @@ static const uint qt_meta_data_ToolsWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      13,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -41,7 +41,8 @@ static const uint qt_meta_data_ToolsWindow[] = {
      185,  181,   12,   12, 0x0a,
      208,  181,   12,   12, 0x0a,
      227,  181,   12,   12, 0x0a,
-     250,   12,   12,   12, 0x0a,
+     250,  181,   12,   12, 0x0a,
+     277,   12,   12,   12, 0x0a,
 
        0        // eod
 };
@@ -54,7 +55,7 @@ static const char qt_meta_stringdata_ToolsWindow[] = {
     "group\0setGroup(int)\0setTriggerType(int)\0"
     "num\0setNumToKeepAlive(int)\0"
     "setNumToSpawn(int)\0setSpawnFrequency(int)\0"
-    "Saved()\0"
+    "setTriggerSensitivity(int)\0Saved()\0"
 };
 
 void ToolsWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -74,7 +75,8 @@ void ToolsWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 8: _t->setNumToKeepAlive((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 9: _t->setNumToSpawn((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 10: _t->setSpawnFrequency((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 11: _t->Saved(); break;
+        case 11: _t->setTriggerSensitivity((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 12: _t->Saved(); break;
         default: ;
         }
     }
@@ -112,9 +114,9 @@ int ToolsWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 13)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 13;
     }
     return _id;
 }

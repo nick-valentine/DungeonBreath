@@ -57,6 +57,8 @@ public:
     QLabel *NumToSpawnLabel;
     QSpinBox *NumToSpawn;
     QCheckBox *AddToFactory;
+    QLabel *SensitivityLabel;
+    QComboBox *TriggerSensitivity;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
     QMenuBar *menuBar;
@@ -66,7 +68,7 @@ public:
     {
         if (ToolsWindow->objectName().isEmpty())
             ToolsWindow->setObjectName(QString::fromUtf8("ToolsWindow"));
-        ToolsWindow->resize(191, 652);
+        ToolsWindow->resize(191, 716);
         actionSave = new QAction(ToolsWindow);
         actionSave->setObjectName(QString::fromUtf8("actionSave"));
         centralWidget = new QWidget(ToolsWindow);
@@ -113,37 +115,43 @@ public:
         line->setFrameShadow(QFrame::Sunken);
         SpawnFrequencyLabel = new QLabel(centralWidget);
         SpawnFrequencyLabel->setObjectName(QString::fromUtf8("SpawnFrequencyLabel"));
-        SpawnFrequencyLabel->setGeometry(QRect(10, 520, 121, 16));
+        SpawnFrequencyLabel->setGeometry(QRect(10, 580, 121, 16));
         Frequency = new QSpinBox(centralWidget);
         Frequency->setObjectName(QString::fromUtf8("Frequency"));
-        Frequency->setGeometry(QRect(10, 560, 171, 27));
+        Frequency->setGeometry(QRect(10, 620, 171, 27));
         Frequency->setMaximum(999999);
         MicrosecondsLabel = new QLabel(centralWidget);
         MicrosecondsLabel->setObjectName(QString::fromUtf8("MicrosecondsLabel"));
-        MicrosecondsLabel->setGeometry(QRect(10, 540, 111, 17));
+        MicrosecondsLabel->setGeometry(QRect(10, 600, 111, 17));
         TriggerTypeLabel = new QLabel(centralWidget);
         TriggerTypeLabel->setObjectName(QString::fromUtf8("TriggerTypeLabel"));
-        TriggerTypeLabel->setGeometry(QRect(10, 340, 121, 17));
+        TriggerTypeLabel->setGeometry(QRect(10, 400, 121, 17));
         TriggerSelector = new QComboBox(centralWidget);
         TriggerSelector->setObjectName(QString::fromUtf8("TriggerSelector"));
-        TriggerSelector->setGeometry(QRect(10, 360, 171, 27));
+        TriggerSelector->setGeometry(QRect(10, 420, 171, 27));
         NumToKeepAliveLabel = new QLabel(centralWidget);
         NumToKeepAliveLabel->setObjectName(QString::fromUtf8("NumToKeepAliveLabel"));
-        NumToKeepAliveLabel->setGeometry(QRect(10, 400, 151, 17));
+        NumToKeepAliveLabel->setGeometry(QRect(10, 460, 151, 17));
         NumToKeepAlive = new QSpinBox(centralWidget);
         NumToKeepAlive->setObjectName(QString::fromUtf8("NumToKeepAlive"));
-        NumToKeepAlive->setGeometry(QRect(10, 420, 171, 27));
+        NumToKeepAlive->setGeometry(QRect(10, 480, 171, 27));
         NumToKeepAlive->setMaximum(99999);
         NumToSpawnLabel = new QLabel(centralWidget);
         NumToSpawnLabel->setObjectName(QString::fromUtf8("NumToSpawnLabel"));
-        NumToSpawnLabel->setGeometry(QRect(10, 460, 131, 17));
+        NumToSpawnLabel->setGeometry(QRect(10, 520, 131, 17));
         NumToSpawn = new QSpinBox(centralWidget);
         NumToSpawn->setObjectName(QString::fromUtf8("NumToSpawn"));
-        NumToSpawn->setGeometry(QRect(10, 480, 171, 27));
+        NumToSpawn->setGeometry(QRect(10, 540, 171, 27));
         NumToSpawn->setMaximum(99999);
         AddToFactory = new QCheckBox(centralWidget);
         AddToFactory->setObjectName(QString::fromUtf8("AddToFactory"));
         AddToFactory->setGeometry(QRect(0, 250, 131, 22));
+        SensitivityLabel = new QLabel(centralWidget);
+        SensitivityLabel->setObjectName(QString::fromUtf8("SensitivityLabel"));
+        SensitivityLabel->setGeometry(QRect(10, 340, 131, 17));
+        TriggerSensitivity = new QComboBox(centralWidget);
+        TriggerSensitivity->setObjectName(QString::fromUtf8("TriggerSensitivity"));
+        TriggerSensitivity->setGeometry(QRect(10, 360, 171, 27));
         ToolsWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(ToolsWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -205,6 +213,18 @@ public:
         NumToKeepAliveLabel->setText(QApplication::translate("ToolsWindow", "Number To Keep Alive", 0, QApplication::UnicodeUTF8));
         NumToSpawnLabel->setText(QApplication::translate("ToolsWindow", "Number To Spawn", 0, QApplication::UnicodeUTF8));
         AddToFactory->setText(QApplication::translate("ToolsWindow", "Add To Factory", 0, QApplication::UnicodeUTF8));
+        SensitivityLabel->setText(QApplication::translate("ToolsWindow", "Trigger Sensitivity", 0, QApplication::UnicodeUTF8));
+        TriggerSensitivity->clear();
+        TriggerSensitivity->insertItems(0, QStringList()
+         << QApplication::translate("ToolsWindow", "All", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("ToolsWindow", "Tile", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("ToolsWindow", "Player", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("ToolsWindow", "Block", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("ToolsWindow", "Enemy", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("ToolsWindow", "Spell", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("ToolsWindow", "Sword", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("ToolsWindow", "Trigger", 0, QApplication::UnicodeUTF8)
+        );
         menuOptions->setTitle(QApplication::translate("ToolsWindow", "Options", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
