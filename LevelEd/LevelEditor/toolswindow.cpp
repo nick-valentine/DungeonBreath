@@ -21,6 +21,18 @@ ToolsWindow::ToolsWindow(QWidget *parent) :
     QObject::connect(ui->ModeTiles, SIGNAL(clicked(bool)),
                             this, SLOT(modeTile(bool)));
 
+    QObject::connect(ui->LeftInput, SIGNAL(valueChanged(int)),
+                            this, SLOT(setLeft(int)));
+
+    QObject::connect(ui->TopInput, SIGNAL(valueChanged(int)),
+                            this, SLOT(setTop(int)));
+
+    QObject::connect(ui->RightInput, SIGNAL(valueChanged(int)),
+                            this, SLOT(setRight(int)));
+
+    QObject::connect(ui->BottomInput, SIGNAL(valueChanged(int)),
+                            this, SLOT(setBottom(int)));
+
     QObject::connect(ui->ActorSelector, SIGNAL(currentIndexChanged(int)),
                             this, SLOT(ActorSelectorChange(int)));
 
@@ -92,6 +104,26 @@ void ToolsWindow::reset_save()
     this->save = false;
 }
 
+int ToolsWindow::get_left()
+{
+    return this->my_left;
+}
+
+int ToolsWindow::get_top()
+{
+    return this->my_top;
+}
+
+int ToolsWindow::get_right()
+{
+    return this->my_right;
+}
+
+int ToolsWindow::get_bottom()
+{
+    return this->my_bottom;
+}
+
 void ToolsWindow::TileSelectorChange(int index)
 {
     this->active_tile_index = index;
@@ -124,6 +156,26 @@ void ToolsWindow::modeActor(bool checked)
     {
         active_mode = MODE_ACTOR;
     }
+}
+
+void ToolsWindow::setLeft(int index)
+{
+    this->my_left = index;
+}
+
+void ToolsWindow::setTop(int index)
+{
+    this->my_top = index;
+}
+
+void ToolsWindow::setRight(int index)
+{
+    this->my_right = index;
+}
+
+void ToolsWindow::setBottom(int index)
+{
+    this->my_bottom = index;
 }
 
 void ToolsWindow::addToFactory(bool checked)

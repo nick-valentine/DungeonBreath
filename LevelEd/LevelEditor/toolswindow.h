@@ -28,6 +28,11 @@ public:
     bool get_save();
     void reset_save();
 
+    int get_left();
+    int get_top();
+    int get_right();
+    int get_bottom();
+
 private:
     Ui::ToolsWindow *ui;
 
@@ -38,12 +43,22 @@ private:
     bool add_to_factory;
     bool save;
 
+    int my_right;
+    int my_top;
+    int my_left;
+    int my_bottom;
+
 public slots:
     void TileSelectorChange(int index);
     void ActorSelectorChange(int index);
     void modeNone(bool checked);
     void modeTile(bool checked);
     void modeActor(bool checked);
+
+    void setLeft(int index);
+    void setTop(int index);
+    void setRight(int index);
+    void setBottom(int index);
 
     void addToFactory(bool checked);
     void setGroup(int group);

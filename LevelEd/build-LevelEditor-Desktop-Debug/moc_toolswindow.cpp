@@ -22,7 +22,7 @@ static const uint qt_meta_data_ToolsWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      17,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -35,14 +35,18 @@ static const uint qt_meta_data_ToolsWindow[] = {
       76,   68,   12,   12, 0x0a,
       91,   68,   12,   12, 0x0a,
      106,   68,   12,   12, 0x0a,
-     122,   68,   12,   12, 0x0a,
-     147,  141,   12,   12, 0x0a,
+     122,   13,   12,   12, 0x0a,
+     135,   13,   12,   12, 0x0a,
+     147,   13,   12,   12, 0x0a,
      161,   13,   12,   12, 0x0a,
-     185,  181,   12,   12, 0x0a,
-     208,  181,   12,   12, 0x0a,
-     227,  181,   12,   12, 0x0a,
-     250,  181,   12,   12, 0x0a,
-     277,   12,   12,   12, 0x0a,
+     176,   68,   12,   12, 0x0a,
+     201,  195,   12,   12, 0x0a,
+     215,   13,   12,   12, 0x0a,
+     239,  235,   12,   12, 0x0a,
+     262,  235,   12,   12, 0x0a,
+     281,  235,   12,   12, 0x0a,
+     304,  235,   12,   12, 0x0a,
+     331,   12,   12,   12, 0x0a,
 
        0        // eod
 };
@@ -51,9 +55,10 @@ static const char qt_meta_stringdata_ToolsWindow[] = {
     "ToolsWindow\0\0index\0TileSelectorChange(int)\0"
     "ActorSelectorChange(int)\0checked\0"
     "modeNone(bool)\0modeTile(bool)\0"
-    "modeActor(bool)\0addToFactory(bool)\0"
-    "group\0setGroup(int)\0setTriggerType(int)\0"
-    "num\0setNumToKeepAlive(int)\0"
+    "modeActor(bool)\0setLeft(int)\0setTop(int)\0"
+    "setRight(int)\0setBottom(int)\0"
+    "addToFactory(bool)\0group\0setGroup(int)\0"
+    "setTriggerType(int)\0num\0setNumToKeepAlive(int)\0"
     "setNumToSpawn(int)\0setSpawnFrequency(int)\0"
     "setTriggerSensitivity(int)\0Saved()\0"
 };
@@ -69,14 +74,18 @@ void ToolsWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 2: _t->modeNone((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 3: _t->modeTile((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 4: _t->modeActor((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 5: _t->addToFactory((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 6: _t->setGroup((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 7: _t->setTriggerType((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 8: _t->setNumToKeepAlive((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 9: _t->setNumToSpawn((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 10: _t->setSpawnFrequency((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 11: _t->setTriggerSensitivity((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 12: _t->Saved(); break;
+        case 5: _t->setLeft((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 6: _t->setTop((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 7: _t->setRight((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 8: _t->setBottom((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 9: _t->addToFactory((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 10: _t->setGroup((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 11: _t->setTriggerType((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 12: _t->setNumToKeepAlive((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 13: _t->setNumToSpawn((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 14: _t->setSpawnFrequency((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 15: _t->setTriggerSensitivity((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 16: _t->Saved(); break;
         default: ;
         }
     }
@@ -114,9 +123,9 @@ int ToolsWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 17)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 17;
     }
     return _id;
 }

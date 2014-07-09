@@ -53,6 +53,7 @@ void sfml(ToolsWindow *tools)
         my_actors.set_active_actor((ActorBoard::actor)tools->get_active_actor_index());
         my_actors.set_add_to_factory(tools->get_add_to_factory());
         my_actors.set_factory_info(tools->get_factory());
+        my_actors.set_sides(tools->get_left(), tools->get_top(), tools->get_right(), tools->get_bottom());
 
         if(tools->get_active_mode() == ToolsWindow::MODE_TILE)
         {

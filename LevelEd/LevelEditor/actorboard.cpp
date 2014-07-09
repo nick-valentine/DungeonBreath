@@ -52,6 +52,10 @@ std::vector<std::string> ActorBoard::getBoardText()
 {
     std::vector<std::string> return_val;
 
+    std::stringstream sides;
+    sides<<"(sides "<<my_sides.left<<" "<<my_sides.top<<" "<<my_sides.width<<" "<<my_sides.height<<")\n";
+    return_val.push_back(sides.str());
+
     for(int i = 0; i < my_sprites.size(); ++i)
     {
         std::stringstream ss;
@@ -214,7 +218,7 @@ void ActorBoard::update(sf::RenderWindow &window)
 
     if(active_actor != ActorFactory)
     {
-        if(snappedx < width * 25 && snappedx > 0 && snappedy < height * 25 && snappedy > 0)
+        if(snappedx < width * 25 && snappedx > -1 && snappedy < height * 25 && snappedy > -1)
         {
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && !last_left_mouse_button)
             {
