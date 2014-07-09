@@ -14,6 +14,7 @@
 #include "EnemyFollower.h"
 #include "Wall.h"
 #include "ActorFactory.h"
+#include "Enemy_Vampire.h"
 
 class TileSet
 {

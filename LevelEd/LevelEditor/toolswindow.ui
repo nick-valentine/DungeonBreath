@@ -78,6 +78,11 @@
       <string>Treasure</string>
      </property>
     </item>
+    <item>
+     <property name="text">
+      <string>Vampire</string>
+     </property>
+    </item>
    </widget>
    <widget class="QLabel" name="SetTileLabel">
     <property name="geometry">

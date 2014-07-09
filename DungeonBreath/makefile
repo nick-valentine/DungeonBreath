@@ -1,18 +1,18 @@
 
-all: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o build/Files.o build/TileSet.o
+all: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o build/Files.o build/TileSet.o build/Enemy_Vampire.o
 	g++ -o DungeonBreath build/main.o build/TextureMap.o build/Actor.o \
 	build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o \
 	build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o \
 	build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o \
-	build/Files.o build/TileSet.o \
+	build/Files.o build/TileSet.o build/Enemy_Vampire.o \
 	build/Scene.o -lsfml-graphics -lsfml-window -lsfml-system
 
-windows: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o build/Files.o build/TileSet.o
+windows: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o build/Files.o build/TileSet.o build/Enemy_Vampire.o
 	g++ -o DungeonBreath.exe build/main.o build/TextureMap.o build/Actor.o \
 	build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o \
 	build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o \
 	build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o \
-	build/Files.o build/TileSet.o \
+	build/Files.o build/TileSet.o build/Enemy_Vampire.o \
 	build/Scene.o -lsfml-graphics -lsfml-window -lsfml-system
 
 winclean:
@@ -74,3 +74,7 @@ build/Files.o: sources/Files.cpp headers/Files.h
 	
 build/TileSet.o: sources/TileSet.cpp headers/TileSet.h
 	g++ -c sources/TileSet.cpp -o build/TileSet.o
+	
+build/Enemy_Vampire.o: sources/Enemy_Vampire.cpp headers/Enemy_Vampire.h
+	g++ -c sources/Enemy_Vampire.cpp -o build/Enemy_Vampire.o
+	

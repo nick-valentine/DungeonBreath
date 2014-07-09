@@ -228,6 +228,7 @@ public:
          << QApplication::translate("ToolsWindow", "StoneWallSide", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("ToolsWindow", "StoneWallCorner", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("ToolsWindow", "Treasure", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("ToolsWindow", "Vampire", 0, QApplication::UnicodeUTF8)
         );
         SetTileLabel->setText(QApplication::translate("ToolsWindow", "Set Tile", 0, QApplication::UnicodeUTF8));
         AddActorLabel->setText(QApplication::translate("ToolsWindow", "Add Actor", 0, QApplication::UnicodeUTF8));

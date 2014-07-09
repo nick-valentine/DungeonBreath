@@ -48,7 +48,8 @@ public:
         StoneWallBottom,
         StoneWallSide,
         StoneWallCorner,
-        Treasure
+        Treasure,
+        Vampire
     };
 
     ActorBoard();

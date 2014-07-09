@@ -42,6 +42,14 @@ void ActorBoard::init()
         exit( 1 );
     }
 
+    //Load VampSprites
+    my_actors.push_back(sf::Texture());
+    if(!my_actors[my_actors.size() - 1].loadFromFile("./img/VampSprites.png"))
+    {
+        std::cout<<"Could not load VampSprites.png\n";
+        exit( 1 );
+    }
+
     this->active_actor = 1;
     this->active_sprite = sf::Sprite(my_actors[3], sf::IntRect(0, 0, 100, 100));
     this->active_sprite.setPosition(-50, -50);
@@ -84,6 +92,11 @@ std::vector<std::string> ActorBoard::getBoardText()
         {
             ss<<"(wall 4 1 "<<(my_sprites[i].getPosition().x / 25) + 1<<" "<<(my_sprites[i].getPosition().y / 25) + 1<<")\n";
         }
+        else if(board_actors[i] == Vampire)
+        {
+            ss<<"(enemy_vampire "<<(my_sprites[i].getPosition().x / 25) + 1<<" "<<(my_sprites[i].getPosition().y / 25) + 1<<")\n";
+        }
+
 
         return_val.push_back(ss.str());
     }
@@ -127,6 +140,10 @@ std::vector<std::string> ActorBoard::getBoardText()
         {
             ss<<"(wall 4 1 "<<(actors_for_factories[i].getPosition().x / 25) + 1<<" "<<(actors_for_factories[i].getPosition().y / 25) + 1<<" "<<actor_groups[i]<<" "<<actor_spawn_frequencies[i]<<" "<<actor_spawn_frequencies[i]<<")\n";
         }
+        else if(board_actors_factories[i] == Vampire)
+        {
+            ss<<"(enemy_vampire "<<(actors_for_factories[i].getPosition().x / 25) + 1<<" "<<(actors_for_factories[i].getPosition().y / 25) + 1<<" "<<actor_groups[i]<<" "<<actor_spawn_frequencies[i]<<" "<<actor_spawn_frequencies[i]<<")\n";
+        }
 
         return_val.push_back(ss.str());
     }
@@ -148,6 +165,7 @@ void ActorBoard::set_active_actor(ActorBoard::actor new_active)
 {
     if(this->active_actor != new_active)
     {
+        bool special_size = false;
         this->active_actor = new_active;
         if(this->active_actor == ActorFactory)
         {
@@ -177,8 +195,17 @@ void ActorBoard::set_active_actor(ActorBoard::actor new_active)
         {
             this->active_sprite = sf::Sprite(my_actors[2], sf::IntRect(300, 0, 100, 100));
         }
+        else if(this->active_actor == Vampire)
+        {
+            this->active_sprite = sf::Sprite(my_actors[4], sf::IntRect(0, 0, 600, 900));
+            this->active_sprite.setScale(0.06, 0.06);
+            special_size = true;
+        }
 
-        this->active_sprite.setScale(0.25f, 0.25f);
+        if(!special_size)
+        {
+            this->active_sprite.setScale(0.25f, 0.25f);
+        }
     }
 }
 

@@ -196,6 +196,34 @@ void TileSet::init(std::string filename, int xpos, int ypos)
 					my_actors.push_back(e);
 				}
 			}
+			else if(substr == "enemy_vampire")
+			{
+				int x,y,g,si,sf = -1;
+				str>>x>>y;
+				if(!str.eof())
+				{
+					str>>g>>si>>sf;
+					
+					Enemy_Vampire *e = new Enemy_Vampire;
+					e->init(((x - 1) * 50) + this->left, ((y - 1) * 50) + this->top, 60, 90);
+					
+					e->set_collide_type(Actor::Nothing);
+					e->unregister();
+					
+					actor_groups.push_back(g);
+					actors.push_back(e);
+					
+					spawn_intervals.push_back(si);
+					spawn_frequencies.push_back(sf);
+				}
+				else
+				{
+					Enemy_Vampire *e = new Enemy_Vampire;
+					e->init(((x - 1) * 50) + this->left, ((y - 1) * 50) + this->top, 60, 90);
+
+					my_actors.push_back(e);
+				}
+			}
 			else if(substr == "actor_factory")
 			{
 				int xs,ys,xe,ye,g,ms,a,tt,at;

@@ -29,5 +29,6 @@ actor_factory, x,y start: x,y end, grouping,  max to spawn, num to keep alive, t
 (actor_factory 7 7 8 7
 	 1 30 10 1 2)
 	             max spawn interval, spawn frequency,
-(enemy_bat 3 3 1 300000 300000)
-(enemy_bat 10 3 1 300000 300000)
+(enemy_vampire 3 3 1 300000 300000)
+(enemy_vampire 10 3 1 300000 300000)
+(enemy_vampire 15 13)
