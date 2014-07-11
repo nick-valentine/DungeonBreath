@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
+#include <fstream>
 
 #include "Actor.h"
 #include "Files.h"

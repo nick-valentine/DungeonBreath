@@ -23,6 +23,24 @@ void GameScene::init(int width, int height)
 	mini_map.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
 	mini_map.zoom(2.0f);
 
+	std::vector<std::string> files;
+	ifstream ifile;
+	ifile.open("./gamedata/levels/levels.txt");
+	std::string temp;
+	ifile>>temp;
+	while(ifile.good())
+	{
+		files.push_back(temp);
+		ifile>>temp;
+	}
+	
+	for(int i = 0; i < files.size(); ++i)
+	{
+		my_tilesets.push_back(new TileSet);
+		my_tilesets[my_tilesets.size() - 1]->init("./gamedata/levels/" + files[i], 0, 0);
+	}
+	
+/*
 	my_tilesets.push_back(new TileSet);
 	my_tilesets[my_tilesets.size() - 1]->init("./gamedata/levels/level_one.txt", 0, 0);
 	my_tilesets[my_tilesets.size() - 1]->move(0, 0);
@@ -36,7 +54,7 @@ void GameScene::init(int width, int height)
 	//my_tilesets[my_tilesets.size() - 1]->init("./gamedata/levels/level_three.txt", 16 * 50 * 2, 0);
 	my_tilesets[my_tilesets.size() - 1]->init("./gamedata/levels/level_three.txt", 0, 0);
 	my_tilesets[my_tilesets.size() - 1]->move(16 * 50 , 0);
-	
+*/
 	hero_found = false;
 	std::vector<Actor *>* all_actors = Actor::get_all_actors();
 	for(int i = 0; i < (*all_actors).size(); ++i)
