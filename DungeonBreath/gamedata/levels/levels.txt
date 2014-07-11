@@ -3,3 +3,10 @@ EmptyCenter.txt
 LeftEnd.txt
 RightEnd.txt
 TopEnd.txt
+RightBottomCorner.txt
+VerticalPipe.txt
+HorizontalPipe.txt
+TopRightCorner.txt
+TopLeftCorner.txt
+TreasureRoom.txt
+CrossRoads.txt

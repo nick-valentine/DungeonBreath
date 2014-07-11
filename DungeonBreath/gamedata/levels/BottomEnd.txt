@@ -15,7 +15,7 @@ wwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwww
 -
-(sides 1 1072693248 1 1)
+(sides 1 0 1 1)
 (hero 9 8)
 (wall 1 1 1 16)
 (wall 1 1 2 16)

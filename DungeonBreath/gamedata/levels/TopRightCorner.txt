@@ -1,0 +1,50 @@
+wwwwwwwwwwwwwwww
+wwwwwwwwwwwwwwww
+wwwwwwwwwwwwwwww
+tttttttttttttwww
+tttttttttttttwww
+ttttttttttwwtwww
+wwwwwwwwwtwwtwww
+tttttttttwtwtwww
+tttttttttttwtwww
+tttttttwtttttwww
+wwwwtttttwtttwww
+wwwwwttttttttwww
+wwwwwwtttttttwww
+wwwwwwwtwttttwww
+wwwwwwwttttwtwww
+wwwwwwwwtwtwtwww
+-
+(sides 1 1 0 0)
+(wall 1 1 1 1)
+(wall 1 1 2 1)
+(wall 1 1 3 1)
+(wall 1 1 4 1)
+(wall 1 1 5 1)
+(wall 1 1 6 1)
+(wall 1 1 7 1)
+(wall 1 1 8 1)
+(wall 1 1 9 1)
+(wall 1 1 10 1)
+(wall 1 1 11 1)
+(wall 1 1 12 1)
+(wall 1 1 13 1)
+(wall 1 1 14 1)
+(wall 1 1 15 1)
+(wall 2 1 16 1)
+(wall 2 1 16 2)
+(wall 2 1 16 3)
+(wall 2 1 16 4)
+(wall 2 1 16 5)
+(wall 2 1 16 6)
+(wall 2 1 16 7)
+(wall 2 1 16 8)
+(wall 2 1 16 9)
+(wall 2 1 16 10)
+(wall 2 1 16 11)
+(wall 2 1 16 12)
+(wall 2 1 16 13)
+(wall 2 1 16 14)
+(wall 2 1 16 16)
+(wall 2 1 16 15)
+
