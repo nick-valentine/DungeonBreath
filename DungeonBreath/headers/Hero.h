@@ -22,12 +22,18 @@ class Hero : public Actor
  	
  	void update(int delta);
  	void draw(sf::RenderWindow &window);
+	void hurt(int raw_dmg, CollideType direction);
  	
  	Actor *clone();
  private:
-    static const double accel_x;
-    static const double accel_y;
-    static const double vel_damp;
+    const static double accel_x = 1.5;
+    const static double accel_y = 1.5;
+    const static double vel_damp = 10;
+	const static double jump_speed = 10;
+	const static double hurt_debounce = 600000;
+	
+	int health;
+	int hurt_timer;
  
  	int active_sprite;
  	int update_count;
@@ -38,12 +44,7 @@ class Hero : public Actor
 	std::vector<Attack *> Spells;
 	std::vector<int> Keys; 	
 	std::vector<bool> Keys_last_pressed;
- 	//MagicMissile *magic_missile;
- 	//MagicNova *magic_nova;
  	ActorFactory missile_factory;
- 	
- 	//bool last_space_pressed;
- 	//bool last_one_pressed;
  	
  	Direction facing_dir;
 };

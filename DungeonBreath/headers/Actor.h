@@ -48,7 +48,8 @@ class Actor
  	
  	virtual void update(int delta) = 0;
  	virtual void draw(sf::RenderWindow &window) = 0;
- 	
+ 	virtual void hurt(int raw_dmg, CollideType direction);
+	
  	void common_update(int delta);
  	
  	sf::Rect<int> get_rect() const;
@@ -82,7 +83,7 @@ class Actor
  	
  	bool is_colliding(Actor *x) const;
  	CollideType move_and_resolve_collision();
- 	
+	
  	virtual Actor *clone() = 0;
  	
  	void unregister();

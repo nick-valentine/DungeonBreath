@@ -1,9 +1,5 @@
 #include "../headers/Hero.h"
 
-const double Hero::accel_x = 1.5;
-const double Hero::accel_y = 1.5;
-const double Hero::vel_damp = 10;
-
 Hero::Hero() : Actor()
 {
 }
@@ -18,6 +14,8 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 	
 	hero = this;
 
+	health = 5;
+	
 	active_sprite = 0;
 	update_count = 0;
 	
@@ -48,6 +46,8 @@ void Hero::update(int delta)
 {
     if(get_alive())
     {
+		hurt_timer -= delta;
+		std::cout<<health<<std::endl;
         missile_factory.update(delta);
         for(int i = 0; i < Spells.size(); ++i)
         {
@@ -146,6 +146,31 @@ void Hero::draw(sf::RenderWindow &window)
 		    window.draw(*get_sprite(active_sprite));
 		    
 	    }
+	}
+}
+
+void Hero::hurt(int raw_dmg, CollideType direction)
+{
+	if(hurt_timer <= 0)
+	{
+		hurt_timer = hurt_debounce;
+		health -= raw_dmg;
+		if(direction == C_Top)
+		{
+			set_velocity_y( -jump_speed );
+		}
+		else if(direction == C_Bottom)
+		{
+			set_velocity_y( jump_speed );
+		}
+		else if(direction == C_Left)
+		{
+			set_velocity_x( jump_speed );
+		}
+		else if(direction == C_Right)
+		{
+			set_velocity_x( -jump_speed );
+		}
 	}
 }
 

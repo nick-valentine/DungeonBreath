@@ -247,6 +247,17 @@ void Enemy_Vampire::update(int delta)
 				my_state = idle;
 				reset_state_vars();
 			}
+			else if(attacking_index == 4)
+			{
+				if(look_left)
+				{
+					hero->hurt(1,C_Right);
+				}
+				else
+				{
+					hero->hurt(1, C_Left);
+				}
+			}
 		}
 		common_update(delta);
     }
@@ -273,6 +284,11 @@ void Enemy_Vampire::draw(sf::RenderWindow &window)
 			}
 		}
 	}
+}
+
+void Enemy_Vampire::hurt(int raw_dmg, CollideType direction)
+{
+	
 }
 
 Actor *Enemy_Vampire::clone()

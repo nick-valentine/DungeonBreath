@@ -99,6 +99,11 @@ void EnemyFollower::draw(sf::RenderWindow &window)
     }
 }
 
+void EnemyFollower::hurt(int raw_dmg, CollideType direction)
+{
+	
+}
+
 Actor *EnemyFollower::clone()
 {
     EnemyFollower *temp = new EnemyFollower(*this);

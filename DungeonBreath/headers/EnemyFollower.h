@@ -18,6 +18,7 @@ class EnemyFollower : public Actor
  	
  	void update(int delta);
  	void draw(sf::RenderWindow &window);
+	void hurt(int raw_dmg, CollideType direction);
  	
  	Actor *clone();
 
