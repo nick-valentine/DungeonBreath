@@ -39,7 +39,12 @@ sf::IntRect Tile::get_rect()
 	return my_rect;
 }
 
-void Tile:: set_hero(Actor *hero)
+void Tile::set_hero(Actor *hero)
 {
-	this->hero =  hero;
+	this->hero = hero;
+}
+
+sf::Sprite Tile::get_sprite()
+{
+	return this->my_sprite;
 }

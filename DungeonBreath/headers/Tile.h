@@ -21,6 +21,8 @@ class Tile
 	void set_rect(sf::IntRect new_rect);
 	sf::IntRect get_rect();
 	void set_hero(Actor *);
+	
+	sf::Sprite get_sprite();
  private:
 	const static unsigned int min_distance = 50 * 11;
  

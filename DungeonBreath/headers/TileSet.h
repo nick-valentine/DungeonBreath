@@ -20,6 +20,7 @@ class TileSet
 {
  public:
  	TileSet();
+	~TileSet();
  	void init(std::string filename, int xpos, int ypos, bool &HeroSpawned, bool OnlyLoadSides = false);
  	
  	void update(int delta);
@@ -50,6 +51,9 @@ class TileSet
 	
  	std::vector<Actor *> my_actors;
  	std::vector<Tile *> my_tiles;
+	sf::RenderTexture *all_tiles;
+	sf::Sprite all_tile_sprites;
+	
  	std::vector<ActorFactory> my_factories;
  	
  	File my_file;

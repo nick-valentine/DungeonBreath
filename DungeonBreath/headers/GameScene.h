@@ -26,7 +26,7 @@ class GameScene : public Scene
 	
 	void addTileset(sf::IntRect sides, int x_tile = 0, int y_tile = 0, bool clear_set = false);
  private:
-	static const unsigned int max_radius = 100;
+	static const unsigned int max_tiles = 100;
  
     bool hero_found;
     Actor *hero;

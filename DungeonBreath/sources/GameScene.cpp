@@ -48,8 +48,6 @@ void GameScene::init(int width, int height)
 	srand( time( NULL ) );
 	
 	HeroSpawned = false;
-
-	std::cout<<"Loading Level"<<std::endl;
 	
 	while(!HeroSpawned)
 	{
@@ -114,12 +112,14 @@ void GameScene::draw(sf::RenderWindow &window)
 
 void GameScene::addTileset(sf::IntRect sides, int x_tile, int y_tile, bool clear_set)
 {
-	std::cout<<"Loading: "<<x_tile<<" "<<y_tile<<std::endl;
-	
 	static std::vector<sf::IntRect> all_sides;
 	static std::vector<sf::Vector2i> sides_locations;
 	static int tiles_spawned = 0;
 	
+	if(tiles_spawned > max_tiles)
+	{
+		std::cout<<"Block Limit Reached"<<std::endl;
+	}	
 		
 	if(clear_set)
 	{
@@ -128,83 +128,100 @@ void GameScene::addTileset(sf::IntRect sides, int x_tile, int y_tile, bool clear
 			tiles_spawned = 0;
 	}
 	
-	if(tiles_spawned < max_radius)
+	bool do_nothing = false;
+	for(int i = 0; i < tiles_to_not_spawn.size(); ++i)
 	{
-		bool do_nothing = false;
-		for(int i = 0; i < tiles_to_not_spawn.size(); ++i)
+		if(tiles_to_not_spawn[i].x == x_tile && tiles_to_not_spawn[i].y == y_tile)
 		{
-			if(tiles_to_not_spawn[i].x == x_tile && tiles_to_not_spawn[i].y == y_tile)
+			do_nothing = true;
+			break;
+		}
+	}
+	if(!do_nothing)
+	{
+		tiles_spawned++;
+		tiles_to_not_spawn.push_back(sf::Vector2i(x_tile, y_tile));
+		std::vector<int> files_that_fit;
+		
+		for(int i = 0; i < loading_set.size(); ++i)
+		{
+			if(((loading_set[i]->get_sides().left == sides.left) || sides.left == -1) &&
+				((loading_set[i]->get_sides().top == sides.top) || sides.top == -1) &&
+				((loading_set[i]->get_sides().width == sides.width) || sides.width == -1) &&
+				((loading_set[i]->get_sides().height == sides.height) || sides.height == -1)
+				)
 			{
-				std::cout<<"do nothing"<<std::endl;
-				do_nothing = true;
-				break;
+				files_that_fit.push_back(i);
 			}
 		}
-		if(!do_nothing)
+		
+		
+		if(files_that_fit.size() == 0)
 		{
-			tiles_spawned++;
-			tiles_to_not_spawn.push_back(sf::Vector2i(x_tile, y_tile));
-			std::vector<int> files_that_fit;
-			
 			for(int i = 0; i < loading_set.size(); ++i)
 			{
-				if(((loading_set[i]->get_sides().left == sides.left) || sides.left == -1) &&
-					((loading_set[i]->get_sides().top == sides.top) || sides.top == -1) &&
-					((loading_set[i]->get_sides().width == sides.width) || sides.width == -1) &&
-					((loading_set[i]->get_sides().height == sides.height) || sides.height == -1)
-					)
+				if((loading_set[i]->get_sides().left == 0) &&
+				(loading_set[i]->get_sides().top == 0) &&
+				(loading_set[i]->get_sides().width == 0) &&
+				(loading_set[i]->get_sides().height == 0)
+				)
 				{
 					files_that_fit.push_back(i);
 				}
 			}
-			
-			
-			if(files_that_fit.size() == 0)
-			{
-				for(int i = 0; i < loading_set.size(); ++i)
-				{
-					if((loading_set[i]->get_sides().left == 0) &&
-					(loading_set[i]->get_sides().top == 0) &&
-					(loading_set[i]->get_sides().width == 0) &&
-					(loading_set[i]->get_sides().height == 0)
-					)
-					{
-						files_that_fit.push_back(i);
-					}
-				}
-			}
-			
-			std::string file_name = files[files_that_fit[rand() % files_that_fit.size()]];
-			std::cout<<"./gamedata/levels/" + file_name<<std::endl;
-			my_tilesets.push_back(new TileSet);
-			my_tilesets[my_tilesets.size() - 1]->init("./gamedata/levels/" + file_name, x_tile * 15 * 50, y_tile * 15 * 50, HeroSpawned);
-			std::cout<<"done initializing tileset"<<std::endl;
-			sf::IntRect new_sides = my_tilesets[my_tilesets.size() - 1]->get_sides();
-			
-			all_sides.push_back(new_sides);
-			sides_locations.push_back(sf::Vector2i(x_tile, y_tile));
-			
-			std::cout<<"Now Calling add on all sides"<<std::endl;
-			if(new_sides.left != 1  /*&& x_tile - 1 > -max_radius*/)
+		}
+		
+		std::string file_name = files[files_that_fit[rand() % files_that_fit.size()]];
+		my_tilesets.push_back(new TileSet);
+		my_tilesets[my_tilesets.size() - 1]->init("./gamedata/levels/" + file_name, x_tile * 15 * 50, y_tile * 15 * 50, HeroSpawned);
+		sf::IntRect new_sides = my_tilesets[my_tilesets.size() - 1]->get_sides();
+		
+		all_sides.push_back(new_sides);
+		sides_locations.push_back(sf::Vector2i(x_tile, y_tile));
+		
+		if(new_sides.left != 1)
+		{
+			if(tiles_spawned < max_tiles)
 			{
 				addTileset(sf::IntRect(-1, -1, new_sides.left, -1), x_tile - 1, y_tile);
 			}
-			if(new_sides.top != 1 /*&& y_tile - 1 > -max_radius*/)
+			else
+			{
+				addTileset(sf::IntRect(1, 1, -1, 1), x_tile - 1, y_tile);
+			}
+		}
+		if(new_sides.top != 1)
+		{
+			if(tiles_spawned < max_tiles)
 			{
 				addTileset(sf::IntRect(-1 , -1, -1, new_sides.top), x_tile, y_tile - 1);
 			}
-			if(new_sides.width != 1 /*&& x_tile + 1 < max_radius*/)
+			else
+			{
+				addTileset(sf::IntRect(1, 1, 1, -1), x_tile, y_tile - 1);
+			}
+		}
+		if(new_sides.width != 1)
+		{
+			if(tiles_spawned < max_tiles)
 			{
 				addTileset(sf::IntRect(new_sides.width , -1, -1, -1), x_tile + 1, y_tile);
 			}
-			if(new_sides.height != 1 /*&& y_tile + 1 < max_radius*/)
+			else
+			{
+				addTileset(sf::IntRect(-1, 1, 1, 1), x_tile + 1, y_tile);
+			}
+		}
+		if(new_sides.height != 1)
+		{
+			if(tiles_spawned < max_tiles)
 			{
 				addTileset(sf::IntRect(-1 , new_sides.height, -1, -1), x_tile, y_tile + 1);
 			}
+			else
+			{
+				addTileset(sf::IntRect(1, -1, 1, 1), x_tile, y_tile + 1);
+			}
 		}
-	}
-	else
-	{
-		std::cout<<"\t\t\tBlock Limit Reached"<<std::endl;
 	}
 }

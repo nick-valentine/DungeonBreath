@@ -5,6 +5,11 @@ TileSet::TileSet()
 
 }
 
+TileSet::~TileSet()
+{
+	delete this->all_tiles;
+}
+
 void TileSet::init(std::string filename, int xpos, int ypos, bool &HeroSpawned, bool OnlyLoadSides)
 {
 	this->my_ready = false;
@@ -35,15 +40,30 @@ void TileSet::init(std::string filename, int xpos, int ypos, bool &HeroSpawned, 
 			if(data[i][j] == 'w')
 			{
 				my_tiles.push_back(new Tile);
-				my_tiles[my_tiles.size() - 1]->init((50 * j) + this->left, (50 * i) + this->top, 50, 50, 1, 1);
+				my_tiles[my_tiles.size() - 1]->init((50 * j)/* + this->left*/, (50 * i) /*+ this->top*/, 50, 50, 1, 1);
 			}
 			else if(data[i][j] == 't')
 			{
 				my_tiles.push_back(new Tile);
-				my_tiles[my_tiles.size() - 1]->init((50 * j) + this->left, (50 * i) + this->top, 50, 50, 2, 1);
+				my_tiles[my_tiles.size() - 1]->init((50 * j)/* + this->left*/, (50 * i)/* + this->top*/, 50, 50, 2, 1);
 			}
 		}
 	}
+	
+	all_tiles = new sf::RenderTexture;
+	if(!all_tiles->create(16 * 50, 16 * 50))
+	{
+		std::cout<<"Could not create rendertexture"<<std::endl;
+		exit( 1 );
+	}
+	all_tiles->clear(sf::Color::White);
+	for(int i = 0; i < my_tiles.size(); ++i)
+	{
+		all_tiles->draw(my_tiles[i]->get_sprite());
+	}
+	all_tiles->display();
+	all_tile_sprites = sf::Sprite(all_tiles->getTexture());
+	all_tile_sprites.setPosition(this->left, this->top);
 	
 	std::vector<int> actor_groups;
 	std::vector<Actor *> actors;
@@ -336,10 +356,13 @@ void TileSet::update(int delta)
 
 void TileSet::draw_tiles(sf::RenderWindow &window)
 {
+	/*
     for(int i = 0; i < my_tiles.size(); ++i)
     {
         my_tiles[i]->draw(window);
     }
+	*/
+	window.draw(all_tile_sprites);
 }
 
 void TileSet::draw_actors(sf::RenderWindow &window)
