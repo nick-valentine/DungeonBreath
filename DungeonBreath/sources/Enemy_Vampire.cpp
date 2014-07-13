@@ -51,12 +51,7 @@ void Enemy_Vampire::init(int pos_x, int pos_y, int size_x, int size_y)
 	time_alive = 0;
 	
 	my_state = idle;
-	idle_anim_timer = 0;
-	idle_index = 0;
-	chasing_anim_timer = 0;
-	chasing_index = 0;
-	attacking_anim_timer = 0;
-	attacking_index = 0;
+	reset_state_vars();
 	hero = 0;
 	
 	idle_anim.push_back(0);
@@ -112,15 +107,19 @@ void Enemy_Vampire::update(int delta)
 		
 			double hypot = sqrt((diff_x * diff_x) + (diff_y * diff_y));
 			
+			
+			time_till_wander -= delta;
 			if(hypot < distance_before_chase)
 			{
 				my_state = chasing;
-				idle_anim_timer = 0;
-				idle_index = 0;
-				chasing_anim_timer = 0;
-				chasing_index = 0;
-				attacking_anim_timer = 0;
-				attacking_index = 0;
+				reset_state_vars();
+				return;
+			}
+			else if(time_till_wander <= 0)
+			{
+				my_state = wandering;
+				reset_state_vars();
+				return;
 			}
 		}
 		else if(my_state == chasing)
@@ -151,32 +150,80 @@ void Enemy_Vampire::update(int delta)
 			if(hypot < distance_before_attack)
 			{
 				my_state = attacking;
-				idle_anim_timer = 0;
-				idle_index = 0;
-				chasing_anim_timer = 0;
-				chasing_index = 0;
-				attacking_anim_timer = 0;
-				attacking_index = 0;
+				reset_state_vars();
 				return;
 			}
 			else if(hypot > distance_before_chase)
 			{
 				my_state = idle;
-				idle_anim_timer = 0;
-				idle_index = 0;
-				chasing_anim_timer = 0;
-				chasing_index = 0;
-				attacking_anim_timer = 0;
-				attacking_index = 0;
+				reset_state_vars();
 				return;
 			}
 		
-			diff_x = (diff_x / hypot) * 5;
-			diff_y = (diff_y / hypot) * 5;
+			diff_x = (diff_x / hypot) * speed_multiplier * (delta >> delta_shift);
+			diff_y = (diff_y / hypot) * speed_multiplier * (delta >> delta_shift);
 		
 			set_velocity_x(-diff_x);
 			set_velocity_y(-diff_y);
 
+		}
+		else if(my_state == wandering)
+		{
+			chasing_anim_timer -= delta;
+			if(chasing_anim_timer <= 0)
+			{
+				chasing_index = (chasing_index + 1) % chasing_anim.size();
+				active_sprite = chasing_anim[chasing_index];
+				chasing_anim_timer = chasing_anim_time;
+			}
+			
+			wandering_timer -= delta;
+			time_till_wander -= delta;
+			if(wandering_timer <= 0)
+			{
+				srand( time_alive );
+				
+				dir_x = (rand() % 100) - 50;
+				dir_y = (rand() % 100) - 50;
+				
+				if(dir_x < 0)
+				{
+					look_left = true;
+				}
+				else
+				{
+					look_left = false;
+				}
+				
+				double hypot = sqrt((dir_x * dir_x) + (dir_y * dir_y));
+				dir_x = dir_x / hypot;
+				dir_y = dir_y / hypot;
+				
+				wandering_timer = time_idle_per_direction;
+			}
+			
+			if(time_till_wander <= 0)
+			{
+				my_state = idle;
+				reset_state_vars();
+				return;
+			}
+			
+			double diff_x = get_rect().left - hero->get_rect().left;
+			double diff_y = get_rect().top - hero->get_rect().top;
+		
+			double hypot = sqrt((diff_x * diff_x) + (diff_y * diff_y));
+			
+			if(hypot < distance_before_chase)
+			{
+				my_state = chasing;
+				reset_state_vars();
+				return;
+			}
+			
+			set_velocity_x(dir_x * speed_multiplier * (delta >> delta_shift));
+			set_velocity_y(dir_y * speed_multiplier * (delta >> delta_shift));
+			
 		}
 		else if(my_state == attacking)
 		{
@@ -198,12 +245,7 @@ void Enemy_Vampire::update(int delta)
 			if(attacking_index == attacking_anim.size() - 1)
 			{
 				my_state = idle;
-				idle_anim_timer = 0;
-				idle_index = 0;
-				chasing_anim_timer = 0;
-				chasing_index = 0;
-				attacking_anim_timer = 0;
-				attacking_index = 0;
+				reset_state_vars();
 			}
 		}
 		common_update(delta);
@@ -237,4 +279,17 @@ Actor *Enemy_Vampire::clone()
 {
 	Enemy_Vampire *temp = new Enemy_Vampire(*this);
 	return temp;
+}
+
+inline void Enemy_Vampire::reset_state_vars()
+{
+	idle_index = 0;
+	idle_anim_timer = idle_anim_time;
+	chasing_index = 0;
+	chasing_anim_timer = chasing_anim_time;
+	attacking_index = 0;
+	attacking_anim_timer = attacking_anim_time;
+	
+	time_till_wander = time_idle_before_wander;
+	wandering_timer = time_idle_per_direction;
 }
