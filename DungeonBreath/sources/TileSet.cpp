@@ -280,7 +280,7 @@ void TileSet::init(std::string filename, int xpos, int ypos, bool &HeroSpawned, 
 						str>>g>>si>>sf;
 						
 						Enemy_Vampire *e = new Enemy_Vampire;
-						e->init(((x - 1) * 50) + this->left, ((y - 1) * 50) + this->top, 60, 90);
+						e->init(((x - 1) * 50) + this->left, ((y - 1) * 50) + this->top, 50, 100);
 						
 						e->set_collide_type(Actor::Nothing);
 						e->unregister();
@@ -294,7 +294,7 @@ void TileSet::init(std::string filename, int xpos, int ypos, bool &HeroSpawned, 
 					else
 					{
 						Enemy_Vampire *e = new Enemy_Vampire;
-						e->init(((x - 1) * 50) + this->left, ((y - 1) * 50) + this->top, 60, 90);
+						e->init(((x - 1) * 50) + this->left, ((y - 1) * 50) + this->top, 50, 100);
 
 						my_actors.push_back(e);
 					}
