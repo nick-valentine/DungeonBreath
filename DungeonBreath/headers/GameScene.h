@@ -16,9 +16,16 @@
 class GameScene : public Scene
 {
  public:
+	enum State
+	{
+		loading,
+		playing
+	};
+ 
 	GameScene();
     ~GameScene();
     void init(int width, int height);
+	void load_level();
     
     void update(int delta, sf::RenderWindow &window);
     
@@ -39,10 +46,20 @@ class GameScene : public Scene
     File my_file;
     std::vector<std::string> file_data;
 	
+	sf::Thread loading_thread;
+	State my_state;
 	std::vector<std::string> files;
 	std::vector<TileSet *> loading_set;
 	std::vector<sf::Vector2i> tiles_to_not_spawn;
 	bool HeroSpawned;
+	int tiles_spawned;
+	
+	sf::Font my_font;
+	sf::Text loading_text;
+	sf::Text tiles_spawned_label;
+	sf::Text tiles_spawned_text;
+	int loading_count;
+	
 };
 
 #endif //GAMESCENE_H

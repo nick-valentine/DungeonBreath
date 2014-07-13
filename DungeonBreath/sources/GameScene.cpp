@@ -1,6 +1,6 @@
 #include "../headers/GameScene.h"
 
-GameScene::GameScene()
+GameScene::GameScene() : loading_thread(&GameScene::load_level, this)
 {
 
 }
@@ -21,7 +21,35 @@ GameScene::~GameScene()
 void GameScene::init(int width, int height)
 {
 	my_status = Nothing;
-
+	my_state = loading;
+	
+	if(!my_font.loadFromFile("./img/Knights Quest.ttf"))
+	{
+		std::cout<<"Could Not Load Knights Quest"<<std::endl;
+		exit( 1 );
+	}
+	loading_text = sf::Text("Loading", my_font);
+	loading_text.setCharacterSize(45);
+	loading_text.setStyle(sf::Text::Bold);
+	loading_text.setColor(sf::Color::White);
+	loading_text.setOrigin(loading_text.getLocalBounds().width / 2, loading_text.getLocalBounds().height / 2);
+	loading_text.setPosition(width / 2, height / 2);
+	
+	tiles_spawned_label = sf::Text("Tiles Spawned: ", my_font);
+	tiles_spawned_label.setCharacterSize(30);
+	tiles_spawned_label.setStyle(sf::Text::Bold);
+	tiles_spawned_label.setColor(sf::Color::White);
+	tiles_spawned_label.setPosition(width - tiles_spawned_label.getLocalBounds().width - 100,
+									height - tiles_spawned_label.getLocalBounds().height - 50);
+	
+	
+	tiles_spawned_text = sf::Text("0", my_font);
+	tiles_spawned_text.setCharacterSize(30);
+	tiles_spawned_text.setStyle(sf::Text::Bold);
+	tiles_spawned_text.setColor(sf::Color::White);
+	tiles_spawned_text.setPosition(width - tiles_spawned_text.getLocalBounds().width - 50,
+									height - tiles_spawned_text.getLocalBounds().height - 50);
+	
 	main_window.reset(sf::FloatRect(0, 0, width, height));
 	
 	mini_map.reset(sf::FloatRect(0, 0, width, height));
@@ -49,10 +77,16 @@ void GameScene::init(int width, int height)
 	
 	HeroSpawned = false;
 	
+	loading_thread.launch();
+}
+
+void GameScene::load_level()
+{
 	while(!HeroSpawned)
 	{
 		addTileset(sf::IntRect(-1, -1, -1, -1),0,0,true);
 	}
+	my_state = playing;
 	
 	hero_found = false;
 	std::vector<Actor *>* all_actors = Actor::get_all_actors();
@@ -73,40 +107,59 @@ void GameScene::init(int width, int height)
 
 void GameScene::update(int delta, sf::RenderWindow &window)
 {
-	if(hero_found)
+	if(my_state == loading)
 	{
-		main_window.setCenter(sf::Vector2f(hero->get_rect().left, hero->get_rect().top));
-		mini_map.setCenter(sf::Vector2f(hero->get_rect().left, hero->get_rect().top));
+		loading_count++;
+		std::stringstream ss;
+		ss<<this->tiles_spawned;
+		tiles_spawned_text.setString(ss.str());
 	}
-    
-    for(int i = 0; i < my_tilesets.size(); ++i)
-    {
-    	my_tilesets[i]->update(delta);
+	else if(my_state == playing)
+	{
+		if(hero_found)
+		{
+			main_window.setCenter(sf::Vector2f(hero->get_rect().left, hero->get_rect().top));
+			mini_map.setCenter(sf::Vector2f(hero->get_rect().left, hero->get_rect().top));
+		}
+		
+		for(int i = 0; i < my_tilesets.size(); ++i)
+		{
+			my_tilesets[i]->update(delta);
+		}
+		
+		Actor::clear_dead();
 	}
-	
-	Actor::clear_dead();
 
 }
 
 void GameScene::draw(sf::RenderWindow &window)
 {
-	window.setView(main_window);
-	for(int i = 0; i < my_tilesets.size(); ++i)
+	if(my_state == loading)
 	{
-		my_tilesets[i]->draw_tiles(window);
+		window.draw(loading_text);
+		window.draw(tiles_spawned_label);
+		window.draw(tiles_spawned_text);
 	}
-	for(int i = 0; i < my_tilesets.size(); ++i)
+	else if(my_state == playing)
 	{
-		my_tilesets[i]->draw_actors(window);
-	}
-    window.setView(mini_map);
-	for(int i = 0; i < my_tilesets.size(); ++i)
-	{
-		my_tilesets[i]->draw_tiles(window);
-	}
-	for(int i = 0; i < my_tilesets.size(); ++i)
-	{
-		my_tilesets[i]->draw_actors(window);
+		window.setView(main_window);
+		for(int i = 0; i < my_tilesets.size(); ++i)
+		{
+			my_tilesets[i]->draw_tiles(window);
+		}
+		for(int i = 0; i < my_tilesets.size(); ++i)
+		{
+			my_tilesets[i]->draw_actors(window);
+		}
+		window.setView(mini_map);
+		for(int i = 0; i < my_tilesets.size(); ++i)
+		{
+			my_tilesets[i]->draw_tiles(window);
+		}
+		for(int i = 0; i < my_tilesets.size(); ++i)
+		{
+			my_tilesets[i]->draw_actors(window);
+		}
 	}
 }
 
@@ -114,7 +167,6 @@ void GameScene::addTileset(sf::IntRect sides, int x_tile, int y_tile, bool clear
 {
 	static std::vector<sf::IntRect> all_sides;
 	static std::vector<sf::Vector2i> sides_locations;
-	static int tiles_spawned = 0;
 	
 	if(tiles_spawned > max_tiles)
 	{
