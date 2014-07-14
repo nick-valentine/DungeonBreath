@@ -168,11 +168,6 @@ void GameScene::addTileset(sf::IntRect sides, int x_tile, int y_tile, bool clear
 {
 	static std::vector<sf::IntRect> all_sides;
 	static std::vector<sf::Vector2i> sides_locations;
-	
-	if(tiles_spawned > max_tiles)
-	{
-		std::cout<<"Block Limit Reached"<<std::endl;
-	}	
 		
 	if(clear_set)
 	{
