@@ -33,8 +33,8 @@ void Enemy_Vampire::init(int pos_x, int pos_y, int size_x, int size_y)
 	
 	for(int i = 0; i < 6; ++i)
 	{
-			get_sprite(i)->setScale(size_x / get_sprite(i)->getLocalBounds().width, size_y / get_sprite(i)->getLocalBounds().height);
-			get_sprite(i)->setOrigin(get_sprite(i)->getLocalBounds().width / 2, get_sprite(i)->getLocalBounds().height / 2);
+		get_sprite(i)->setScale(size_x / get_sprite(i)->getLocalBounds().width, size_y / get_sprite(i)->getLocalBounds().height);
+		get_sprite(i)->setOrigin(get_sprite(i)->getLocalBounds().width / 2, get_sprite(i)->getLocalBounds().height / 2);
 	}
 	
 	set_velocity_x(0);
@@ -49,6 +49,9 @@ void Enemy_Vampire::init(int pos_x, int pos_y, int size_x, int size_y)
 	set_alive(true);
 	
 	time_alive = 0;
+	
+	health = 3;
+	hurt_timer = 0;
 	
 	my_state = idle;
 	reset_state_vars();
@@ -74,7 +77,6 @@ void Enemy_Vampire::update(int delta)
 {
 	if(get_alive())
     {
-	
 		if(hero == 0)
 		{
 			std::vector<Actor *> *actors = get_all_actors();
@@ -90,6 +92,7 @@ void Enemy_Vampire::update(int delta)
 		}
 	
 	
+		hurt_timer -= delta;
 		time_alive += delta;
 		update_count++;
 		if(my_state == idle)
@@ -163,8 +166,8 @@ void Enemy_Vampire::update(int delta)
 			diff_x = (diff_x / hypot) * speed_multiplier * (delta >> delta_shift);
 			diff_y = (diff_y / hypot) * speed_multiplier * (delta >> delta_shift);
 		
-			set_velocity_x(-diff_x);
-			set_velocity_y(-diff_y);
+			set_velocity_x(get_velocity_x() + -diff_x);
+			set_velocity_y(get_velocity_y() + -diff_y);
 
 		}
 		else if(my_state == wandering)
@@ -221,9 +224,8 @@ void Enemy_Vampire::update(int delta)
 				return;
 			}
 			
-			set_velocity_x(dir_x * speed_multiplier * (delta >> delta_shift));
-			set_velocity_y(dir_y * speed_multiplier * (delta >> delta_shift));
-			
+			set_velocity_x((dir_x * speed_multiplier * (delta >> delta_shift)) + get_velocity_x());
+			set_velocity_y((dir_y * speed_multiplier * (delta >> delta_shift)) + get_velocity_y());
 		}
 		else if(my_state == attacking)
 		{
@@ -251,15 +253,17 @@ void Enemy_Vampire::update(int delta)
 			{
 				if(look_left)
 				{
-					hero->hurt(1,C_Right);
+					hero->hurt(1,C_Right, this);
 				}
 				else
 				{
-					hero->hurt(1, C_Left);
+					hero->hurt(1, C_Left, this);
 				}
 			}
 		}
 		common_update(delta);
+		set_velocity_x(get_velocity_x() / speed_dampening);
+		set_velocity_y(get_velocity_y() / speed_dampening);
     }
 }
 
@@ -286,9 +290,33 @@ void Enemy_Vampire::draw(sf::RenderWindow &window)
 	}
 }
 
-void Enemy_Vampire::hurt(int raw_dmg, CollideType direction)
+void Enemy_Vampire::hurt(int raw_dmg, CollideType direction, Actor *attacker)
 {
-	
+	if(hurt_timer <= 0)
+	{
+		hurt_timer = hurt_debounce;
+		health -= raw_dmg;
+		if(direction == C_Top)
+		{
+			set_velocity_y(jump_speed + get_velocity_y());
+		}
+		else if(direction == C_Bottom)
+		{
+			set_velocity_y(-jump_speed + get_velocity_y());
+		}
+		else if(direction == C_Left)
+		{
+			set_velocity_x(jump_speed + get_velocity_x());
+		}
+		else if(direction == C_Right)
+		{
+			set_velocity_x(-jump_speed + get_velocity_x());
+		}
+	}
+	if(health <= 0)
+	{
+		kill();
+	}
 }
 
 Actor *Enemy_Vampire::clone()

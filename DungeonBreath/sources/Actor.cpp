@@ -27,7 +27,7 @@ void Actor::init(int pos_x, int pos_y, int size_x, int size_y, std::string image
 	this->my_collide = All;
 }
 
-void Actor::hurt(int raw_dmg, CollideType direction)
+void Actor::hurt(int raw_dmg, CollideType direction, Actor *attacker)
 {
 
 }

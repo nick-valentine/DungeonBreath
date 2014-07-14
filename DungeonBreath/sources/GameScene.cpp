@@ -82,6 +82,7 @@ void GameScene::init(int width, int height)
 
 void GameScene::load_level()
 {
+	srand( time( NULL) );
 	while(!HeroSpawned)
 	{
 		addTileset(sf::IntRect(-1, -1, -1, -1),0,0,true);

@@ -27,12 +27,12 @@ class Enemy_Vampire : public Actor
 		
 		void update(int delta);
 		void draw(sf::RenderWindow &window);
-		void hurt(int raw_dmg, CollideType direction);
+		void hurt(int raw_dmg, CollideType direction, Actor *attacker);
 		
 		Actor *clone();
 	private:
 		const static unsigned int speed_multiplier = 7;
-	
+		const static unsigned int speed_dampening = 7;
 		const static unsigned int idle_anim_time = 300000;
 		const static unsigned int chasing_anim_time = 300000;
 		const static unsigned int attacking_anim_time = 120000;
@@ -41,10 +41,15 @@ class Enemy_Vampire : public Actor
 		const static unsigned int distance_before_chase = 500;
 		const static unsigned int distance_before_attack = 75;
 		const static unsigned int delta_shift = 14;
-	
+		const static int jump_speed = 30;
+		const static double hurt_debounce = 600000;
+		
 		void reset_state_vars();
 	
 		Actor *hero;
+		
+		int health;
+		int hurt_timer;
 	
 		int active_sprite;
 		unsigned long int update_count;

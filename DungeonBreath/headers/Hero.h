@@ -22,7 +22,7 @@ class Hero : public Actor
  	
  	void update(int delta);
  	void draw(sf::RenderWindow &window);
-	void hurt(int raw_dmg, CollideType direction);
+	void hurt(int raw_dmg, CollideType direction, Actor *attacker);
  	
  	Actor *clone();
  private:

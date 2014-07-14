@@ -38,6 +38,9 @@ void EnemyFollower::init(int pos_x, int pos_y, int size_x, int size_y)
 	active_sprite = 0;
 	update_count = 0;
 	
+	health = 2;
+	hurt_timer = 0;
+	
 	my_type = Enemy;
 	set_collide_type(All);
 	set_alive(true);
@@ -47,6 +50,7 @@ void EnemyFollower::update(int delta)
 {
     if(get_alive())
     {
+		hurt_timer -= delta;
 	    update_count++;
 	
 	    if(update_count%5 == 0)
@@ -99,9 +103,33 @@ void EnemyFollower::draw(sf::RenderWindow &window)
     }
 }
 
-void EnemyFollower::hurt(int raw_dmg, CollideType direction)
+void EnemyFollower::hurt(int raw_dmg, CollideType direction, Actor *attacker)
 {
-	
+	if(hurt_timer <= 0)
+	{
+		hurt_timer = hurt_debounce;
+		health -= raw_dmg;
+		if(direction == C_Top)
+		{
+			set_velocity_y( -jump_speed );
+		}
+		else if(direction == C_Bottom)
+		{
+			set_velocity_y( jump_speed );
+		}
+		else if(direction == C_Left)
+		{
+			set_velocity_x( jump_speed );
+		}
+		else if(direction == C_Right)
+		{
+			set_velocity_x( -jump_speed );
+		}
+	}
+	if(health <= 0)
+	{
+		kill();
+	}
 }
 
 Actor *EnemyFollower::clone()

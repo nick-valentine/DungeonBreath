@@ -35,7 +35,9 @@ void MagicMissile::update(int delta)
         {
             if(last_collided[i].second->get_type() == Enemy)
             {
-                last_collided[i].second->kill();
+				last_collided[i].second->hurt(1, last_collided[i].first, this);
+				kill();
+                //last_collided[i].second->kill();
                 //kill();
                 //break;
             }

@@ -48,7 +48,7 @@ class Actor
  	
  	virtual void update(int delta) = 0;
  	virtual void draw(sf::RenderWindow &window) = 0;
- 	virtual void hurt(int raw_dmg, CollideType direction);
+ 	virtual void hurt(int raw_dmg, CollideType direction, Actor *attacker);
 	
  	void common_update(int delta);
  	

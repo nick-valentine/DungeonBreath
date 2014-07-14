@@ -47,7 +47,7 @@ void Hero::update(int delta)
     if(get_alive())
     {
 		hurt_timer -= delta;
-		std::cout<<health<<std::endl;
+		//std::cout<<health<<std::endl;
         missile_factory.update(delta);
         for(int i = 0; i < Spells.size(); ++i)
         {
@@ -149,7 +149,7 @@ void Hero::draw(sf::RenderWindow &window)
 	}
 }
 
-void Hero::hurt(int raw_dmg, CollideType direction)
+void Hero::hurt(int raw_dmg, CollideType direction, Actor *attacker)
 {
 	if(hurt_timer <= 0)
 	{
