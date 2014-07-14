@@ -40,6 +40,13 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 	dynamic_cast<MagicNova *>(Spells[Spells.size() - 1])->init(500, 500, 50, 50, 0, 0, true, "img/MagicMissile.png");
 	Spells[Spells.size() - 1]->unregister();
 	missile_factory.add_actor(Spells[Spells.size() - 1],0, 300000);
+	
+	Keys.push_back(sf::Keyboard::Num3);
+	Keys_last_pressed.push_back(false);
+	Spells.push_back(new Sword);
+	dynamic_cast<Sword *>(Spells[Spells.size() - 1])->init(500, 500, 200, 200, "img/Sword.png");
+	Spells[Spells.size() - 1]->unregister();
+	missile_factory.add_actor(Spells[Spells.size() - 1], 0, 30000);
 }
 
 void Hero::update(int delta)

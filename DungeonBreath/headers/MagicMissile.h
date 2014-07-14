@@ -19,7 +19,7 @@ class MagicMissile : public Attack
  	
  	Actor *clone();
  private:
-    static const int lifespan;
+    const static int lifespan = 3000000;
     
     int lifetime;
  

@@ -11,6 +11,7 @@
 #include "Actor.h"
 #include "MagicMissile.h"
 #include "MagicNova.h"
+#include "Sword.h"
 #include "ActorFactory.h"
 #include "Direction.h"
 

@@ -22,7 +22,7 @@ class Actor
  	    Block = 3,
  	    Enemy = 4,
  	    Spell = 5,
- 	    Sword = 6,
+ 	    A_Sword = 6,
  	    Trigger = 7
  	};
  	

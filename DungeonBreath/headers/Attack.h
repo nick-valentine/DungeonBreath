@@ -23,7 +23,6 @@ class Attack : public Actor
  	void set_speed(int x);
  
  private:
- 
  	int my_speed;
  	Direction my_facing;
 };

@@ -1,7 +1,5 @@
 #include "../headers/MagicMissile.h"
 
-const int MagicMissile::lifespan = 3000000;
-
 MagicMissile::MagicMissile() : Attack()
 {
     //init(0, 0, 0, 0, 0, 0, "");
