@@ -253,11 +253,11 @@ void Enemy_Vampire::update(int delta)
 			{
 				if(look_left)
 				{
-					hero->hurt(1,C_Right, this);
+					hero->hurt(1,C_Right, this, hit_force);
 				}
 				else
 				{
-					hero->hurt(1, C_Left, this);
+					hero->hurt(1, C_Left, this, hit_force);
 				}
 			}
 		}
@@ -290,7 +290,7 @@ void Enemy_Vampire::draw(sf::RenderWindow &window)
 	}
 }
 
-void Enemy_Vampire::hurt(int raw_dmg, CollideType direction, Actor *attacker)
+void Enemy_Vampire::hurt(int raw_dmg, CollideType direction, Actor *attacker, int knockback)
 {
 	if(hurt_timer <= 0)
 	{
@@ -298,19 +298,19 @@ void Enemy_Vampire::hurt(int raw_dmg, CollideType direction, Actor *attacker)
 		health -= raw_dmg;
 		if(direction == C_Top)
 		{
-			set_velocity_y(jump_speed + get_velocity_y());
+			set_velocity_y(knockback + get_velocity_y());
 		}
 		else if(direction == C_Bottom)
 		{
-			set_velocity_y(-jump_speed + get_velocity_y());
+			set_velocity_y(-knockback + get_velocity_y());
 		}
 		else if(direction == C_Left)
 		{
-			set_velocity_x(jump_speed + get_velocity_x());
+			set_velocity_x(knockback + get_velocity_x());
 		}
 		else if(direction == C_Right)
 		{
-			set_velocity_x(-jump_speed + get_velocity_x());
+			set_velocity_x(-knockback + get_velocity_x());
 		}
 	}
 	if(health <= 0)

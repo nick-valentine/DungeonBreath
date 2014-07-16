@@ -23,14 +23,13 @@ class Hero : public Actor
  	
  	void update(int delta);
  	void draw(sf::RenderWindow &window);
-	void hurt(int raw_dmg, CollideType direction, Actor *attacker);
+	void hurt(int raw_dmg, CollideType direction, Actor *attacker, int knockback);
  	
  	Actor *clone();
  private:
     const static double accel_x = 1.5;
     const static double accel_y = 1.5;
     const static double vel_damp = 10;
-	const static double jump_speed = 10;
 	const static double hurt_debounce = 600000;
 	
 	int health;

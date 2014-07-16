@@ -15,6 +15,7 @@ void MagicMissile::init(int pos_x, int pos_y, int size_x, int size_y, double vel
     my_type = Spell;
     set_collide_type(BlocksOnly);
     
+	knockback = 20;
     lifetime = lifespan;
 }
 
@@ -33,7 +34,7 @@ void MagicMissile::update(int delta)
         {
             if(last_collided[i].second->get_type() == Enemy)
             {
-				last_collided[i].second->hurt(1, last_collided[i].first, this);
+				last_collided[i].second->hurt(1, last_collided[i].first, this, knockback);
 				kill();
                 //last_collided[i].second->kill();
                 //kill();

@@ -156,7 +156,7 @@ void Hero::draw(sf::RenderWindow &window)
 	}
 }
 
-void Hero::hurt(int raw_dmg, CollideType direction, Actor *attacker)
+void Hero::hurt(int raw_dmg, CollideType direction, Actor *attacker, int knockback)
 {
 	if(hurt_timer <= 0)
 	{
@@ -164,19 +164,19 @@ void Hero::hurt(int raw_dmg, CollideType direction, Actor *attacker)
 		health -= raw_dmg;
 		if(direction == C_Top)
 		{
-			set_velocity_y( -jump_speed );
+			set_velocity_y( -knockback );
 		}
 		else if(direction == C_Bottom)
 		{
-			set_velocity_y( jump_speed );
+			set_velocity_y( knockback );
 		}
 		else if(direction == C_Left)
 		{
-			set_velocity_x( jump_speed );
+			set_velocity_x( knockback );
 		}
 		else if(direction == C_Right)
 		{
-			set_velocity_x( -jump_speed );
+			set_velocity_x( -knockback );
 		}
 	}
 }

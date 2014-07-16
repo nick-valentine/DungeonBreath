@@ -18,9 +18,13 @@ class Sword : public Attack
 	private:
 		const static unsigned int anim_time = 30000;
 		
+		int knockback;
+		int damage;
+		
+		int frame_num;
+		int rotation;
 		int anim_timer;
 		int active_sprite;
-		int rotation;
 		
 		bool first_run;
 		

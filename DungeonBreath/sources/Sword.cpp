@@ -8,21 +8,30 @@ Sword::Sword() : Attack()
 void Sword::init(int pos_x, int pos_y, int size_x, int size_y, std::string img_name)
 {
 	Attack::init(pos_x, pos_y, size_x, size_y,0, img_name);
+	//up
 	add_sprite(0, 0, 100, 100);
-	add_sprite(150, 50, 50, 50);
-	add_sprite(225, 25, 75, 50);
-	add_sprite(300, 50, 50, 50);
+	get_sprite(0)->setOrigin(10, 90);
+	add_sprite(100, 0, 100, 100);
+	get_sprite(1)->setOrigin(10, 90);
+	get_sprite(2)->setOrigin(10, 90);
+	add_sprite(200, 0, 100, 100);
+	get_sprite(3)->setOrigin(50, 90);
+	add_sprite(300, 0, 100, 100);
+	get_sprite(4)->setOrigin(90, 90);
+	add_sprite(400, 0, 100, 100);
+	get_sprite(5)->setOrigin(90, 90);
 	
-	add_sprite(200, 100, -50, -50);
-	get_sprite(4)->setOrigin(75, 50);
+	damage = 1;
+	knockback = 40;
 	
 	my_type = Actor::A_Sword;
 	my_type = Null;
 	set_collide_type(BlocksOnly);
 	anim_timer = anim_time;
-	active_sprite = 2;
-	rotation = 0;
+	active_sprite = 1;
 	first_run = true;
+	frame_num = 0;
+	rotation = 0;
 }
 
 void Sword::update(int delta)
@@ -35,7 +44,7 @@ void Sword::update(int delta)
 			{
 				set_rect(sf::Rect<int>(hero->get_rect().left, hero->get_rect().top - 50, get_rect().width, get_rect().height));
 				rotation = 0;
-			}
+     		}
 			else if(get_facing() == D_Down)
 			{
 				set_rect(sf::Rect<int>(hero->get_rect().left, hero->get_rect().top + 50, get_rect().width, get_rect().height));
@@ -65,6 +74,7 @@ void Sword::update(int delta)
 			if(anim_timer <= 0)
 			{
 				active_sprite++;
+				frame_num++;
 				anim_timer = anim_time;
 			}
 			common_update(delta);
@@ -73,11 +83,11 @@ void Sword::update(int delta)
 			{
 				if(last_collided[i].second->get_type() == Enemy)
 				{
-					last_collided[i].second->hurt(1, last_collided[i].first, this);
+					last_collided[i].second->hurt(damage, last_collided[i].first, this, knockback);
 				}
 			}
 			
-			if(active_sprite == 5)
+			if(frame_num == 5)
 			{
 				kill();
 			}
@@ -87,34 +97,25 @@ void Sword::update(int delta)
 
 void Sword::draw(sf::RenderWindow &window)
 {
-/*
-	get_sprite(active_sprite)->setPosition(get_rect().left, get_rect().top);
-	get_sprite(active_sprite)->rotate(3);
-	window.draw(*get_sprite(active_sprite));
-	
-	sf::RectangleShape rect(sf::Vector2f(get_rect().width, get_rect().height));
-	rect.setPosition(get_rect().left, get_rect().top);
-	rect.setFillColor(sf::Color::Transparent);
-	rect.setOutlineThickness(2);
-	rect.setOutlineColor(sf::Color::White);
-	window.draw(rect);
-	return;
-	*/
 	
     if(get_alive())
     {
+			sf::Vector2f origin = get_sprite(active_sprite)->getOrigin();
+			get_sprite(active_sprite)->setOrigin(50, 50);
 			get_sprite(active_sprite)->setRotation(rotation);
+			get_sprite(active_sprite)->setOrigin(origin);
 			get_sprite(active_sprite)->setScale(get_rect().width / 100.0, get_rect().height / 100.0);
-			get_sprite(active_sprite)->setPosition(get_rect().left, get_rect().top);
+			get_sprite(active_sprite)->setPosition(get_rect().left + ( get_rect().width / 2 ), get_rect().top + ( get_rect().height / 2 ));
 			
-			window.draw(*get_sprite(4));
-			
+			window.draw(*get_sprite(active_sprite));
+			/*
 			sf::RectangleShape rect(sf::Vector2f(get_rect().width, get_rect().height));
 			rect.setPosition(get_rect().left, get_rect().top);
 			rect.setFillColor(sf::Color::Transparent);
 			rect.setOutlineThickness(2);
 			rect.setOutlineColor(sf::Color::White);
 			window.draw(rect);
+			*/
 	}
 }
 
