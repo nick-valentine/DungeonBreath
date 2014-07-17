@@ -13,6 +13,8 @@
 #include "TileSet.h"
 #include "Scene.h"
 
+#include "Item.h"
+
 class GameScene : public Scene
 {
  public:

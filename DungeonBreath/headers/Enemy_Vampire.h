@@ -9,6 +9,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Actor.h"
+#include "Item.h"
+#include "Gold.h"
 
 class Enemy_Vampire : public Actor
 {
@@ -48,6 +50,7 @@ class Enemy_Vampire : public Actor
 	
 		Actor *hero;
 		
+		int level;
 		int health;
 		int hurt_timer;
 	

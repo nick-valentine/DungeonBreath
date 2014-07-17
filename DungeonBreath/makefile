@@ -1,18 +1,20 @@
 
-all: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o build/Files.o build/TileSet.o build/Enemy_Vampire.o build/Sword.o
+all: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o build/Files.o build/TileSet.o build/Enemy_Vampire.o build/Sword.o build/Item.o build/Gold.o
 	g++ -o DungeonBreath build/main.o build/TextureMap.o build/Actor.o \
 	build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o \
 	build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o \
 	build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o \
 	build/Files.o build/TileSet.o build/Enemy_Vampire.o build/Sword.o \
+	build/Item.o build/Gold.o \
 	build/Scene.o -lsfml-graphics -lsfml-window -lsfml-system
 
-windows: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o build/Files.o build/TileSet.o build/Enemy_Vampire.o build/Sword.o
+windows: build/main.o build/TextureMap.o build/Actor.o build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o build/Scene.o build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o build/Files.o build/TileSet.o build/Enemy_Vampire.o build/Sword.o build/Item.o build/Gold.o
 	g++ -o DungeonBreath.exe build/main.o build/TextureMap.o build/Actor.o \
 	build/Hero.o build/Wall.o build/EnemyFollower.o build/MagicMissile.o \
 	build/ActorFactory.o build/Trigger.o build/Attack.o build/MagicNova.o \
 	build/Tile.o build/GameScene.o build/Button.o build/MainMenuScene.o \
 	build/Files.o build/TileSet.o build/Enemy_Vampire.o build/Sword.o \
+	build/Item.o build/Gold.o \
 	build/Scene.o -lsfml-graphics -lsfml-window -lsfml-system
 
 winclean:
@@ -80,3 +82,11 @@ build/Enemy_Vampire.o: sources/Enemy_Vampire.cpp headers/Enemy_Vampire.h
 	
 build/Sword.o: sources/Sword.cpp headers/Sword.h
 	g++ -c sources/Sword.cpp -o build/Sword.o
+	
+build/Item.o: sources/Item.cpp headers/Item.h
+	g++ -c sources/Item.cpp -o build/Item.o
+	
+	
+build/Gold.o: sources/Gold.cpp headers/Gold.h
+	g++ -c sources/Gold.cpp -o build/Gold.o
+	

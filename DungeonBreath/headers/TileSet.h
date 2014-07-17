@@ -16,6 +16,9 @@
 #include "ActorFactory.h"
 #include "Enemy_Vampire.h"
 
+#include "Item.h"
+#include "Gold.h"
+
 class TileSet
 {
  public:

@@ -130,7 +130,7 @@ void GameScene::update(int delta, sf::RenderWindow &window)
 		
 		Actor::clear_dead();
 	}
-
+	Item::update_all(delta);
 }
 
 void GameScene::draw(sf::RenderWindow &window)
@@ -148,10 +148,12 @@ void GameScene::draw(sf::RenderWindow &window)
 		{
 			my_tilesets[i]->draw_tiles(window);
 		}
+		Item::draw_all(window);
 		for(int i = 0; i < my_tilesets.size(); ++i)
 		{
 			my_tilesets[i]->draw_actors(window);
 		}
+		
 		window.setView(mini_map);
 		for(int i = 0; i < my_tilesets.size(); ++i)
 		{

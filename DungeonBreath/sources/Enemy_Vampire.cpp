@@ -50,6 +50,7 @@ void Enemy_Vampire::init(int pos_x, int pos_y, int size_x, int size_y)
 	
 	time_alive = 0;
 	
+	level = 5;
 	health = 3;
 	hurt_timer = 0;
 	
@@ -315,6 +316,14 @@ void Enemy_Vampire::hurt(int raw_dmg, CollideType direction, Actor *attacker, in
 	}
 	if(health <= 0)
 	{
+		srand( time( NULL ) );
+		int num = rand() % level;
+		for(int i = 0; i < num; ++i)
+		{
+			Gold *temp = new Gold();
+			temp->init(get_rect().left + (rand() % 20) - 10, get_rect().top + (rand() % 20) - 10, 10, 10);
+			Item::add_item(temp);
+		}
 		kill();
 	}
 }

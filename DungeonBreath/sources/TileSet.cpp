@@ -8,6 +8,11 @@ TileSet::TileSet()
 TileSet::~TileSet()
 {
 	delete this->all_tiles;
+	
+	for(int i = 0; i < my_tiles.size(); ++i)
+	{
+		delete my_tiles[i];
+	}
 }
 
 void TileSet::init(std::string filename, int xpos, int ypos, bool &HeroSpawned, bool OnlyLoadSides)

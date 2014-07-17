@@ -14,6 +14,8 @@
 #include "Sword.h"
 #include "ActorFactory.h"
 #include "Direction.h"
+#include "Item.h"
+#include "Gold.h"
 
 class Hero : public Actor
 {
@@ -26,6 +28,9 @@ class Hero : public Actor
 	void hurt(int raw_dmg, CollideType direction, Actor *attacker, int knockback);
  	
  	Actor *clone();
+	
+	int get_vacuum_radius() const;
+	void set_vacuum_radius(int x);
  private:
     const static double accel_x = 1.5;
     const static double accel_y = 1.5;
@@ -34,6 +39,11 @@ class Hero : public Actor
 	
 	int health;
 	int hurt_timer;
+	
+	int vacuum_radius;
+	int pickup_radius;
+ 
+	int gold;
  
  	int active_sprite;
  	int update_count;

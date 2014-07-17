@@ -15,6 +15,10 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 	hero = this;
 
 	health = 5;
+	vacuum_radius = 100;
+	pickup_radius = 10;
+ 
+	gold = 0;
 	
 	active_sprite = 0;
 	update_count = 0;
@@ -136,6 +140,38 @@ void Hero::update(int delta)
 
         common_update(delta);
         
+		std::vector<Item *> *items = Item::get_items();
+		
+		//Item logic here for hero vacuum
+		for(int i = 0; i < items->size(); ++i)
+		{
+			int diff_x = get_rect().left - items[0][i]->get_rect()->left;
+			int diff_y = get_rect().top - items[0][i]->get_rect()->top;
+			
+			int pythag = sqrt((diff_x * diff_x) + (diff_y * diff_y));
+			
+			if(pythag < vacuum_radius)
+			{
+				int mov_x = (diff_x / pythag) * items[0][i]->get_speed();
+				int mov_y = (diff_y / pythag) * items[0][i]->get_speed();
+				
+				items[0][i]->get_rect()->left += mov_x;
+				items[0][i]->get_rect()->top += mov_y;
+				
+				if(pythag < pickup_radius)
+				{
+					if(items[0][i]->get_type() == Item::Gold)
+					{
+						this->gold++;
+					}
+					items[0][i]->kill();
+					std::cout<<gold<<std::endl;
+					
+				}
+			}
+			
+		}
+		
         //sword and all that stuff here
        
     }
@@ -185,4 +221,16 @@ Actor *Hero::clone()
 {
     Hero *temp = new Hero(*this);
     return temp;
+}
+
+
+
+int Hero::get_vacuum_radius() const
+{
+	return this->vacuum_radius;
+}
+
+void Hero::set_vacuum_radius(int x)
+{
+	this->vacuum_radius = x;
 }

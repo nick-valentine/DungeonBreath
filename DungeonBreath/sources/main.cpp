@@ -10,27 +10,13 @@
 #include "../headers/MainMenuScene.h"
 #include "../headers/Scene.h"
 #include "../headers/Files.h"
+#include "../headers/TileSet.h"
 
 void handle_events(sf::RenderWindow &window);
 
 int main()
 {
 	sf::Thread *file_thread = SpawnFileThread();
-	
-	/*
-	File *my_file = new File();
-	
-	std::vector<std::string> test;
-	test.push_back("This is test");
-	test.push_back("testing");
-	my_file->init("test.txt", test);
-	my_file->QueueWrite();
-	
-	while(!my_file->ready())
-	{
-		sf::sleep(sf::milliseconds(10));
-	}
-	*/
 	
 	//Scene *my_scene = new GameScene;
 	Scene *my_scene = new MainMenuScene;
@@ -53,6 +39,7 @@ int main()
 		window.clear(sf::Color::Black);
 		my_scene->draw(window);
 		window.display();
+		Item::clean_dead_items();
 		
 		Scene::Status my_status = my_scene->get_status();
 		
@@ -68,6 +55,8 @@ int main()
 		}
 	}
 
+	Item::clear_items();
+	
 	Actor::clear_all_actors();
 	delete my_scene;
 	
