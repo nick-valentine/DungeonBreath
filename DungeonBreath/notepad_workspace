@@ -1,0 +1,114 @@
+<NotepadPlus>
+    <Project name="DungeonBreath">
+        <Folder name="build">
+            <File name="build\Actor.o" />
+            <File name="build\ActorFactory.o" />
+            <File name="build\Attack.o" />
+            <File name="build\Button.o" />
+            <File name="build\EnemyFollower.o" />
+            <File name="build\Enemy_Vampire.o" />
+            <File name="build\Files.o" />
+            <File name="build\GameScene.o" />
+            <File name="build\Hero.o" />
+            <File name="build\MagicMissile.o" />
+            <File name="build\MagicNova.o" />
+            <File name="build\main.o" />
+            <File name="build\MainMenuScene.o" />
+            <File name="build\Scene.o" />
+            <File name="build\Sword.o" />
+            <File name="build\TextureMap.o" />
+            <File name="build\Tile.o" />
+            <File name="build\TileSet.o" />
+            <File name="build\Trigger.o" />
+            <File name="build\Wall.o" />
+        </Folder>
+        <Folder name="gamedata">
+            <Folder name="levels">
+                <File name="gamedata\levels\BottomEnd.txt" />
+                <File name="gamedata\levels\CrossRoads.txt" />
+                <File name="gamedata\levels\EmptyCenter.txt" />
+                <File name="gamedata\levels\HorizontalPipe.txt" />
+                <File name="gamedata\levels\LeftEnd.txt" />
+                <File name="gamedata\levels\levels.txt" />
+                <File name="gamedata\levels\RightBottomCorner.txt" />
+                <File name="gamedata\levels\RightEnd.txt" />
+                <File name="gamedata\levels\TopEnd.txt" />
+                <File name="gamedata\levels\TopLeftCorner.txt" />
+                <File name="gamedata\levels\TopRightCorner.txt" />
+                <File name="gamedata\levels\TreasureRoom.txt" />
+                <File name="gamedata\levels\VerticalPipe.txt" />
+            </Folder>
+        </Folder>
+        <Folder name="headers">
+            <File name="headers\Actor.h" />
+            <File name="headers\ActorFactory.h" />
+            <File name="headers\Attack.h" />
+            <File name="headers\Button.h" />
+            <File name="headers\Direction.h" />
+            <File name="headers\EnemyFollower.h" />
+            <File name="headers\Enemy_Vampire.h" />
+            <File name="headers\Files.h" />
+            <File name="headers\GameScene.h" />
+            <File name="headers\Hero.h" />
+            <File name="headers\MagicMissile.h" />
+            <File name="headers\MagicNova.h" />
+            <File name="headers\MainMenuScene.h" />
+            <File name="headers\Scene.h" />
+            <File name="headers\Sword.h" />
+            <File name="headers\TextureMap.h" />
+            <File name="headers\Tile.h" />
+            <File name="headers\TileSet.h" />
+            <File name="headers\Trigger.h" />
+            <File name="headers\Wall.h" />
+        </Folder>
+        <Folder name="img">
+            <Folder name="src">
+                <File name="img\src\default.xcf" />
+                <File name="img\src\Enemy.xcf" />
+                <File name="img\src\Hero.xcf" />
+                <File name="img\src\MagicMissile.xcf" />
+                <File name="img\src\Sword.xcf" />
+                <File name="img\src\TileSet.xcf" />
+                <File name="img\src\WallSheet.xcf" />
+            </Folder>
+            <File name="img\default.png" />
+            <File name="img\Enemy.png" />
+            <File name="img\Hero.png" />
+            <File name="img\Knights Quest.ttf" />
+            <File name="img\MagicMissile.png" />
+            <File name="img\PurpleBrick.png" />
+            <File name="img\Sword.png" />
+            <File name="img\TileSet.png" />
+            <File name="img\VampSprites.png" />
+            <File name="img\WallSheet.png" />
+        </Folder>
+        <Folder name="sound">
+            <File name="sound\for_git.txt" />
+        </Folder>
+        <Folder name="sources">
+            <File name="sources\Actor.cpp" />
+            <File name="sources\ActorFactory.cpp" />
+            <File name="sources\Attack.cpp" />
+            <File name="sources\Button.cpp" />
+            <File name="sources\EnemyFollower.cpp" />
+            <File name="sources\Enemy_Vampire.cpp" />
+            <File name="sources\Files.cpp" />
+            <File name="sources\GameScene.cpp" />
+            <File name="sources\Hero.cpp" />
+            <File name="sources\MagicMissile.cpp" />
+            <File name="sources\MagicNova.cpp" />
+            <File name="sources\main.cpp" />
+            <File name="sources\MainMenuScene.cpp" />
+            <File name="sources\Scene.cpp" />
+            <File name="sources\Sword.cpp" />
+            <File name="sources\TextureMap.cpp" />
+            <File name="sources\Tile.cpp" />
+            <File name="sources\TileSet.cpp" />
+            <File name="sources\Trigger.cpp" />
+            <File name="sources\Wall.cpp" />
+        </Folder>
+        <File name="DungeonBreath" />
+        <File name="DungeonBreath.exe" />
+        <File name="makefile" />
+    </Project>
+</NotepadPlus>
