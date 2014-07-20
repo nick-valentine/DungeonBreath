@@ -11,6 +11,7 @@
 #include "Actor.h"
 #include "Item.h"
 #include "Gold.h"
+#include "Experience.h"
 
 class Enemy_Vampire : public Actor
 {

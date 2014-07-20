@@ -15,10 +15,11 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 	hero = this;
 
 	health = 5;
-	vacuum_radius = 100;
+	vacuum_radius = 150;
 	pickup_radius = 10;
  
 	gold = 0;
+	exp = 0;
 	
 	active_sprite = 0;
 	update_count = 0;
@@ -164,9 +165,11 @@ void Hero::update(int delta)
 					{
 						this->gold++;
 					}
+					else if(items[0][i]->get_type() == Item::Exp)
+					{
+						this->exp++;
+					}
 					items[0][i]->kill();
-					std::cout<<gold<<std::endl;
-					
 				}
 			}
 			
@@ -233,4 +236,14 @@ int Hero::get_vacuum_radius() const
 void Hero::set_vacuum_radius(int x)
 {
 	this->vacuum_radius = x;
+}
+
+int Hero::get_gold() const
+{
+	return this->gold;
+}
+
+int Hero::get_exp() const
+{
+	return this->exp;
 }

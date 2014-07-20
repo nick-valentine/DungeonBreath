@@ -324,6 +324,13 @@ void Enemy_Vampire::hurt(int raw_dmg, CollideType direction, Actor *attacker, in
 			temp->init(get_rect().left + (rand() % 20) - 10, get_rect().top + (rand() % 20) - 10, 10, 10);
 			Item::add_item(temp);
 		}
+		
+		for(int i = 0; i < num; ++i)
+		{
+			Experience *temp = new Experience();
+			temp->init(get_rect().left + (rand() % 20) - 10, get_rect().top + (rand() % 20) - 10, 10, 10);
+			Item::add_item(temp);
+		}
 		kill();
 	}
 }

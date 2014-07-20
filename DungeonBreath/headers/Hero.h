@@ -31,6 +31,9 @@ class Hero : public Actor
 	
 	int get_vacuum_radius() const;
 	void set_vacuum_radius(int x);
+	
+	int get_gold() const;
+	int get_exp() const;
  private:
     const static double accel_x = 1.5;
     const static double accel_y = 1.5;
@@ -44,6 +47,7 @@ class Hero : public Actor
 	int pickup_radius;
  
 	int gold;
+	int exp;
  
  	int active_sprite;
  	int update_count;

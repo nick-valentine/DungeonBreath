@@ -23,6 +23,8 @@ void GameScene::init(int width, int height)
 	my_status = Nothing;
 	my_state = loading;
 	
+	inv_scene.init(width, height);
+	
 	if(!my_font.loadFromFile("./img/Knights Quest.ttf"))
 	{
 		std::cout<<"Could Not Load Knights Quest"<<std::endl;
@@ -51,6 +53,7 @@ void GameScene::init(int width, int height)
 									height - tiles_spawned_text.getLocalBounds().height - 50);
 	
 	main_window.reset(sf::FloatRect(0, 0, width, height));
+	menu_window.reset(sf::FloatRect(0, 0, width, height));
 	
 	mini_map.reset(sf::FloatRect(0, 0, width, height));
 	mini_map.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
@@ -108,6 +111,7 @@ void GameScene::load_level()
 
 void GameScene::update(int delta, sf::RenderWindow &window)
 {
+	last_state_change += delta;
 	if(my_state == loading)
 	{
 		loading_count++;
@@ -121,6 +125,7 @@ void GameScene::update(int delta, sf::RenderWindow &window)
 		{
 			main_window.setCenter(sf::Vector2f(hero->get_rect().left, hero->get_rect().top));
 			mini_map.setCenter(sf::Vector2f(hero->get_rect().left, hero->get_rect().top));
+			inv_scene.set_hero(hero);
 		}
 		
 		for(int i = 0; i < my_tilesets.size(); ++i)
@@ -129,8 +134,26 @@ void GameScene::update(int delta, sf::RenderWindow &window)
 		}
 		
 		Actor::clear_dead();
+		Item::update_all(delta);
+		
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::I) && last_state_change > state_change_debounce)
+		{
+			my_state = inventory;
+			last_state_change = 0;
+		}
 	}
-	Item::update_all(delta);
+	else if(my_state == inventory)
+	{
+		inv_scene.update(delta, window);
+		
+		if((sf::Keyboard::isKeyPressed(sf::Keyboard::I) ||
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) &&
+		last_state_change > state_change_debounce)
+		{
+			my_state = playing;
+			last_state_change = 0;
+		}
+	}
 }
 
 void GameScene::draw(sf::RenderWindow &window)
@@ -163,6 +186,11 @@ void GameScene::draw(sf::RenderWindow &window)
 		{
 			my_tilesets[i]->draw_actors(window);
 		}
+	}
+	else if(my_state == inventory)
+	{
+		window.setView(menu_window);
+		inv_scene.draw(window);
 	}
 }
 

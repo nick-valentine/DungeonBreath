@@ -12,6 +12,7 @@
 #include "Files.h"
 #include "TileSet.h"
 #include "Scene.h"
+#include "Inventory.h"
 
 #include "Item.h"
 
@@ -21,7 +22,8 @@ class GameScene : public Scene
 	enum State
 	{
 		loading,
-		playing
+		playing,
+		inventory
 	};
  
 	GameScene();
@@ -36,6 +38,7 @@ class GameScene : public Scene
 	void addTileset(sf::IntRect sides, int x_tile = 0, int y_tile = 0, bool clear_set = false);
  private:
 	static const unsigned int max_tiles = 50;
+	static const unsigned int state_change_debounce = 500000;
  
     bool hero_found;
     Actor *hero;
@@ -44,6 +47,7 @@ class GameScene : public Scene
     
     sf::View main_window;
     sf::View mini_map;
+	sf::View menu_window;
     
     File my_file;
     std::vector<std::string> file_data;
@@ -62,6 +66,8 @@ class GameScene : public Scene
 	sf::Text tiles_spawned_text;
 	int loading_count;
 	
+	Inventory inv_scene;
+	int last_state_change;
 };
 
 #endif //GAMESCENE_H
