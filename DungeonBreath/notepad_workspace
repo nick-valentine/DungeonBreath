@@ -64,6 +64,7 @@
             <File name="headers\Gold.h" />
             <File name="headers\Item.h" />
             <File name="headers\Inventory.h" />
+            <File name="headers\SwordItem.h" />
         </Folder>
         <Folder name="img">
             <Folder name="src">
@@ -114,6 +115,7 @@
             <File name="sources\Gold.cpp" />
             <File name="sources\Item.cpp" />
             <File name="sources\Inventory.cpp" />
+            <File name="sources\SwordItem.cpp" />
         </Folder>
         <File name="DungeonBreath" />
         <File name="DungeonBreath.exe" />
