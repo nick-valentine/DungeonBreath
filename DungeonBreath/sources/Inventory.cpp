@@ -61,9 +61,74 @@ void Inventory::draw(sf::RenderWindow &window)
 {
 	window.draw(gold_text);
 	window.draw(exp_text);
+	
+	for(int i = 0; i < hero->get_inventory()[0].size(); ++i)
+	{
+		 *(hero->get_inventory()[0][i]->get_rect()) = sf::IntRect((i % 6) * 50, (i / 6) * 50, 50, 50);
+		hero->get_inventory()[0][i]->draw(window);
+		
+		if(hero->get_inventory()[0][i]->get_rect()->contains(sf::Mouse::getPosition(window)) && dynamic_cast<SwordItem *>(hero->get_inventory()[0][i]) != NULL)
+		{
+			display_sword_stats(dynamic_cast<SwordItem *>(hero->get_inventory()[0][i]), window);
+		}
+	}
 }
 
 void Inventory::set_hero(Actor *hero)
 {
 	this->hero = dynamic_cast<Hero *>(hero);
+}
+
+void Inventory::display_sword_stats(SwordItem *item, sf::RenderWindow &window)
+{
+	std::stringstream ss;
+	ss<<"Name: "<<item->my_name<<"\n";
+	ss<<"Desc: "<<item->my_desc<<"\n";
+	ss<<"Level: "<<item->my_level<<"\n";
+	ss<<"Damage: \n";
+	if(item->phys_damage != 0)
+	{
+		ss<<"Physical: "<<item->phys_damage<<"\n";
+	}
+	if(item->garlic_damage != 0)
+	{
+		ss<<"Garlic: "<<item->garlic_damage<<"\n";
+	}
+	if(item->silver_damage != 0)
+	{
+		ss<<"Silver: "<<item->silver_damage<<"\n";
+	}
+	if(item->fire_damage != 0)
+	{
+		ss<<"Fire: "<<item->fire_damage<<"\n";
+	}
+	if(item->water_damage != 0)
+	{
+		ss<<"Water: "<<item->water_damage<<"\n";
+	}
+	if(item->air_damage != 0)
+	{
+		ss<<"Air: "<<item->air_damage<<"\n";
+	}
+	if(item->rock_damage != 0)
+	{
+		ss<<"Rock: "<<item->rock_damage<<"\n";
+	}
+	if(item->gas_damage != 0)
+	{
+		ss<<"Gas: "<<item->gas_damage<<"\n";
+	}
+	if(item->ghost_damage != 0)
+	{
+		ss<<"Ghost: "<<item->ghost_damage<<"\n";
+	}
+
+	sf::Text info_text;
+	info_text = sf::Text(ss.str(), my_font);
+	info_text.setCharacterSize(25);
+	info_text.setStyle(sf::Text::Bold);
+	info_text.setColor(sf::Color::White);
+	info_text.setPosition(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
+	
+	window.draw(info_text);
 }

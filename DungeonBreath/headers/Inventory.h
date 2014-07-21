@@ -8,6 +8,7 @@
 #include "Actor.h"
 #include "Hero.h"
 #include "Item.h"
+#include "SwordItem.h"
 
 class Inventory : public Scene
 {
@@ -30,6 +31,8 @@ class Inventory : public Scene
 		sf::Font my_font;
 		sf::Text gold_text;
 		sf::Text exp_text;
+		
+		void display_sword_stats(SwordItem *item, sf::RenderWindow &window);
 };
 
 #endif //INVENTORY_H

@@ -60,6 +60,10 @@
             <File name="headers\TileSet.h" />
             <File name="headers\Trigger.h" />
             <File name="headers\Wall.h" />
+            <File name="headers\Experience.h" />
+            <File name="headers\Gold.h" />
+            <File name="headers\Item.h" />
+            <File name="headers\Inventory.h" />
         </Folder>
         <Folder name="img">
             <Folder name="src">
@@ -106,6 +110,10 @@
             <File name="sources\TileSet.cpp" />
             <File name="sources\Trigger.cpp" />
             <File name="sources\Wall.cpp" />
+            <File name="sources\Experience.cpp" />
+            <File name="sources\Gold.cpp" />
+            <File name="sources\Item.cpp" />
+            <File name="sources\Inventory.cpp" />
         </Folder>
         <File name="DungeonBreath" />
         <File name="DungeonBreath.exe" />

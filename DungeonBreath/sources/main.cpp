@@ -11,6 +11,7 @@
 #include "../headers/Scene.h"
 #include "../headers/Files.h"
 #include "../headers/TileSet.h"
+#include "../headers/SwordItem.h"
 
 void handle_events(sf::RenderWindow &window);
 
@@ -25,6 +26,16 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "DungeonBreath");
 	sf::Clock timer;
 	int frame_frequency = 33333; //1/30 of a second
+	
+	SwordItem::load_swords();
+	
+	/*
+	for(int i = 0; i < SwordItem::get_swords()[0].size(); ++i)
+	{
+		std::cout<< SwordItem::get_swords()[0][i].my_name<<std::endl;
+	}
+	exit(1);
+	*/
 	
 	while(window.isOpen())
 	{

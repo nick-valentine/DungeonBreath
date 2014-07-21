@@ -40,6 +40,10 @@ Item::Type Item::get_type()
 	return this->my_type;
 }
 
+Item * Item::clone()
+{
+}
+
 std::vector<Item *> *Item::get_items()
 {
 	return &my_items;

@@ -1,0 +1,39 @@
+{
+(name stone sword)
+(desc just slightly better than punching)
+(image ./img/Sword.png)
+(level 1)
+(physical 2)
+(garlic 0)
+(silver 0)
+(fire 0)
+(water 0)
+(air 0)
+(rock 0)
+(gas 0)
+(ghost 0)
+}
+
+{
+(name Godly Stone Sword)
+(desc a lot better than punching)
+(image ./img/Sword2.png)
+(level 10)
+(physical 10)
+}
+
+{
+(name omgwtfbbqq)
+(desc WTF)
+(image ./img/Sword2.png)
+(level 2)
+(physical 5)
+(garlic 10)
+(silver 50)
+(fire 100)
+(water 1)
+(air 10)
+(rock 20)
+(gas 30)
+(ghost 40)
+}

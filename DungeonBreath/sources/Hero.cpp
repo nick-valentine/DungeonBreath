@@ -4,6 +4,11 @@ Hero::Hero() : Actor()
 {
 }
 
+Hero::~Hero()
+{
+
+}
+
 void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 {
     Actor::init(pos_x, pos_y, size_x, size_y, "./img/Hero.png");
@@ -15,8 +20,8 @@ void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 	hero = this;
 
 	health = 5;
-	vacuum_radius = 150;
-	pickup_radius = 10;
+	vacuum_radius = 200;
+	pickup_radius = 50;
  
 	gold = 0;
 	exp = 0;
@@ -161,6 +166,7 @@ void Hero::update(int delta)
 				
 				if(pythag < pickup_radius)
 				{
+					bool ok_to_destroy = true;
 					if(items[0][i]->get_type() == Item::Gold)
 					{
 						this->gold++;
@@ -169,7 +175,21 @@ void Hero::update(int delta)
 					{
 						this->exp++;
 					}
-					items[0][i]->kill();
+					else if(items[0][i]->get_type() == Item::Entity)
+					{
+						if(this->inventory.size() < max_inventory_size)
+						{
+							this->inventory.push_back(items[0][i]->clone());
+						}
+						else
+						{
+							ok_to_destroy = false;
+						}
+					}
+					if(ok_to_destroy)
+					{
+						items[0][i]->kill();
+					}
 				}
 			}
 			
@@ -246,4 +266,9 @@ int Hero::get_gold() const
 int Hero::get_exp() const
 {
 	return this->exp;
+}
+
+std::vector<Item *>* Hero::get_inventory()
+{
+	return &this->inventory;
 }

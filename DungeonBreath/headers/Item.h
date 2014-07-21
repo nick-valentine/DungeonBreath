@@ -12,7 +12,8 @@ class Item
 		enum Type
 		{
 			Gold,
-			Exp
+			Exp,
+			Entity
 		};
 	
 		Item();
@@ -28,6 +29,8 @@ class Item
 		sf::IntRect *get_rect();
 		
 		Type get_type();
+		
+		Item *clone();
 		
 		static std::vector<Item *> *get_items();
 		static void update_all(int delta);
