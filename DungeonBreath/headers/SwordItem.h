@@ -7,6 +7,7 @@
 
 #include "Files.h"
 #include "Item.h"
+#include "DamageStruct.h"
 
 class SwordItem : public Item
 {
@@ -26,15 +27,7 @@ class SwordItem : public Item
 		std::string my_desc;
 		std::string my_image;
 		int my_level;
-		int phys_damage;
-		int garlic_damage;
-		int silver_damage;
-		int fire_damage;
-		int water_damage;
-		int air_damage;
-		int rock_damage;
-		int gas_damage;
-		int ghost_damage;
+		Damage_Struct my_damage;
 		
 		sf::IntRect *get_rect();
 		

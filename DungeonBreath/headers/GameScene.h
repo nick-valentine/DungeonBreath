@@ -15,6 +15,7 @@
 #include "Inventory.h"
 
 #include "Item.h"
+#include "AllScenes.h"
 
 class GameScene : public Scene
 {
@@ -37,7 +38,8 @@ class GameScene : public Scene
 	
 	void addTileset(sf::IntRect sides, int x_tile = 0, int y_tile = 0, bool clear_set = false);
  private:
-	static const unsigned int max_tiles = 50;
+	static const unsigned int max_tiles = 100;
+	static const unsigned int min_tiles = 20;
 	static const unsigned int state_change_debounce = 500000;
  
     bool hero_found;

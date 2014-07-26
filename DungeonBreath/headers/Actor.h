@@ -10,6 +10,12 @@
 
 #include "TextureMap.h"
 
+#include "Item.h"
+#include "Gold.h"
+#include "Experience.h"
+#include "SwordItem.h"
+
+
 class Actor
 {
  public:
@@ -44,6 +50,7 @@ class Actor
  	
  
     Actor();
+	virtual ~Actor();
  	void init(int pos_x, int pos_y, int size_x, int size_y, std::string image_name);
  	
  	virtual void update(int delta) = 0;
@@ -84,6 +91,8 @@ class Actor
  	bool is_colliding(Actor *x) const;
  	CollideType move_and_resolve_collision();
 	
+	void spawn_item(int level, int drop_chance);
+	
  	virtual Actor *clone() = 0;
  	
  	void unregister();
@@ -95,6 +104,7 @@ class Actor
  	static void clear_dead();
  	
 	static void clear_all_actors();
+	static void clear_registered_actors();
  protected:
 	const static unsigned int min_distance = 50 * 11;
  	double velocity_x;

@@ -24,6 +24,7 @@ class Hero : public Actor
  public:
  	Hero();
 	~Hero();
+	Hero(const Hero &other);
  	void init(int pos_x, int pos_y, int size_x, int size_y);
  	
  	void update(int delta);

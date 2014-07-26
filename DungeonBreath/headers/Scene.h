@@ -29,7 +29,7 @@ class Scene
  	};
  
     Scene();
-    ~Scene();
+    virtual ~Scene();
     virtual void init(int width, int height) = 0;
     
     virtual void update(int delta, sf::RenderWindow &window) = 0;

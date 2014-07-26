@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <typeinfo>
 
 #include "Files.h"
 #include "Actor.h"
@@ -24,7 +25,9 @@ class TileSet
  public:
  	TileSet();
 	~TileSet();
- 	void init(std::string filename, int xpos, int ypos, bool &HeroSpawned, bool OnlyLoadSides = false);
+	TileSet(const TileSet &other);
+	TileSet(const TileSet *other);
+ 	void init(std::string filename, int xpos, int ypos, bool &HeroSpawned, bool LoadingSet = false);
  	
  	void update(int delta);
  	
@@ -39,6 +42,9 @@ class TileSet
 	
 	sf::Vector2i get_pos();
 	sf::IntRect get_sides();
+	
+	static bool hero_spawned();
+	static void reset_hero_spawned();
  private:
  	int top;
  	int left;
@@ -51,11 +57,20 @@ class TileSet
  	bool my_ready;
  	
 	Actor *hero;
+	bool hero_in_this;
+	static bool HeroSpawned;
+	
+	bool derived_type;
 	
  	std::vector<Actor *> my_actors;
+	std::vector<Actor *> my_walls;
  	std::vector<Tile *> my_tiles;
+	
 	sf::RenderTexture *all_tiles;
 	sf::Sprite all_tile_sprites;
+	
+	sf::RenderTexture *all_walls;
+	sf::Sprite all_wall_sprites;
 	
  	std::vector<ActorFactory> my_factories;
  	

@@ -9,6 +9,22 @@ Hero::~Hero()
 
 }
 
+Hero::Hero(const Hero &other)
+{
+	this->set_alive(other.get_alive());
+	this->set_collide_type(other.get_collide_type());
+	this->set_rect(other.get_rect());
+	this->set_texture(other.get_image_name());
+	this->set_velocity_x(other.get_velocity_x());
+	this->set_velocity_y(other.get_velocity_y());
+	//this->set_sprites(other.get_sprites());
+	
+	init(other.get_rect().left,
+			other.get_rect().top,
+			other.get_rect().width,
+			other.get_rect().height);
+}
+
 void Hero::init(int pos_x, int pos_y, int size_x, int size_y)
 {
     Actor::init(pos_x, pos_y, size_x, size_y, "./img/Hero.png");

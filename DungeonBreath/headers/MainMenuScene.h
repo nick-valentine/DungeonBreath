@@ -4,7 +4,8 @@
 #include "Scene.h"
 #include "Button.h"
 
-#include "GameScene.h"
+#include "AllScenes.h"
+//#include "GameScene.h"
 
 class MainMenuScene : public Scene
 {

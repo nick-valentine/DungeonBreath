@@ -65,6 +65,7 @@
             <File name="headers\Item.h" />
             <File name="headers\Inventory.h" />
             <File name="headers\SwordItem.h" />
+            <File name="headers\DamageStruct.h" />
         </Folder>
         <Folder name="img">
             <Folder name="src">

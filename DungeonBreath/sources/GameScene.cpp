@@ -7,21 +7,39 @@ GameScene::GameScene() : loading_thread(&GameScene::load_level, this)
 
 GameScene::~GameScene()
 {
-	for(int i = 0; i < my_tilesets.size(); ++i)
+
+	for(int i = 0; i < my_tilesets.size() ; ++i)
 	{
 		delete my_tilesets[i];
 	}
-	
+
 	for(int i = 0; i < loading_set.size() ; ++i)
 	{
 		delete loading_set[i];
 	}
+	
+	my_tilesets.clear();
+	loading_set.clear();
+	
+	TileSet::reset_hero_spawned();
+	
+	Item::clear_items();
+	
+	Actor::clear_all_actors();
+	
 }
 
 void GameScene::init(int width, int height)
 {
+	this->width = width;
+	this->height = height;
+	
+	TileSet::reset_hero_spawned();
+
 	my_status = Nothing;
 	my_state = loading;
+	
+	tiles_spawned = 0;
 	
 	inv_scene.init(width, height);
 	
@@ -59,6 +77,12 @@ void GameScene::init(int width, int height)
 	mini_map.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
 	mini_map.zoom(2.0f);
 
+	loading_thread.launch();
+}
+
+void GameScene::load_level()
+{
+	my_state = loading;
 	std::ifstream ifile;
 	ifile.open("./gamedata/levels/levels.txt");
 	std::string temp;
@@ -80,17 +104,13 @@ void GameScene::init(int width, int height)
 	
 	HeroSpawned = false;
 	
-	loading_thread.launch();
-}
+	this->tiles_to_not_spawn = std::vector<sf::Vector2i>();
 
-void GameScene::load_level()
-{
 	srand( time( NULL) );
-	while(!HeroSpawned)
+	while(!TileSet::hero_spawned() || tiles_spawned < min_tiles)
 	{
 		addTileset(sf::IntRect(-1, -1, -1, -1),0,0,true);
 	}
-	my_state = playing;
 	
 	hero_found = false;
 	std::vector<Actor *>* all_actors = Actor::get_all_actors();
@@ -100,13 +120,18 @@ void GameScene::load_level()
 		{
 			hero = (*all_actors)[i];
 			hero_found = true;
-			
 			for(int i = 0; i < my_tilesets.size(); ++i)
 			{
 				my_tilesets[i]->set_hero(hero);
 			}
 		}
 	}
+	if(!hero_found)
+	{
+		std::cout<<"Hero not found"<<std::endl;
+		exit( 1 );
+	}
+	my_state = playing;
 }
 
 void GameScene::update(int delta, sf::RenderWindow &window)
@@ -140,6 +165,12 @@ void GameScene::update(int delta, sf::RenderWindow &window)
 		{
 			my_state = inventory;
 			last_state_change = 0;
+		}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		{
+			switch_to = new MainMenuScene;
+			switch_to->init(width, height);
+			my_status = Switch_Scene;
 		}
 	}
 	else if(my_state == inventory)
@@ -178,6 +209,7 @@ void GameScene::draw(sf::RenderWindow &window)
 		}
 		
 		window.setView(mini_map);
+		
 		for(int i = 0; i < my_tilesets.size(); ++i)
 		{
 			my_tilesets[i]->draw_tiles(window);
@@ -201,11 +233,23 @@ void GameScene::addTileset(sf::IntRect sides, int x_tile, int y_tile, bool clear
 		
 	if(clear_set)
 	{
-			all_sides.clear();
-			sides_locations.clear();
-			tiles_spawned = 0;
-	}
+		for(int i = 0; i < my_tilesets.size(); ++i)
+		{
+			delete my_tilesets[i];
+		}
+		my_tilesets.clear();
 	
+		TileSet::reset_hero_spawned();
+		
+		Item::clear_items();
+		
+		Actor::clear_registered_actors();
+
+		all_sides.clear();
+		sides_locations.clear();
+		tiles_spawned = 0;
+		tiles_to_not_spawn.clear();
+	}
 	bool do_nothing = false;
 	for(int i = 0; i < tiles_to_not_spawn.size(); ++i)
 	{
@@ -215,7 +259,11 @@ void GameScene::addTileset(sf::IntRect sides, int x_tile, int y_tile, bool clear
 			break;
 		}
 	}
-	if(!do_nothing)
+	if(do_nothing)
+	{
+		return;
+	}
+	else if(!do_nothing)
 	{
 		tiles_spawned++;
 		tiles_to_not_spawn.push_back(sf::Vector2i(x_tile, y_tile));
@@ -248,10 +296,12 @@ void GameScene::addTileset(sf::IntRect sides, int x_tile, int y_tile, bool clear
 				}
 			}
 		}
-		
-		std::string file_name = files[files_that_fit[rand() % files_that_fit.size()]];
+		/*std::string file_name = files[files_that_fit[rand() % files_that_fit.size()]];
 		my_tilesets.push_back(new TileSet);
 		my_tilesets[my_tilesets.size() - 1]->init("./gamedata/levels/" + file_name, x_tile * 15 * 50, y_tile * 15 * 50, HeroSpawned);
+		*/
+		my_tilesets.push_back(new TileSet(loading_set[files_that_fit[rand() % files_that_fit.size()]]));
+		my_tilesets[my_tilesets.size() - 1]->move(x_tile * 15 * 50, y_tile * 15 * 50);
 		sf::IntRect new_sides = my_tilesets[my_tilesets.size() - 1]->get_sides();
 		
 		all_sides.push_back(new_sides);

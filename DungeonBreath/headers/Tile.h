@@ -13,6 +13,7 @@ class Tile
 {
  public:
     Tile();
+	Tile(const Tile &other);
  	void init(int pos_x, int pos_y, int size_x, int size_y, int SpriteX, int SpriteY);
  	
  	void update(int delta);

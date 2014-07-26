@@ -37,3 +37,19 @@
 (gas 30)
 (ghost 40)
 }
+
+{
+(name anus the reaver)
+(desc  it goes in your butthole)
+(image ./img/Sword3.png)
+(level 3)
+(physical 5)
+(garlic 10)
+(silver 50)
+(fire 100)
+(water 1)
+(air 10)
+(rock 20)
+(gas 30)
+(ghost 40)
+}

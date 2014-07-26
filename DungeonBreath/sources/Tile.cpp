@@ -4,6 +4,15 @@ Tile::Tile()
 {
 }
 
+Tile::Tile(const Tile &other)
+{
+	this->my_sprite = other.my_sprite;
+	this->my_map = other.my_map;
+	this->tex = other.tex;
+	this->my_rect = other.my_rect;
+	this->hero = other.hero;
+}
+
 void Tile::init(int pos_x, int pos_y, int size_x, int size_y, int SpriteX, int SpriteY)
 {
 	this->tex = my_map.request("./img/TileSet.png");

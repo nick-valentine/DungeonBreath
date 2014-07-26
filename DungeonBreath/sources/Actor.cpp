@@ -12,6 +12,10 @@ Actor::Actor()
     my_index = all_actors.size() - 1;
 }
 
+Actor::~Actor()
+{
+}
+
 void Actor::init(int pos_x, int pos_y, int size_x, int size_y, std::string image_name)
 {
 	this->rect = sf::Rect<int>(pos_x, pos_y, size_x, size_y);
@@ -325,11 +329,62 @@ Actor::CollideType Actor::move_and_resolve_collision()
     return return_val;
 }
 
+void Actor::spawn_item(int level, int drop_chance)
+{
+	//Gold and Experience
+	srand( time( NULL ) );
+	int num = rand() % level;
+	for(int i = 0; i < num; ++i)
+	{
+		Gold *temp = new Gold();
+		temp->init(rect.left + (rand() % 20) - 10, rect.top + (rand() % 20) - 10, 10, 10);
+		Item::add_item(temp);
+	}
+	
+	
+	num = rand() % level;
+	for(int i = 0; i < num; ++i)
+	{
+		Experience *temp = new Experience();
+		temp->init(rect.left + (rand() % 20) - 10, rect.top + (rand() % 20) - 10, 10, 10);
+		Item::add_item(temp);
+	}
+
+	
+	//Loot
+	int chance = rand() % 100;
+		
+	if(chance <= drop_chance)
+	{
+		int max = 0;
+		for(int i = 0; i < SwordItem::get_swords()[0].size(); ++i)
+		{
+			if(SwordItem::get_swords()[0][i].my_level <= level)
+			{
+				if(SwordItem::get_swords()[0][max].my_level < SwordItem::get_swords()[0][i].my_level)
+				{
+					max = i;
+				}
+			}
+		}
+		Item *temp = SwordItem::get_swords()[0][max].clone();
+		*(temp->get_rect()) = sf::IntRect(rect.left + (rand() % 20) - 10, rect.top + (rand() % 20) - 10, 50, 50);
+	}
+}
+
 void Actor::unregister()
 {
-    all_actors[my_index] = all_actors[all_actors.size() - 1];
-    all_actors.pop_back();
-    all_actors[my_index]->set_index(my_index);
+	if(all_actors.size() > 0)
+	{
+		all_actors[my_index] = all_actors[all_actors.size() - 1];
+		all_actors.pop_back();
+		all_actors[my_index]->set_index(my_index);
+	}
+	else
+	{
+		std::cout<<"Too Many Calls to unregister actor"<<std::endl;
+		exit( 1 );
+	}
 }
 
 int Actor::get_index() const
@@ -367,4 +422,11 @@ void Actor::clear_all_actors()
 	{
 		delete actor_list[i];
 	}
+	all_actors.clear();
+	actor_list.clear();
+}
+
+void Actor::clear_registered_actors()
+{
+	all_actors.clear();
 }

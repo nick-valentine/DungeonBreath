@@ -78,6 +78,7 @@ void Item::clear_items()
 		delete all_items[i];
 	}
 	all_items.clear();
+	my_items.clear();
 }
 
 void Item::clean_dead_items()

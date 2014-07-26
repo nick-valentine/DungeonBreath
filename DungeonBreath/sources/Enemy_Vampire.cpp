@@ -68,8 +68,8 @@ void Enemy_Vampire::init(int pos_x, int pos_y, int size_x, int size_y)
 	attacking_anim.push_back(3);
 	attacking_anim.push_back(4);
 	attacking_anim.push_back(5);
-	attacking_anim.push_back(4);
 	attacking_anim.push_back(3);
+	//attacking_anim.push_back(3);
 	
 	look_left = true;
 }
@@ -316,6 +316,7 @@ void Enemy_Vampire::hurt(int raw_dmg, CollideType direction, Actor *attacker, in
 	}
 	if(health <= 0)
 	{
+	/*
 		srand( time( NULL ) );
 		int num = rand() % level;
 		for(int i = 0; i < num; ++i)
@@ -324,17 +325,18 @@ void Enemy_Vampire::hurt(int raw_dmg, CollideType direction, Actor *attacker, in
 			temp->init(get_rect().left + (rand() % 20) - 10, get_rect().top + (rand() % 20) - 10, 10, 10);
 			Item::add_item(temp);
 		}
-		
+		*/
+		/*
 		num = rand() % level;
 		for(int i = 0; i < num; ++i)
 		{
 			Experience *temp = new Experience();
 			temp->init(get_rect().left + (rand() % 20) - 10, get_rect().top + (rand() % 20) - 10, 10, 10);
 			Item::add_item(temp);
-		}
+		}*/
 		
 		int item_level = rand() % (level + max_level_above_to_spawn_item);
-		int chance = rand() % 100;
+		/*int chance = rand() % 100;
 		
 		if(chance <= drop_chance)
 		{
@@ -351,7 +353,8 @@ void Enemy_Vampire::hurt(int raw_dmg, CollideType direction, Actor *attacker, in
 			}
 			Item *temp = SwordItem::get_swords()[0][max].clone();
 			*(temp->get_rect()) = sf::IntRect(get_rect().left + (rand() % 20) - 10, get_rect().top + (rand() % 20) - 10, 50, 50);
-		}
+		}*/
+		Actor::spawn_item(item_level, drop_chance);
 		
 		kill();
 	}

@@ -86,41 +86,49 @@ void Inventory::display_sword_stats(SwordItem *item, sf::RenderWindow &window)
 	ss<<"Desc: "<<item->my_desc<<"\n";
 	ss<<"Level: "<<item->my_level<<"\n";
 	ss<<"Damage: \n";
-	if(item->phys_damage != 0)
+	if(item->my_damage.phys != 0)
 	{
-		ss<<"Physical: "<<item->phys_damage<<"\n";
+		ss<<"Physical: "<<item->my_damage.phys<<"\n";
 	}
-	if(item->garlic_damage != 0)
+	if(item->my_damage.garlic != 0)
 	{
-		ss<<"Garlic: "<<item->garlic_damage<<"\n";
+		ss<<"Garlic: "<<item->my_damage.garlic<<"\n";
 	}
-	if(item->silver_damage != 0)
+	if(item->my_damage.silver != 0)
 	{
-		ss<<"Silver: "<<item->silver_damage<<"\n";
+		ss<<"Silver: "<<item->my_damage.silver<<"\n";
 	}
-	if(item->fire_damage != 0)
+	if(item->my_damage.fire != 0)
 	{
-		ss<<"Fire: "<<item->fire_damage<<"\n";
+		ss<<"Fire: "<<item->my_damage.fire<<"\n";
 	}
-	if(item->water_damage != 0)
+	if(item->my_damage.water != 0)
 	{
-		ss<<"Water: "<<item->water_damage<<"\n";
+		ss<<"Water: "<<item->my_damage.water<<"\n";
 	}
-	if(item->air_damage != 0)
+	if(item->my_damage.air != 0)
 	{
-		ss<<"Air: "<<item->air_damage<<"\n";
+		ss<<"Air: "<<item->my_damage.air<<"\n";
 	}
-	if(item->rock_damage != 0)
+	if(item->my_damage.rock != 0)
 	{
-		ss<<"Rock: "<<item->rock_damage<<"\n";
+		ss<<"Rock: "<<item->my_damage.rock<<"\n";
 	}
-	if(item->gas_damage != 0)
+	if(item->my_damage.gas != 0)
 	{
-		ss<<"Gas: "<<item->gas_damage<<"\n";
+		ss<<"Gas: "<<item->my_damage.gas<<"\n";
 	}
-	if(item->ghost_damage != 0)
+	if(item->my_damage.ghost != 0)
 	{
-		ss<<"Ghost: "<<item->ghost_damage<<"\n";
+		ss<<"Ghost: "<<item->my_damage.ghost<<"\n";
+	}
+	if(item->my_damage.holy != 0)
+	{
+		ss<<"Holy: "<<item->my_damage.holy<<"\n";
+	}
+	if(item->my_damage.arcane != 0)
+	{
+		ss<<"Arcane: "<<item->my_damage.arcane<<"\n";
 	}
 
 	sf::Text info_text;

@@ -10,6 +10,26 @@ ActorFactory::~ActorFactory()
 
 }
 
+ActorFactory::ActorFactory(const ActorFactory &other)
+{
+	for(int i = 0; i < other.actors_to_clone.size(); ++i)
+	{
+		this->actors_to_clone.push_back(other.actors_to_clone[i]->clone());;
+		this->actors_to_clone[i]->unregister();
+		this->actors_to_clone[i]->set_collide_type(Actor::Nothing);
+	}
+	
+	this->spawn_intervals = other.spawn_intervals;
+	this->max_spawn_rate = other.max_spawn_rate;
+	this->time_since_spawn = other.time_since_spawn;
+	
+	this->my_trigger = dynamic_cast<Trigger *>(other.my_trigger->clone());
+	this->timer = other.timer;
+	this->max_spawns = other.max_spawns;
+	this->spawn_count = other.spawn_count;
+	this->num_to_keep_alive = other.num_to_keep_alive;
+}
+
 void ActorFactory::init(int max_spawns, int num_to_keep_alive)
 {
     this->max_spawns = max_spawns;

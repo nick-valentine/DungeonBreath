@@ -48,7 +48,7 @@ class Enemy_Vampire : public Actor
 		const static double hurt_debounce = 600000;
 		const static double hit_force = 30;
 		const static unsigned int max_level_above_to_spawn_item = 5;
-		const static unsigned int drop_chance = 100;
+		const static unsigned int drop_chance = 25;
 		
 		void reset_state_vars();
 	

@@ -15,6 +15,7 @@ class ActorFactory
  public:
     ActorFactory();
     ~ActorFactory();
+	ActorFactory(const ActorFactory &other);
     void init(Actor *toClone, int spawn_interval, int max_spawn_frequency, int max_spawns, int keep_alive);
     void init(int max_spawns, int keep_alive);
     

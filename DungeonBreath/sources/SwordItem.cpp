@@ -20,15 +20,17 @@ void SwordItem::init(int pos_x, int pos_y, int size_x, int size_y)
 	my_desc = "";
 	my_image = "./img/Sword.png";
 	my_level = 0;
-	phys_damage = 0;
-	garlic_damage = 0;
-	silver_damage = 0;
-	fire_damage = 0;
-	water_damage = 0;
-	air_damage = 0;
-	rock_damage = 0;
-	gas_damage = 0;
-	ghost_damage = 0;
+	my_damage.phys = 0;
+	my_damage.garlic = 0;
+	my_damage.silver = 0;
+	my_damage.fire = 0;
+	my_damage.water = 0;
+	my_damage.air = 0;
+	my_damage.rock = 0;
+	my_damage.gas = 0;
+	my_damage.ghost = 0;
+	my_damage.holy = 0;
+	my_damage.arcane = 0;
 }
 
 void SwordItem::update(int delta)
@@ -163,39 +165,47 @@ void SwordItem::load_swords()
 				}
 				else if(substr == "physical")
 				{
-					ss>>temp.phys_damage;
+					ss>>temp.my_damage.phys;
 				}
 				else if(substr == "garlic")
 				{
-					ss>>temp.garlic_damage;
+					ss>>temp.my_damage.garlic;
 				}
 				else if(substr == "silver")
 				{
-					ss>>temp.silver_damage;
+					ss>>temp.my_damage.silver;
 				}
 				else if(substr == "fire")
 				{
-					ss>>temp.fire_damage;
+					ss>>temp.my_damage.fire;
 				}
 				else if(substr == "water")
 				{
-					ss>>temp.water_damage;
+					ss>>temp.my_damage.water;
 				}
 				else if(substr == "air")
 				{
-					ss>>temp.air_damage;
+					ss>>temp.my_damage.air;
 				}
 				else if(substr == "rock")
 				{
-					ss>>temp.rock_damage;
+					ss>>temp.my_damage.rock;
 				}
 				else if(substr == "gas")
 				{
-					ss>>temp.gas_damage;
+					ss>>temp.my_damage.gas;
 				}
 				else if(substr == "ghost")
 				{
-					ss>>temp.ghost_damage;
+					ss>>temp.my_damage.ghost;
+				}
+				else if(substr == "holy")
+				{
+					ss>>temp.my_damage.holy;
+				}
+				else if(substr == "arcane")
+				{
+					ss>>temp.my_damage.arcane;
 				}
 			}
 		}
